@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحتي بالأرقام | متجر لوحات التلوين بالأرقام الأول</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <span class="logo-icon">🎨</span>
+        <span class="logo-text">لوحتي بالأرقام</span>
+      </div>
+      <nav class="nav-menu" id="navMenu">
+        <a href="#hero">الرئيسية</a>
+        <a href="/browse.html">تصفح الإطارات والرسومات</a>
+        <a href="#gallery">التصاميم الجاهزة</a>
+        <a href="#how-it-works">كيف تعمل الخدمة</a>
+        <a href="#upload">اصنع لوحتك الخاصة</a>
+        <a href="#order-section" class="nav-cta">اطلب الآن</a>
+      </nav>
+      <button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <h1>حوّل صورتك المفضلة إلى <span class="highlight">لوحة فنية بالأرقام</span></h1>
+        <p>اكتشف متعة التلوين الإبداعي. اختر من تصاميمنا الفنية الجاهزة أو قم برفع صورتك الشخصية لنحولها لك إلى لوحة تلوين مرقمة بالأرقام مع كامل الألوان المخصصة والفرش المطلوبة!</p>
+        <div class="hero-actions">
+          <a href="#gallery" class="btn btn-primary">تصفح تصاميمنا</a>
+          <a href="#upload" class="btn btn-secondary">حول صورتك الخاصة</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="/assets/hero-photo.jpg" alt="لوحة التلوين بالأرقام - مجموعة كاملة مع الألوان والفرش"
+             style="width: 100%; height: 100%; object-fit: cover; display: block;">
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="section-container">
+      <h2 class="section-title">كيف تعمل خدمة لوحتي بالأرقام؟</h2>
+      <p class="section-subtitle">خطوات بسيطة تفصلك عن الحصول على لوحتك الفنية الكاملة</p>
+      
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">١</div>
+          <h3>اختر أو ارفع صورتك</h3>
+          <p>اختر لوحة جاهزة من معرضنا، أو ارفع صورتك الشخصية المفضلة (صورة شخصية، عائلية، أو حيوانك الأليف).</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">٢</div>
+          <h3>نقوم بتحويلها وترقيمها</h3>
+          <p>يقوم نظامنا المتطور بتحليل الصورة وتقسيمها لمناطق تلوين مرقمة وتحديد خلطات الألوان بدقة متناهية.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">٣</div>
+          <h3>نجهز حقيبتك الفنية</h3>
+          <p>نجهز قماش اللوحة الفاخر المشدود، مع الفرش، ومجموعة الألوان المرقمة الجاهزة والمعبأة خصيصاً لك.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">٤</div>
+          <h3>توصيل ودفع عند الاستلام</h3>
+          <p>نشحن لوحتك الفنية لباب منزلك مع خدمة الدفع عند الاستلام، لتستمتع فوراً برحلة التلوين الإبداعية.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Before/After Section -->
+  <section class="before-after-section" id="before-after">
+    <div class="section-container">
+      <h2 class="section-title">شاهد متعة التحوّل الإبداعي</h2>
+      <p class="section-subtitle">مرر الشريط التفاعلي لرؤية كيف تتحوّل الخطوط والأرقام البسيطة إلى لوحة فنية ملونة مبهرة!</p>
+      
+      <div class="slider-wrapper">
+        <div class="slider-container" id="beforeAfterSlider">
+          <!-- After (Colored) -->
+          <div class="slider-image colored-image">
+            <img src="/assets/artworks/1.jpg" alt="اللوحة الفنية المكتملة">
+          </div>
+          <!-- Before (Outline) -->
+          <div class="slider-image outline-image" id="outlineWrapper">
+            <img src="/assets/before_after_outline.svg" alt="مخطط التلوين بالأرقام">
+          </div>
+          <!-- Drag Handle -->
+          <div class="slider-handle" id="sliderHandle">
+            <div class="handle-line"></div>
+            <div class="handle-button">
+              <span>◀</span>
+              <span>▶</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Predefined Designs Gallery -->
+  <section class="gallery" id="gallery">
+    <div class="section-container">
+      <h2 class="section-title">تصاميمنا الجاهزة المتميزة</h2>
+      <p class="section-subtitle">اختر من بين مجموعتنا الفنية المختارة بعناية للمبتدئين والمحترفين</p>
+      
+      <div class="artworks-grid" id="artworksGrid">
+        <!-- Art cards loaded dynamically via JS -->
+        <div class="loading-indicator">جاري تحميل المعرض الفني...</div>
+      </div>
+      <div style="text-align: center; margin-top: 35px;">
+        <a href="/browse.html" class="btn btn-primary" style="padding: 12px 30px; font-size: 1.05rem; background-color: var(--light-teal); box-shadow: none; font-family: 'Cairo', sans-serif;">🎨 تصفح وتحديد كافة الرسومات والإطارات المتاحة (37 تصميم)</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Custom Upload Section -->
+  <section class="upload-section" id="upload">
+    <div class="section-container">
+      <h2 class="section-title">اصنع لوحتك الفنية من صورتك الخاصة</h2>
+      <p class="section-subtitle">ارفع أي صورة من هاتفك أو جهازك وشاهد فوراً كيف ستتحول إلى لوحة تلوين بالأرقام!</p>
+      
+      <div class="upload-layout">
+        <div class="upload-controls">
+          <div class="drag-drop-area" id="dragDropArea">
+            <span class="upload-icon">📷</span>
+            <h3>اسحب صورتك هنا أو اضغط للاختيار</h3>
+            <p>ندعم صيغ PNG, JPG, JPEG (بحد أقصى 10 ميغابايت)</p>
+            <input type="file" id="imageInput" accept="image/*" style="display:none;">
+          </div>
+          
+          <div class="upload-warning" style="background-color: #FFEAE6; color: #D62828; border-right: 4px solid var(--primary); padding: 12px 16px; border-radius: 10px; font-size: 0.9rem; margin-top: 15px; font-weight: 600; text-align: right; line-height: 1.6; box-shadow: 0 4px 10px rgba(230,92,62,0.05);">
+            ⚠️ تنبيه: لا يجب رفع أي صورة ذات وجوه، أو مخالفة لديننا، أو صورة فاضحة. وشكراً لتفهمكم.
+          </div>
+          
+          <div class="control-panel">
+            <div class="control-group">
+              <label for="detailLevel">مستوى تفاصيل اللوحة:</label>
+              <select id="detailLevel" class="form-select">
+                <option value="easy">بسيط (12 لون - مناسب للمبتدئين والأطفال)</option>
+                <option value="medium" selected>متوسط (18 لون - توازن ممتاز ودقة رائعة)</option>
+                <option value="hard">مفصل ودقيق (24 لون - دقة متناهية وتفاصيل غنية)</option>
+              </select>
+            </div>
+            <button class="btn btn-primary btn-block" id="processBtn" disabled>تحويل الصورة الآن</button>
+          </div>
+        </div>
+
+        <div class="preview-area" id="previewArea">
+          <div class="preview-placeholder" id="previewPlaceholder">
+            <span>🎨</span>
+            <p>سيتم عرض لوحتك المرقمة والألوان المطلوبة هنا بعد رفع الصورة والضغط على "تحويل الصورة الآن"</p>
+          </div>
+          
+          <!-- Processing state -->
+          <div class="processing-overlay" id="processingOverlay" style="display:none;">
+            <div class="spinner"></div>
+            <h3 id="progressText">جاري تهيئة خريطة الألوان...</h3>
+            <div class="progress-bar-container">
+              <div class="progress-bar-fill" id="progressBarFill" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <!-- PBN outputs container -->
+          <div class="pbn-result-container" id="pbnResultContainer" style="display:none;">
+            <div class="tabs-container">
+              <button class="tab-btn active" id="btnShowFilled">معاينة الألوان الكاملة</button>
+              <button class="tab-btn" id="btnShowOutline">مخطط التلوين المرقم</button>
+            </div>
+            
+            <div class="svg-output-box" id="svgOutputBox">
+              <!-- SVG generated rendering goes here -->
+            </div>
+            
+            <div class="palette-legend-container">
+              <h4>لوحة الألوان والخلطات المطلوبة لوحتك:</h4>
+              <div class="palette-legend" id="paletteLegend">
+                <!-- Color dots & mixing recipes client-side preview -->
+              </div>
+            </div>
+            
+            <button class="btn btn-cta btn-block" id="orderCustomBtn">اطلب لوحتك المخصصة الآن</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Checkout / Order Form Section -->
+  <section class="order-section" id="order-section">
+    <div class="section-container">
+      <div class="order-box">
+        <h2 class="order-box-title">طلب الشراء الفوري (دفع عند الاستلام)</h2>
+        <p class="order-box-subtitle">الرجاء إدخال معلومات التوصيل بدقة وسنتواصل معك فوراً لتأكيد طلبك</p>
+
+        <!-- Order source info -->
+        <div class="selected-product-banner" id="selectedProductBanner">
+          <div class="selected-thumb" id="selectedThumb">
+            <!-- Icon/preview -->
+            🎨
+          </div>
+          <div class="selected-details">
+            <h4 id="selectedName">لم يتم تحديد تصميم بعد</h4>
+            <p id="selectedSpec">اختر لوحة من المعرض أو ارفع صورتك للبدء</p>
+          </div>
+        </div>
+
+        <!-- Package Contents Details -->
+        <div class="order-contents-banner">
+          <div class="contents-text">
+            <h3>📦 ماذا تحتوي طلبيتك؟</h3>
+            <p>عند تأكيد طلبك، ستصلك علبة رسم متكاملة تحتوي على كل ما تحتاجه للبدء فوراً:</p>
+            <ul>
+              <li><strong>إطار رسم قماشي (Canvas):</strong> مشدود على خشب وجاهز للتلوين ومخطط بدقة بالأرقام.</li>
+              <li><strong>طقم ألوان أكريليك:</strong> عالية الجودة مرقمة ومطابقة تماماً لتصميم لوحتك.</li>
+              <li><strong>فرش تلوين احترافية:</strong> 3 فرش بأحجام مختلفة لتلوين أدق التفاصيل والمساحات الكبيرة.</li>
+              <li><strong>دليل ورقي مرجعي:</strong> لمساعدتك أثناء عملية التلوين وتفادي الأخطاء.</li>
+              <li><strong>علاقات جدارية مجانية:</strong> لتعليق لوحتك الفنية في غرفتك فور اكتمالها.</li>
+            </ul>
+          </div>
+          <div class="contents-image">
+            <img src="/assets/content_frame.png" alt="محتويات علبة الرسم والتلوين بالأرقام">
+          </div>
+        </div>
+
+        <form id="orderForm" class="form-container">
+          <div class="form-grid">
+            <div class="form-item">
+              <label for="customerName">الاسم الكامل <span class="required">*</span></label>
+              <input type="text" id="customerName" placeholder="الاسم الأول والأخير" required>
+            </div>
+            
+            <div class="form-item">
+              <label for="phoneNumber">رقم الهاتف <span class="required">*</span></label>
+              <input type="tel" id="phoneNumber" placeholder="مثال: 0550123456 / 0660123456 / 0770123456" required>
+            </div>
+            
+            <div class="form-item">
+              <label for="city">الولاية <span class="required">*</span></label>
+              <select id="city" class="form-select" required>
+                <option value="" disabled selected>اختر ولايتك</option>
+                <option value="الجزائر">16 - الجزائر</option>
+                <option value="وهران">31 - وهران</option>
+                <option value="قسنطينة">25 - قسنطينة</option>
+                <option value="سطيف">19 - سطيف</option>
+                <option value="البليدة">09 - البليدة</option>
+                <option value="عنابة">23 - عنابة</option>
+                <option value="تلمسان">13 - تلمسان</option>
+                <option value="بجاية">06 - بجاية</option>
+                <option value="باتنة">05 - باتنة</option>
+                <option value="تيزي وزو">15 - تيزي وزو</option>
+                <option value="الشلف">02 - الشلف</option>
+                <option value="الجلفة">17 - الجلفة</option>
+                <option value="بسكرة">07 - بسكرة</option>
+                <option value="سيدي بلعباس">22 - سيدي بلعباس</option>
+                <option value="ورقلة">30 - ورقلة</option>
+                <option value="غرداية">47 - غرداية</option>
+                <option value="سكيكدة">21 - سكيكدة</option>
+                <option value="المسيلة">28 - المسيلة</option>
+                <option value="مستغانم">27 - مستغانم</option>
+                <option value="تبسة">12 - تبسة</option>
+                <option value="برج بوعريريج">34 - برج بوعريريج</option>
+                <option value="أخرى">ولاية أخرى</option>
+              </select>
+            </div>
+            
+            <div class="form-item">
+              <label for="address">العنوان التفصيلي ورقم الشارع <span class="required">*</span></label>
+              <input type="text" id="address" placeholder="اسم الحي، الشارع، رقم المنزل" required>
+            </div>
+            
+            <div class="form-item">
+              <label for="frameOption">اختر الإطار <span class="required">*</span></label>
+              <select id="frameOption" class="form-select" required>
+                <!-- Options populated dynamically based on artwork configuration -->
+                <option value="" disabled selected>الرجاء اختيار نوع الإطار</option>
+              </select>
+            </div>
+            
+            <div class="form-item">
+              <label for="quantity">الكمية <span class="required">*</span></label>
+              <input type="number" id="quantity" min="1" value="1" required>
+            </div>
+          </div>
+          
+          <div class="form-item">
+            <label for="notes">ملاحظات إضافية على الطلب</label>
+            <textarea id="notes" rows="3" placeholder="أي تفاصيل إضافية تود إخبارنا بها بخصوص التوصيل أو الألوان"></textarea>
+          </div>
+
+          <div id="errorAlert" class="alert alert-danger" style="display:none;"></div>
+
+          <div class="price-summary">
+            <div class="price-row">
+              <span>سعر اللوحة الأساسي:</span>
+              <span id="basePriceVal">0 د.ج</span>
+            </div>
+            <div class="price-row">
+              <span>تكلفة الإطار المختار:</span>
+              <span id="framePriceVal">0 د.ج</span>
+            </div>
+            <hr>
+            <div class="price-row total">
+              <span>الإجمالي الكلي:</span>
+              <span id="totalPriceVal">0 د.ج</span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-cta btn-block" id="submitOrderBtn" disabled>
+            تأكيد الطلب — الدفع عند الاستلام
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success Modal -->
+  <div class="modal-overlay" id="successModal" style="display:none;">
+    <div class="modal-content">
+      <span class="success-icon">🎉</span>
+      <h2>تم استلام طلبك بنجاح!</h2>
+      <p>شكراً لطلبك من متجرنا. تم تسجيل طلبك بالرمز التالي:</p>
+      <div class="order-id-badge" id="successOrderId">ORD-XXXX</div>
+      <p>سنتواصل معك عبر الهاتف خلال 24 ساعة لتأكيد عنوان الشحن وإرسال اللوحة.</p>
+      <button class="btn btn-primary" id="closeSuccessBtn">موافق</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>🎨 لوحتي بالأرقام</h3>
+        <p>متجر إلكتروني متكامل لإنتاج لوحات التلوين بالأرقام المخصصة والتصاميم المتميزة في الجزائر.</p>
+      </div>
+      <div class="footer-links">
+        <h4>روابط سريعة</h4>
+        <a href="#hero">الرئيسية</a>
+        <a href="#gallery">التصاميم الجاهزة</a>
+        <a href="#upload">اصنع لوحتك المخصصة</a>
+      </div>
+      <div class="footer-contact">
+        <h4>تواصل معنا</h4>
+        <p>البريد الإلكتروني: contact@paintbynumbers.store</p>
+        <p>الهاتف: 0550000000</p>
+        <p>الجمهورية الجزائرية الديمقراطية الشعبية</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>جميع الحقوق محفوظة &copy; 2026 متجر لوحتي بالأرقام</p>
+    </div>
+  </footer>
+
+  <!-- Floating Mobile CTA Button -->
+  <div class="mobile-floating-cta" id="mobileFloatingCta">
+    <button id="mobileCtaBtn">
+      <span>🎨</span> اطلب لوحتك الآن — الدفع عند الاستلام
+    </button>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/main.js" type="module"></script>
+</body>
+</html>

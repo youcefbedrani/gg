@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحتي بالأرقام | تصفح المعرض والرسومات الكاملة</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    /* Premium overrides for the Browse page */
+    .browse-header {
+      background: linear-gradient(135deg, rgba(38, 70, 83, 0.05) 0%, rgba(42, 157, 143, 0.05) 100%);
+      padding: 60px 20px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .browse-header h1 {
+      font-size: 2.5rem;
+      color: var(--dark-teal);
+      margin-bottom: 15px;
+    }
+    .browse-header p {
+      color: var(--text-light);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .filter-section {
+      background-color: var(--bg-card);
+      border-radius: 16px;
+      padding: 20px;
+      margin: -30px auto 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+      border: 1px solid var(--border);
+      max-width: 1000px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+    }
+    .filter-group {
+      flex: 1 1 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .filter-group label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+    .filter-input, .filter-select {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-family: var(--font-family);
+      font-size: 0.9rem;
+      outline: none;
+      transition: var(--transition);
+      background-color: #fff;
+    }
+    .filter-input:focus, .filter-select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(231, 111, 81, 0.1);
+    }
+    .grid-counter {
+      width: 100%;
+      text-align: right;
+      font-weight: 600;
+      color: var(--text-light);
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+    }
+    .frame-select-container {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: right;
+    }
+    .frame-select-container label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+    .price-total-badge {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+      background-color: rgba(42, 157, 143, 0.08);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      color: var(--light-teal);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <span class="logo-icon">🎨</span>
+        <span class="logo-text">لوحتي بالأرقام</span>
+      </div>
+      <nav class="nav-menu" id="navMenu">
+        <a href="/index.html#hero">الرئيسية</a>
+        <a href="/browse.html" class="active">تصفح الإطارات والرسومات</a>
+        <a href="/index.html#gallery">التصاميم الجاهزة</a>
+        <a href="/index.html#upload">اصنع لوحتك الخاصة</a>
+        <a href="/index.html#order-section" class="nav-cta">اطلب الآن</a>
+      </nav>
+      <button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Browse Header -->
+  <section class="browse-header">
+    <h1>🎨 المعرض الفني الكامل والإطارات</h1>
+    <p>تصفح تشكيلتنا الكاملة المكونة من 37 تصميماً فنياً مميزاً، اختر البرواز المفضل لديك، وانتقل مباشرة لصفحة تأكيد الطلب.</p>
+  </section>
+
+  <!-- Main Section -->
+  <main class="section-container" style="padding-top: 40px;">
+    <!-- Filters Bar -->
+    <div class="filter-section">
+      <div class="filter-group">
+        <label for="searchBar">🔍 ابحث عن لوحة:</label>
+        <input type="text" id="searchBar" placeholder="اكتب اسم اللوحة..." class="filter-input">
+      </div>
+      <div class="filter-group">
+        <label for="difficultyFilter">📊 مستوى الصعوبة:</label>
+        <select id="difficultyFilter" class="filter-select">
+          <option value="all">جميع المستويات</option>
+          <option value="easy">سهل (مبتدئ)</option>
+          <option value="medium">متوسط (مناسب للجميع)</option>
+          <option value="hard">صعب (تفاصيل دقيقة)</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="priceSort">💰 ترتيب حسب السعر:</label>
+        <select id="priceSort" class="filter-select">
+          <option value="default">الترتيب الافتراضي</option>
+          <option value="low-high">من الأقل للأعلى سعرًا</option>
+          <option value="high-low">من الأعلى للأقل سعرًا</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Artworks Count -->
+    <div class="grid-counter" id="gridCounter">تجهيز اللوحات...</div>
+
+    <!-- Artworks Grid -->
+    <div class="artworks-grid" id="browseGrid">
+      <div class="loading-indicator">جاري تحميل المنتجات والمعرض...</div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>🎨 لوحتي بالأرقام</h3>
+        <p>متجر إلكتروني متكامل لإنتاج لوحات التلوين بالأرقام المخصصة والتصاميم المتميزة في الجزائر.</p>
+      </div>
+      <div class="footer-links">
+        <h4>روابط سريعة</h4>
+        <a href="/index.html#hero">الرئيسية</a>
+        <a href="/browse.html">تصفح الرسومات</a>
+        <a href="/index.html#upload">اصنع لوحتك المخصصة</a>
+      </div>
+      <div class="footer-contact">
+        <h4>تواصل معنا</h4>
+        <p>البريد الإلكتروني: contact@paintbynumbers.store</p>
+        <p>الهاتف: 0550000000</p>
+        <p>الجمهورية الجزائرية الديمقراطية الشعبية</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>جميع الحقوق محفوظة &copy; 2026 متجر لوحتي بالأرقام</p>
+    </div>
+  </footer>
+
+  <!-- Browse script -->
+  <script>
+    let artworks = [];
+    
+    document.addEventListener("DOMContentLoaded", async () => {
+      // Navbar Mobile Toggle
+      const menuToggle = document.getElementById("menuToggle");
+      const navMenu = document.getElementById("navMenu");
+      if (menuToggle && navMenu) {
+        menuToggle.addEventListener("click", () => {
+          navMenu.classList.toggle("active");
+        });
+      }
+
+      // Fetch Artworks
+      try {
+        const res = await fetch("/api/artworks");
+        artworks = await res.json();
+        renderBrowseGallery();
+      } catch (err) {
+        console.error("Error loading artworks:", err);
+        document.getElementById("browseGrid").innerHTML = `
+          <div class="alert alert-danger" style="grid-column: 1/-1; text-align: center;">
+            فشل تحميل المنتجات. الرجاء التحقق من اتصالك بالإنترنت.
+          </div>
+        `;
+      }
+
+      // Register Filters Events
+      document.getElementById("searchBar").addEventListener("input", renderBrowseGallery);
+      document.getElementById("difficultyFilter").addEventListener("change", renderBrowseGallery);
+      document.getElementById("priceSort").addEventListener("change", renderBrowseGallery);
+    });
+
+    function renderBrowseGallery() {
+      const grid = document.getElementById("browseGrid");
+      const counter = document.getElementById("gridCounter");
+      
+      const query = document.getElementById("searchBar").value.trim().toLowerCase();
+      const difficulty = document.getElementById("difficultyFilter").value;
+      const sort = document.getElementById("priceSort").value;
+
+      // Filter
+      let filtered = artworks.filter(art => {
+        const matchesQuery = art.name_ar.toLowerCase().includes(query) || 
+                             art.description_ar.toLowerCase().includes(query);
+        const matchesDiff = (difficulty === "all") || (art.difficulty === difficulty);
+        return matchesQuery && matchesDiff;
+      });
+
+      // Sort
+      if (sort === "low-high") {
+        filtered.sort((a, b) => a.base_price - b.base_price);
+      } else if (sort === "high-low") {
+        filtered.sort((a, b) => b.base_price - a.base_price);
+      }
+
+      // Render
+      grid.innerHTML = "";
+      counter.textContent = `تم العثور على ${filtered.length} لوحة فنية متاحة للطلب فوراً`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-light); font-weight: 600;">
+            😞 لا توجد لوحات تطابق خيارات التصفية الخاصة بك.
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(art => {
+        const card = document.createElement("div");
+        card.className = "art-card";
+
+        let diffClass = "medium";
+        if (art.difficulty === "easy") diffClass = "easy";
+        if (art.difficulty === "hard") diffClass = "hard";
+
+        // Initial default frame values
+        const defaultFrame = art.frame_options[0];
+        const initialTotalPrice = art.base_price + defaultFrame.extra_price;
+
+        // Build Frame options HTML
+        const frameOptionsHtml = art.frame_options.map(opt => {
+          const extraText = opt.extra_price > 0 ? ` (+${opt.extra_price} د.ج)` : " (مشمول)";
+          return `<option value="${opt.id}" data-price="${opt.extra_price}">${opt.name_ar}${extraText}</option>`;
+        }).join("");
+
+        card.innerHTML = `
+          <div class="art-img-container">
+            <img src="${art.image_thumbnail}" alt="${art.name_ar}" loading="lazy">
+            <span class="difficulty-badge ${diffClass}">${art.difficulty_ar}</span>
+          </div>
+          <div class="art-details" style="display: flex; flex-direction: column; height: 100%;">
+            <h3>${art.name_ar}</h3>
+            <p style="flex-grow: 1;">${art.description_ar}</p>
+            <div class="art-specs">
+              <span>📏 الحجم: ${art.default_size}</span>
+              <span>🎨 الألوان: ${art.palette.length} لوناً</span>
+            </div>
+
+            <!-- Frame Select Box -->
+            <div class="frame-select-container">
+              <label for="frame-select-${art.id}">🖼️ اختر إطار اللوحة:</label>
+              <select id="frame-select-${art.id}" class="filter-select" style="padding: 6px 10px; font-size: 0.85rem;">
+                ${frameOptionsHtml}
+              </select>
+            </div>
+
+            <!-- Total Price Box -->
+            <div class="price-total-badge">
+              <span>السعر الإجمالي الكلي:</span>
+              <span id="price-total-val-${art.id}">${initialTotalPrice} د.ج</span>
+            </div>
+
+            <button class="btn btn-primary order-btn" style="margin-top: 15px;" id="order-btn-${art.id}">شراء واختيار هذا التصميم</button>
+          </div>
+        `;
+
+        grid.appendChild(card);
+
+        // Bind Price Update on select change
+        const select = document.getElementById(`frame-select-${art.id}`);
+        const totalVal = document.getElementById(`price-total-val-${art.id}`);
+        
+        select.addEventListener("change", (e) => {
+          const selectedOpt = select.options[select.selectedIndex];
+          const extraPrice = parseFloat(selectedOpt.getAttribute("data-price")) || 0;
+          totalVal.textContent = `${art.base_price + extraPrice} د.ج`;
+        });
+
+        // Bind Select & Checkout redirect
+        document.getElementById(`order-btn-${art.id}`).addEventListener("click", () => {
+          const frameId = select.value;
+          window.location.href = `/index.html?art=${art.id}&frame=${frameId}#order-section`;
+        });
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="100%" height="100%">
+  <!-- Jungle backdrop -->
+  <rect width="400" height="500" fill="#123524" />
+  
+  <!-- Leaves silhouette -->
+  <path d="M-20,0 Q80,100 -20,200 Z" fill="#308014" opacity="0.6" />
+  <path d="M420,50 Q300,180 420,280 Z" fill="#308014" opacity="0.7" />
+  <path d="M100,520 Q200,380 300,520 Z" fill="#50C878" opacity="0.5" />
+  
+  <!-- Stylized Tiger Head -->
+  <g transform="translate(100, 150)">
+    <!-- Main Orange face -->
+    <path d="M100,30 L160,80 L180,160 L100,240 L20,160 L40,80 Z" fill="#FF5733" />
+    
+    <!-- White accents -->
+    <path d="M100,30 L70,50 L100,70 L130,50 Z" fill="#FFF" />
+    <path d="M20,160 Q60,180 100,160 Q140,180 180,160 L100,240 Z" fill="#FFF" opacity="0.9" />
+    
+    <!-- Eyes -->
+    <polygon points="50,100 80,110 60,120" fill="#FFD700" />
+    <polygon points="150,100 120,110 140,120" fill="#FFD700" />
+    <circle cx="65" cy="112" r="3" fill="#000" />
+    <circle cx="135" cy="112" r="3" fill="#000" />
+    
+    <!-- Nose & snout -->
+    <polygon points="90,160 110,160 100,175" fill="#1B1B1B" />
+    
+    <!-- Tiger stripes -->
+    <path d="M20,100 L50,105 L20,110 Z" fill="#1B1B1B" />
+    <path d="M180,100 L150,105 L180,110 Z" fill="#1B1B1B" />
+    <path d="M30,130 L60,132 L30,138 Z" fill="#1B1B1B" />
+    <path d="M170,130 L140,132 L170,138 Z" fill="#1B1B1B" />
+    <path d="M100,75 L90,95 L100,90 L110,95 Z" fill="#1B1B1B" />
+  </g>
+  
+  <!-- Frame highlight -->
+  <rect x="10" y="10" width="380" height="480" fill="none" stroke="#CC7722" stroke-width="2" opacity="0.3" />
+</svg>

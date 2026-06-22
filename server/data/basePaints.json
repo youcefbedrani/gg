@@ -1,0 +1,18 @@
+[
+  { "id": "titanium_white",   "name_ar": "أبيض تيتانيوم",   "hex": "#FFFFFF", "ncs": "S 0300-N",  "stock_ml": 2000 },
+  { "id": "lemon_yellow",    "name_ar": "أصفر ليمون",      "hex": "#FFE45E", "ncs": "S 0570-Y",  "stock_ml": 2000 },
+  { "id": "golden_yellow",   "name_ar": "أصفر ذهبي",       "hex": "#FFB627", "ncs": "S 0580-Y10R","stock_ml": 2000 },
+  { "id": "orange",          "name_ar": "برتقالي",          "hex": "#FF8C32", "ncs": "S 0580-Y70R","stock_ml": 2000 },
+  { "id": "vermilion_red",   "name_ar": "أحمر زئبقي",       "hex": "#E84118", "ncs": "S 1080-R",  "stock_ml": 2000 },
+  { "id": "crimson_pink",    "name_ar": "قرمزي وردي",       "hex": "#E84393", "ncs": "S 1080-R30B","stock_ml": 2000 },
+  { "id": "soft_pink",       "name_ar": "وردي فاتح",        "hex": "#FFB6C1", "ncs": "S 0520-R",  "stock_ml": 2000 },
+  { "id": "violet_purple",   "name_ar": "بنفسجي أرجواني",   "hex": "#8E44AD", "ncs": "S 3060-R30B","stock_ml": 2000 },
+  { "id": "cobalt_blue",     "name_ar": "أزرق كوبالت",      "hex": "#1B4F9C", "ncs": "S 3060-R90B","stock_ml": 2000 },
+  { "id": "sky_blue",        "name_ar": "أزرق سماوي",       "hex": "#4FA8DA", "ncs": "S 1030-B",  "stock_ml": 2000 },
+  { "id": "teal_turquoise",  "name_ar": "تركواز فيروزي",    "hex": "#16A39A", "ncs": "S 1060-B",  "stock_ml": 2000 },
+  { "id": "forest_green",    "name_ar": "أخضر غابي",        "hex": "#2D5F3E", "ncs": "S 3060-G30Y","stock_ml": 2000 },
+  { "id": "olive_sage",      "name_ar": "أخضر زيتوني",      "hex": "#8A9A5B", "ncs": "S 2040-G10Y","stock_ml": 2000 },
+  { "id": "sienna_brown",    "name_ar": "بني سيينا",        "hex": "#8B5A2B", "ncs": "S 5040-Y30R","stock_ml": 2000 },
+  { "id": "charcoal_black",  "name_ar": "أسود فحمي",        "hex": "#1C1C1C", "ncs": "S 9000-N",  "stock_ml": 2000 },
+  { "id": "warm_gray",       "name_ar": "رمادي دافئ",       "hex": "#A8A29E", "ncs": "S 4500-N",  "stock_ml": 2000 }
+]

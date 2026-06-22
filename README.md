@@ -1,118 +1,95 @@
-# Paint by numbers generator
-Generate paint by number images (vectorized with SVG) from any input image.
+# 🎨 Paint-by-Numbers Arabic E-commerce Store | متجر لوحتي بالأرقام
 
-*** This project was a proof of concept for fun back in the day, it is not being actively maintained but feel free to fork and make your own changes.  ***
+A complete, production-ready, full-stack e-commerce web application for a Paint-by-Numbers store, fully localized in Arabic (RTL). This application runs the entire image-to-canvas processing pipeline client-side in the browser via Web Workers and logs orders directly into a Google Sheet with computed paint-mixing recipes.
 
-## Demo
+متجر إلكتروني متكامل باللغة العربية (RTL) لبيع لوحات التلوين بالأرقام. يتيح المتجر شراء لوحات جاهزة أو تحويل الصور الشخصية للعميل مباشرة في المتصفح إلى لوحة مرقمة مع تحديد خلطات الألوان بدقة، ومن ثم تسجيل الطلبات تلقائياً في جدول بيانات جوجل (Google Sheets).
 
-Try it out [here](https://drake7707.github.io/paintbynumbersgenerator/index.html)
+---
 
-### CLI Version
+## 🚀 Quick Start / البدء السريع
 
-The CLI version is a self contained node application that does the conversion from arguments, for example:
+### 1. Local Development / التشغيل المحلي
+1. Clone this repository to your local machine.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Copy the environment variables template and configure it:
+   ```bash
+   cp .env.example .env
+   ```
+4. Run the development server:
+   ```bash
+   npm run dev
+   ```
+5. Open your browser at [http://localhost:3000](http://localhost:3000).
+
+---
+
+## 📂 Repository Structure / هيكل المشروع
+
 ```
-paint-by-numbers-generator-win.exe -i input.png -o output.svg
-```
-You can change the settings in settings.json or optionally specify a specific settings.json with the `-c path_to_settings.json` argument.
-
-The settings contain mostly the same settings in the web version:
- - randomSeed: the random seed to choose the initial starting points of the k-means clustering algorithm. This ensures that the same results are generated each time.
- - kMeansNrOfClusters: the number of colors to quantize the image to
- - kMeansMinDeltaDifference: the threshold delta distance of the k-means clustering to reach before stopping. Having a bigger value will speed up the clustering but may yield suboptimal clusters. Default 1
- - kMeansClusteringColorSpace: the color space to apply clustering in
- - kMeansColorRestrictions: Specify which colors should be used. An array of rgb values (as number array) or names of colors (reference to color aliases). If no colors are specified no restrictions are applied. Useful if you only have a few colors of paint on hand.
- - colorAliases: map of key/values where the keys are the color names and the values are the rgb colors (as number array). You can use the color names in the color restrictions above. The names are also mentioned in the output json that tells you how much % of the area is of that specific color.
-       ```
-       "colorAliases": {
-              "A1": [            0,            0,            0        ],
-              "A2": [            255,            0,            0        ],
-              "A3": [            0,            255,            0        ],
-          }
-        ```
- - removeFacetsSmallerThanNrOfPoints: removes any facets that are smaller than the given amount of pixels. Lowering the value will create more detailed results but might be much harder to actually paint due to their size.
- - removeFacetsFromLargeToSmall (true/false): largest to smallest will prevent boundaries from warping the shapes because the smaller facets act as border anchorpoints but can be considerably slower
- - maximumNumberOfFacets: if there are more facets than the given maximum number, keep removing the smallest facets until the limit is reached
- 
- - nrOfTimesToHalveBorderSegments: reducing the amount of points in a border segment (using haar wavelet reduction) will smooth out the quadratic curve more but at a loss of detail. A segment (shared border with a facet) will always retain its start and end point.
- 
- - narrowPixelStripCleanupRuns: narrow pixel cleanup removes strips of single pixel rows, which would make some facets have some borders segments that are way too narrow to be useful. The small facet removal can introduce new narrow pixel strips, so this is repeated in a few iterative runs.
- 
- - resizeImageIfTooLarge (true/false): if true and the input image is larger than the given dimensions then it will be resized to fit but will maintain its ratio.
- - resizeImageWidth: width restriction
- - resizeImageHeight: height restriction
-
-There are also output profiles that you can define to output the result to svg, png, jpg with specific settings, for example:
-```
-  "outputProfiles": [
-        {
-            "name": "full",
-            "svgShowLabels": true,
-            "svgFillFacets": true,
-            "svgShowBorders": true,
-            "svgSizeMultiplier": 3,
-            "svgFontSize": 50,
-            "svgFontColor": "#333",
-            "filetype": "png"
-        },
-        {
-            "name": "bordersLabels",
-            "svgShowLabels": true,
-            "svgFillFacets": false,
-            "svgShowBorders": true,
-            "svgSizeMultiplier": 3,
-            "svgFontSize": 50,
-            "svgFontColor": "#333",
-            "filetype": "svg"
-        },
-        {
-            "name": "jpgtest",
-            "svgShowLabels": false,
-            "svgFillFacets": true,
-            "svgShowBorders": false,
-            "svgSizeMultiplier": 3,
-            "svgFontSize": 50,
-            "svgFontColor": "#333",
-            "filetype": "jpg",
-            "filetypeQuality": 80
-        }
-    ]
-```
-This defines 3 output profiles. The "full" profile shows labels, fills the facets and shows the borders with a 3x size multiplier, font size weight of 50, color of #333 and output to a png image. The bordersLabels profile outputs to a svg file without filling facets and jpgtest outputs to a jpg file with jpg quality setting  of 80.
-
-The CLI version also outputs a json file that gives more information about the palette, which colors are used and in what quantity, e.g.:
-```
-  ...
-  {
-    "areaPercentage": 0.20327615489130435,
-    "color": [ 59, 36, 27 ],
-    "frequency": 119689,
-    "index": 0
-  },
-   ...
+paint-by-number-store/
+├── render.yaml                   # Render deployment configuration
+├── README.md                     # Main documentation
+├── .env.example                  # Environment variables template
+├── .gitignore                    # Git ignore file
+├── package.json                  # Root node dependencies
+├── server/
+│   ├── index.js                  # Express.js server entry point
+│   ├── routes/
+│   │   └── orders.js             # Order routing (validates, computes recipes, forwards to Sheets)
+│   ├── services/
+│   │   ├── googleSheets.js       # Outbound Apps Script Web App poster
+│   │   └── colorMixer.js         # Color recipes CIELAB mixer logic (backend)
+│   └── data/
+│       ├── artworks.json         # 6 Predefined artworks catalog
+│       └── basePaints.json       # 21 Base acrylic paint tubes table
+├── public/                       # Static front-end assets served by Express
+│   ├── index.html                # Arabic e-commerce landing page
+│   ├── css/
+│   │   └── style.css             # artsy terracotta & cream design stylesheet
+│   ├── js/
+│   │   ├── main.js               # Gallery renderer, file uploader, Web Worker listener
+│   │   ├── orderForm.js          # checkout price calculator and order POST submitter
+│   │   └── pbn-engine/           # client-side image processing logic
+│   │       ├── kmeans.js         # CIELAB K-means clustering
+│   │       ├── facetBuilder.js   # Flood fill region finder
+│   │       ├── facetReducer.js   # Tiny region pruner
+│   │       ├── borderTracer.js   # Border outlines tracer
+│   │       ├── facetBorderSegmenter.js # Douglas-Peucker polyline simplifier
+│   │       ├── labelPlacer.js    # Mapbox Polylabel placement
+│   │       └── colorMixer.js     # color recipe mixer (client mirror)
+│   └── assets/
+│       └── artworks/             # SVG previews for the 6 catalog artworks
+└── google-apps-script/
+    └── Code.gs                   # Apps Script code to copy to script.google.com
 ```
 
-The CLI version is useful if you want to automate the process into your own scripts.
+---
 
-## Screenshots
+## 📊 Google Sheets Integration / ربط جدول بيانات جوجل
 
-![Screenshot](https://i.imgur.com/6uHm78x.png])
+To log orders and mixing recipes directly into a Google Sheet:
+1. Create a blank Google Sheet.
+2. Go to **Extensions** -> **Apps Script**.
+3. Paste the contents of [google-apps-script/Code.gs](file:///home/badran/Downloads/NOW/Ecom2025/Pain_By_Number/paintbynumbersgenerator/google-apps-script/Code.gs).
+4. Run the `setupSheet` function to generate the headers.
+5. Deploy as a Web App (Execute as: **Me**, Access: **Anyone**).
+6. Copy the Web App URL and add it to your `.env` as `GOOGLE_SCRIPT_URL`.
 
-![Screenshot](https://i.imgur.com/cY9ieAy.png)
+For detailed step-by-step instructions with screenshots, refer to the [Google Sheets Setup Guide](file:///home/badran/Downloads/NOW/Ecom2025/Pain_By_Number/paintbynumbersgenerator/docs/SETUP_GOOGLE_SHEET.md).
 
+---
 
-## Example output
+## ☁️ Deployment on Render / الرفع على منصة Render
 
-![ExampleOutput](https://i.imgur.com/2Zuo13d.png)
-
-![ExampleOutput2](https://i.imgur.com/SxWhOc7.png)
-
-## Running locally
-
-I used VSCode, which has built in typescript support. To debug it uses a tiny webserver to host the files on localhost. 
-
-To run do `npm install` to restore packages and then `npm start` to start the webserver
-
-
-## Compiling the cli version
-
-Install pkg first if you don't have it yet `npm install pkg -g`. Then in the root folder run `pkg .`. This will generate the output for linux, windows and macos.
+This repository is pre-configured for Render.com:
+1. Push this repository to your GitHub account.
+2. Log in to [Render](https://render.com) and create a **New Web Service**.
+3. Connect your GitHub repository.
+4. Render will automatically read the [render.yaml](file:///home/badran/Downloads/NOW/Ecom2025/Pain_By_Number/paintbynumbersgenerator/render.yaml) file to set up the build command (`npm install`) and start command (`node server/index.js`).
+5. Under **Environment Variables**, add:
+   - `GOOGLE_SCRIPT_URL` = Your Google Apps Script Web App URL.
+   - `NODE_ENV` = `production`
+6. Click **Deploy Web Service**.

@@ -1,0 +1,1883 @@
+[
+  {
+    "id": "art_1",
+    "name_ar": "طبيعة خلابة ووديان هادئة",
+    "description_ar": "لوحة فنية ساحرة تجسد جمال الطبيعة الخضراء والوديان المنسابة بألوان دافئة مريحة للعين.",
+    "image_thumbnail": "/assets/artworks/1.jpg",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      },
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#16A39A",
+        "name_ar": "تركواز فيروزي"
+      },
+      {
+        "hex": "#FFE45E",
+        "name_ar": "أصفر ليمون"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      }
+    ]
+  },
+  {
+    "id": "art_2",
+    "name_ar": "باقة زهور ريفية ملونة",
+    "description_ar": "باقة غنية من الورود والأزهار البرية المتناسقة تضفي بهجة وحيوية كلاسيكية على غرفتك.",
+    "image_thumbnail": "/assets/artworks/2.jpg",
+    "difficulty": "easy",
+    "difficulty_ar": "سهل",
+    "default_size": "30x30 سم",
+    "base_price": 3500,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#FFB6C1",
+        "name_ar": "وردي فاتح"
+      },
+      {
+        "hex": "#8E44AD",
+        "name_ar": "بنفسجي أرجواني"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      },
+      {
+        "hex": "#8A9A5B",
+        "name_ar": "أخضر زيتوني"
+      },
+      {
+        "hex": "#E84118",
+        "name_ar": "أحمر زئبقي"
+      }
+    ]
+  },
+  {
+    "id": "art_3",
+    "name_ar": "غروب بحري ساحر",
+    "description_ar": "مشهد الغروب المهيب وهو ينعكس بلطف على مياه البحر الصافية مع تدرجات السماء الدافئة.",
+    "image_thumbnail": "/assets/artworks/3.jpg",
+    "difficulty": "hard",
+    "difficulty_ar": "صعب",
+    "default_size": "30x30 سم",
+    "base_price": 4200,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#1B4F9C",
+        "name_ar": "أزرق كوبالت"
+      },
+      {
+        "hex": "#FFB627",
+        "name_ar": "أصفر ذهبي"
+      },
+      {
+        "hex": "#E84118",
+        "name_ar": "أحمر زئبقي"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      },
+      {
+        "hex": "#4FA8DA",
+        "name_ar": "أزرق سماوي"
+      }
+    ]
+  },
+  {
+    "id": "art_4",
+    "name_ar": "لوحة فريسكو ربيعية هادئة",
+    "description_ar": "تناغم فني رائع يجسد نسيم الربيع وتفتح البراعم بأسلوب فني انطباعي ناعم.",
+    "image_thumbnail": "/assets/artworks/4.jpg",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#8A9A5B",
+        "name_ar": "أخضر زيتوني"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      },
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      },
+      {
+        "hex": "#A8A29E",
+        "name_ar": "رمادي دافئ"
+      }
+    ]
+  },
+  {
+    "id": "art_5",
+    "name_ar": "حروفية عربية بأسلوب عصري",
+    "description_ar": "تداخل الحروف العربية الأصيلة بخطوط انسيابية وألوان متناسقة تمنح جدارك لمسة هوية راقية.",
+    "image_thumbnail": "/assets/artworks/5.jpg",
+    "difficulty": "easy",
+    "difficulty_ar": "سهل",
+    "default_size": "30x30 سم",
+    "base_price": 3700,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#FFE45E",
+        "name_ar": "أصفر ليمون"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      },
+      {
+        "hex": "#A8A29E",
+        "name_ar": "رمادي دافئ"
+      }
+    ]
+  },
+  {
+    "id": "art_6",
+    "name_ar": "الكعبة المشرفة بظلال ذهبية",
+    "description_ar": "رسمة إيمانية مهيبة للكعبة المشرفة بظلال ذهبية فخمة تعطي راحة وسكينة روحية.",
+    "image_thumbnail": "/assets/artworks/6.jpg",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 4500,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#FFE45E",
+        "name_ar": "أصفر ليمون"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      },
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      }
+    ]
+  },
+  {
+    "id": "art_7",
+    "name_ar": "لوحة الحب والعشاق (شكل قلب)",
+    "description_ar": "تصميم رومانسي دافئ يرمز للحب، يطبع خصيصاً على قماش مشدود بشكل قلب قياس 40x40 سم.",
+    "image_thumbnail": "/assets/artworks/7.jpg",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3950,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#E84118",
+        "name_ar": "أحمر زئبقي"
+      },
+      {
+        "hex": "#4FA8DA",
+        "name_ar": "أزرق سماوي"
+      },
+      {
+        "hex": "#1B4F9C",
+        "name_ar": "أزرق كوبالت"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      }
+    ]
+  },
+  {
+    "id": "art_8",
+    "name_ar": "نمر الغابة المهيب",
+    "description_ar": "رسمة نمر بخطوط دقيقة يعبر الغابة الاستوائية بأسلوب فني قوي وتفاصيل رائعة.",
+    "image_thumbnail": "/assets/artworks/8.jpg",
+    "difficulty": "hard",
+    "difficulty_ar": "صعب",
+    "default_size": "30x30 سم",
+    "base_price": 4200,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#E84118",
+        "name_ar": "أحمر زئبقي"
+      },
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      },
+      {
+        "hex": "#8A9A5B",
+        "name_ar": "أخضر زيتوني"
+      }
+    ]
+  },
+  {
+    "id": "art_9",
+    "name_ar": "بحيرة وقمر هادئ",
+    "description_ar": "مشهد طبيعي حالم لبحيرة ينعكس عليها ضوء القمر الكامل بين ثنايا جبال هادئة.",
+    "image_thumbnail": "/assets/artworks/9.jpg",
+    "difficulty": "easy",
+    "difficulty_ar": "سهل",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#1B4F9C",
+        "name_ar": "أزرق كوبالت"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      },
+      {
+        "hex": "#A8A29E",
+        "name_ar": "رمادي دافئ"
+      }
+    ]
+  },
+  {
+    "id": "art_10",
+    "name_ar": "أشجار الخريف الذهبية",
+    "description_ar": "رسمة دافئة تجسد تساقط أوراق الخريف الذهبية على ممر غاباتي هادئ يدعو للتأمل.",
+    "image_thumbnail": "/assets/artworks/10.jpg",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      }
+    ]
+  },
+  {
+    "id": "art_11",
+    "name_ar": "خيل عربي أصيل",
+    "description_ar": "شموخ الخيل العربي ملوّناً بلمسات فنية تعكس القوة والجمال الأصيل لجواد واثق.",
+    "image_thumbnail": "/assets/artworks/11.jpg",
+    "difficulty": "hard",
+    "difficulty_ar": "صعب",
+    "default_size": "30x30 سم",
+    "base_price": 4200,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      },
+      {
+        "hex": "#A8A29E",
+        "name_ar": "رمادي دافئ"
+      }
+    ]
+  },
+  {
+    "id": "art_12",
+    "name_ar": "أزهار الكرز اليابانية",
+    "description_ar": "هدوء وجمال أغصان الساكورا الوردية المتفتحة في يوم ربيعي مشرق يعبر عن التجدد.",
+    "image_thumbnail": "/assets/artworks/12.jpg",
+    "difficulty": "easy",
+    "difficulty_ar": "سهل",
+    "default_size": "30x30 سم",
+    "base_price": 3700,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#FFB6C1",
+        "name_ar": "وردي فاتح"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      },
+      {
+        "hex": "#A8A29E",
+        "name_ar": "رمادي دافئ"
+      },
+      {
+        "hex": "#8E44AD",
+        "name_ar": "بنفسجي أرجواني"
+      }
+    ]
+  },
+  {
+    "id": "art_13",
+    "name_ar": "غروب البحيرة الأرجواني",
+    "description_ar": "تدرجات أرجوانية ساحرة تنعكس على مياه بحيرة ريفية هادئة تحيط بها الأشجار.",
+    "image_thumbnail": "/assets/artworks/6_9f3bcaa3-8812-4965-8590-69478809cf8a.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#FFE45E",
+        "name_ar": "أصفر ليمون"
+      },
+      {
+        "hex": "#FFB6C1",
+        "name_ar": "وردي فاتح"
+      },
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      }
+    ]
+  },
+  {
+    "id": "art_14",
+    "name_ar": "غروب رومانسي دافئ",
+    "description_ar": "ألوان شمس الغروب تنعكس بلطف في مشهد دافئ وجميل يرمز للحب والسكينة.",
+    "image_thumbnail": "/assets/artworks/a5fdd4071a547158620833be79472dc7.jpg",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      },
+      {
+        "hex": "#16A39A",
+        "name_ar": "تركواز فيروزي"
+      },
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#FFB6C1",
+        "name_ar": "وردي فاتح"
+      },
+      {
+        "hex": "#FFE45E",
+        "name_ar": "أصفر ليمون"
+      }
+    ]
+  },
+  {
+    "id": "art_15",
+    "name_ar": "درجات بحر إيجة الزرقاء",
+    "description_ar": "لوحة تعبيرية تجسد درجات اليونان البيضاء والزرقاء المطلة على بحر إيجة الساحر.",
+    "image_thumbnail": "/assets/artworks/aegean-steps-paint-by-numbers-kit-592561.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#FFE45E",
+        "name_ar": "أصفر ليمون"
+      },
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      },
+      {
+        "hex": "#FFB6C1",
+        "name_ar": "وردي فاتح"
+      },
+      {
+        "hex": "#16A39A",
+        "name_ar": "تركواز فيروزي"
+      }
+    ]
+  },
+  {
+    "id": "art_16",
+    "name_ar": "عزلة الخريف الهادئة",
+    "description_ar": "تجسيد رائع لهدوء الطبيعة وألوان الأشجار الذهبية المتساقطة في فصل الخريف.",
+    "image_thumbnail": "/assets/artworks/autumns-solitude-paint-by-numbers-kit-915917.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#FFE45E",
+        "name_ar": "أصفر ليمون"
+      },
+      {
+        "hex": "#8E44AD",
+        "name_ar": "بنفسجي أرجواني"
+      }
+    ]
+  },
+  {
+    "id": "art_17",
+    "name_ar": "أزهار الكوبية الزرقاء",
+    "description_ar": "لوحة طبيعية ناعمة لباقة من أزهار الكوبية (الهيدرانجيا) بدرجات أزرق وبنفسجي مهدئة للعين.",
+    "image_thumbnail": "/assets/artworks/blue-hydrangea-paint-by-numbers-kit-207672.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#FFB6C1",
+        "name_ar": "وردي فاتح"
+      },
+      {
+        "hex": "#FFE45E",
+        "name_ar": "أصفر ليمون"
+      },
+      {
+        "hex": "#8E44AD",
+        "name_ar": "بنفسجي أرجواني"
+      },
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      }
+    ]
+  },
+  {
+    "id": "art_18",
+    "name_ar": "مرفأ القوارب والسماء الزرقاء",
+    "description_ar": "منظر حيوي لمرفأ بحري هادئ ترسو فيه القوارب تحت سماء زرقاء صافية.",
+    "image_thumbnail": "/assets/artworks/blue-sky-harbor-paint-by-numbers-kit-641899.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      },
+      {
+        "hex": "#FFB6C1",
+        "name_ar": "وردي فاتح"
+      },
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#8E44AD",
+        "name_ar": "بنفسجي أرجواني"
+      }
+    ]
+  },
+  {
+    "id": "art_19",
+    "name_ar": "سلة ثمار الليمون اليانعة",
+    "description_ar": "طبيعة صامتة تجسد حيوية الليمون الأصفر الطازج وأوراقه الخضراء بلمسة ريفية دافئة.",
+    "image_thumbnail": "/assets/artworks/bounty-lemons-paint-by-numbers-kit-727352.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      },
+      {
+        "hex": "#FFB6C1",
+        "name_ar": "وردي فاتح"
+      },
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#8E44AD",
+        "name_ar": "بنفسجي أرجواني"
+      }
+    ]
+  },
+  {
+    "id": "art_20",
+    "name_ar": "شوارع باريس الهادئة",
+    "description_ar": "لوحة رومانسية لشوارع باريس الكلاسيكية الجميلة مع إطلالة على برج إيفل في الأفق.",
+    "image_thumbnail": "/assets/artworks/calm-streets-of-paris-paint-by-numbers-kit-245073.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#16A39A",
+        "name_ar": "تركواز فيروزي"
+      },
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      },
+      {
+        "hex": "#FFE45E",
+        "name_ar": "أصفر ليمون"
+      },
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      }
+    ]
+  },
+  {
+    "id": "art_21",
+    "name_ar": "ملاذ الشلالات المتدفقة",
+    "description_ar": "جمال الطبيعة العذراء من شلالات جارية وسط غابة خضراء كثيفة وأحجار طبيعية.",
+    "image_thumbnail": "/assets/artworks/cascade-haven-paint-by-numbers-kit-553400.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#FFB6C1",
+        "name_ar": "وردي فاتح"
+      },
+      {
+        "hex": "#16A39A",
+        "name_ar": "تركواز فيروزي"
+      },
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      },
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      }
+    ]
+  },
+  {
+    "id": "art_22",
+    "name_ar": "بوابة الغروب الساحرة",
+    "description_ar": "منظر دافئ لبوابة أثرية تطل مباشرة على شاطئ البحر لحظة الغروب الأرجواني.",
+    "image_thumbnail": "/assets/artworks/door-to-sunset-138620.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      },
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      },
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#16A39A",
+        "name_ar": "تركواز فيروزي"
+      },
+      {
+        "hex": "#FFB6C1",
+        "name_ar": "وردي فاتح"
+      }
+    ]
+  },
+  {
+    "id": "art_23",
+    "name_ar": "جبل فوجي والساكورا",
+    "description_ar": "أيقونة يابانية شهيرة تجمع بين قمة جبل فوجي الثلجية وأزهار الكرز الوردية المنسابة.",
+    "image_thumbnail": "/assets/artworks/eternal-fuji-paint-by-numbers-kit-325633.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      },
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      }
+    ]
+  },
+  {
+    "id": "art_24",
+    "name_ar": "ممر الورد والياسمين",
+    "description_ar": "ممر قوسي ممتد تكسوه أزهار الورد الوردي والياسمين العطرة.",
+    "image_thumbnail": "/assets/artworks/f4912fe74bec950faba9344363a5f8c9.jpg",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      },
+      {
+        "hex": "#FFE45E",
+        "name_ar": "أصفر ليمون"
+      },
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      },
+      {
+        "hex": "#8E44AD",
+        "name_ar": "بنفسجي أرجواني"
+      }
+    ]
+  },
+  {
+    "id": "art_25",
+    "name_ar": "ممر الرحلة الجبلية",
+    "description_ar": "رسمة تدعوك للمغامرة والاستكشاف وسط ممرات الجبال الخضراء والبحيرات الصافية.",
+    "image_thumbnail": "/assets/artworks/hiking-trip-121916.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#FFE45E",
+        "name_ar": "أصفر ليمون"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      },
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      },
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      }
+    ]
+  },
+  {
+    "id": "art_26",
+    "name_ar": "نسيم البحر الأبيض المتوسط",
+    "description_ar": "واجهة معمارية كلاسيكية مزينة بالورود تطل على مياه المتوسط الفيروزية.",
+    "image_thumbnail": "/assets/artworks/mediterranean-bliss-paint-by-numbers-kit-775578.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#FFB6C1",
+        "name_ar": "وردي فاتح"
+      },
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#FFE45E",
+        "name_ar": "أصفر ليمون"
+      },
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      },
+      {
+        "hex": "#8E44AD",
+        "name_ar": "بنفسجي أرجواني"
+      }
+    ]
+  },
+  {
+    "id": "art_27",
+    "name_ar": "باقة زهور الورد الفاخرة",
+    "description_ar": "باقة فخمة من الزهور الملونة في مزهرية كلاسيكية تعطي جدارك رونقاً من الفخامة والجمال.",
+    "image_thumbnail": "/assets/artworks/opulent-bouquet-paint-by-numbers-kit-477330.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#FFE45E",
+        "name_ar": "أصفر ليمون"
+      },
+      {
+        "hex": "#16A39A",
+        "name_ar": "تركواز فيروزي"
+      },
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      }
+    ]
+  },
+  {
+    "id": "art_28",
+    "name_ar": "الغسق البحري وتدرج الألوان",
+    "description_ar": "لوحة انسيابية تمزج بين هدوء شاطئ البحر ليلاً وألوان السماء في الشفق.",
+    "image_thumbnail": "/assets/artworks/seaside-dusk-paint-by-numbers-kit-633461.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#8E44AD",
+        "name_ar": "بنفسجي أرجواني"
+      },
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      },
+      {
+        "hex": "#FFB6C1",
+        "name_ar": "وردي فاتح"
+      },
+      {
+        "hex": "#16A39A",
+        "name_ar": "تركواز فيروزي"
+      },
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      }
+    ]
+  },
+  {
+    "id": "art_29",
+    "name_ar": "إطلالة الشرفة البحرية",
+    "description_ar": "جلسة هادئة على شرفة منزل ريفي تطل مباشرة على أمواج شاطئ البحر الهادئ.",
+    "image_thumbnail": "/assets/artworks/seaside-overlook.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      },
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#16A39A",
+        "name_ar": "تركواز فيروزي"
+      }
+    ]
+  },
+  {
+    "id": "art_30",
+    "name_ar": "نسيج أزهار الربيع الملونة",
+    "description_ar": "سجادة طبيعية متناسقة الألوان من براعم وأزهار الربيع المتفتحة حديثاً.",
+    "image_thumbnail": "/assets/artworks/spring-blossom-tapestry-paint-by-numbers-kit-916164.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#8E44AD",
+        "name_ar": "بنفسجي أرجواني"
+      },
+      {
+        "hex": "#16A39A",
+        "name_ar": "تركواز فيروزي"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      },
+      {
+        "hex": "#FFE45E",
+        "name_ar": "أصفر ليمون"
+      },
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      },
+      {
+        "hex": "#FFB6C1",
+        "name_ar": "وردي فاتح"
+      }
+    ]
+  },
+  {
+    "id": "art_31",
+    "name_ar": "سكينة حديقة الربيع",
+    "description_ar": "ممر رائع في حديقة خضراء تحيط به الأشجار والأزهار المتفتحة ببهجة.",
+    "image_thumbnail": "/assets/artworks/springtime-serenity-paint-by-numbers-kit-245266.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      },
+      {
+        "hex": "#FFB6C1",
+        "name_ar": "وردي فاتح"
+      },
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#16A39A",
+        "name_ar": "تركواز فيروزي"
+      }
+    ]
+  },
+  {
+    "id": "art_32",
+    "name_ar": "حقل عباد الشمس الشفقي",
+    "description_ar": "أزهار عباد الشمس الصفراء الزاهية وهي تتبع آخر خيوط شمس الغروب الدافئة.",
+    "image_thumbnail": "/assets/artworks/sunflower-dusk-paint-by-numbers-kit-335044.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      },
+      {
+        "hex": "#8E44AD",
+        "name_ar": "بنفسجي أرجواني"
+      },
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#16A39A",
+        "name_ar": "تركواز فيروزي"
+      },
+      {
+        "hex": "#FFB6C1",
+        "name_ar": "وردي فاتح"
+      }
+    ]
+  },
+  {
+    "id": "art_33",
+    "name_ar": "ركمجة الأمواج الذهبية",
+    "description_ar": "لقطة ديناميكية لأمواج البحر العاتية وهي تلتمع تحت شمس الغروب الدافئة.",
+    "image_thumbnail": "/assets/artworks/sunset-surf-paint-by-numbers-kit-149130.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      },
+      {
+        "hex": "#8E44AD",
+        "name_ar": "بنفسجي أرجواني"
+      },
+      {
+        "hex": "#16A39A",
+        "name_ar": "تركواز فيروزي"
+      },
+      {
+        "hex": "#FFB6C1",
+        "name_ar": "وردي فاتح"
+      },
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      }
+    ]
+  },
+  {
+    "id": "art_34",
+    "name_ar": "غابة أشجار السرو الشاهقة",
+    "description_ar": "منظر سفلي مهيب لأشجار الغابة الطويلة وهي تعانق عنان السماء والغيوم الخفيفة.",
+    "image_thumbnail": "/assets/artworks/tall-trees-forest-paint-by-numbers-kit-684588.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      },
+      {
+        "hex": "#8E44AD",
+        "name_ar": "بنفسجي أرجواني"
+      },
+      {
+        "hex": "#FFB6C1",
+        "name_ar": "وردي فاتح"
+      }
+    ]
+  },
+  {
+    "id": "art_35",
+    "name_ar": "ممر المظلات الملونة",
+    "description_ar": "ممر تفاعلي مغطى بمئات المظلات الملونة المعلقة التي تنشر البهجة والسرور.",
+    "image_thumbnail": "/assets/artworks/umbrella-park-paint-by-numbers-kit-537775.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#FFB6C1",
+        "name_ar": "وردي فاتح"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      },
+      {
+        "hex": "#FFE45E",
+        "name_ar": "أصفر ليمون"
+      }
+    ]
+  },
+  {
+    "id": "art_36",
+    "name_ar": "قنوات البندقية الإيطالية",
+    "description_ar": "تفاصيل كلاسيكية للمباني العريقة وقوارب الجندول التي تشتهر بها مدينة فينيسيا.",
+    "image_thumbnail": "/assets/artworks/venetian-canal-paint-by-numbers-kit-548289.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#16A39A",
+        "name_ar": "تركواز فيروزي"
+      },
+      {
+        "hex": "#FFE45E",
+        "name_ar": "أصفر ليمون"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      },
+      {
+        "hex": "#8E44AD",
+        "name_ar": "بنفسجي أرجواني"
+      },
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      }
+    ]
+  },
+  {
+    "id": "art_37",
+    "name_ar": "مزيج زهور التوليب الزاهية",
+    "description_ar": "مجموعة ملونة من أزهار التوليب الهولندية وهي تنبض بالحياة تحت ضوء النهار.",
+    "image_thumbnail": "/assets/artworks/vibrant-tulip-medley-paint-by-numbers-kit-650489.webp",
+    "difficulty": "medium",
+    "difficulty_ar": "متوسط",
+    "default_size": "30x30 سم",
+    "base_price": 3900,
+    "frame_options": [
+      {
+        "id": "no_frame",
+        "name_ar": "بدون برواز",
+        "extra_price": 0
+      },
+      {
+        "id": "wood_white",
+        "name_ar": "برواز خشبي أبيض",
+        "extra_price": 800
+      },
+      {
+        "id": "wood_brown",
+        "name_ar": "برواز خشبي بني",
+        "extra_price": 800
+      },
+      {
+        "id": "modern_black",
+        "name_ar": "برواز عصري أسود",
+        "extra_price": 1000
+      }
+    ],
+    "palette": [
+      {
+        "hex": "#FF8C32",
+        "name_ar": "برتقالي"
+      },
+      {
+        "hex": "#1C1C1C",
+        "name_ar": "أسود فحمي"
+      },
+      {
+        "hex": "#FFB6C1",
+        "name_ar": "وردي فاتح"
+      },
+      {
+        "hex": "#FFFFFF",
+        "name_ar": "أبيض تيتانيوم"
+      },
+      {
+        "hex": "#16A39A",
+        "name_ar": "تركواز فيروزي"
+      }
+    ]
+  }
+]

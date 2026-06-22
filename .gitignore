@@ -1,3 +1,11 @@
-node_modules
-*.js
-*.map
+node_modules/
+.env
+.DS_Store
+dist/
+scripts/main.js
+scripts/main.js.map
+src-cli/main.js
+src-cli/main.js.map
+*.exe
+*.log
+photos/

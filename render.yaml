@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: paint-by-number-store
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server/index.js
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: USE_GOOGLE_SHEETS
+        value: "false"
+      - key: GOOGLE_SCRIPT_URL
+        sync: false
