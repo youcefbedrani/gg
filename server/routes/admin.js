@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const fs = require("fs");
 const path = require("path");
+const zrExpress = require("../services/zrExpress");
 
 const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "PBN-Algeria-2026";
@@ -75,7 +76,7 @@ router.get("/orders", authenticateAdmin, (req, res) => {
 
 // Update order status (Admin only)
 // Supported statuses: جديد, اتصال 1, اتصال 2, اتصال 3, مؤكد, ملغي, تم التوصيل
-router.post("/orders/:id/status", authenticateAdmin, (req, res) => {
+router.post("/orders/:id/status", authenticateAdmin, async (req, res) => {
   const orderId = req.params.id;
   const { status } = req.body;
 
@@ -109,6 +110,21 @@ router.post("/orders/:id/status", authenticateAdmin, (req, res) => {
     }
 
     orders[orderIndex].status = status;
+
+    let zrResult = null;
+    if (status === "مؤكد" && process.env.ZR_SECRET_KEY) {
+      try {
+        const order = orders[orderIndex];
+        order.total_price = order.total_price || 3900;
+        zrResult = await zrExpress.createParcel(order);
+        orders[orderIndex].zr_parcel_id = zrResult.zr_parcel_id;
+        orders[orderIndex].zr_tracking = zrResult.zr_tracking;
+        orders[orderIndex].zr_status = zrResult.zr_status;
+      } catch (zrErr) {
+        console.error("ZR Express parcel creation failed:", zrErr.message);
+      }
+    }
+
     fs.writeFileSync(ORDERS_FILE_PATH, JSON.stringify(orders, null, 2), "utf8");
 
     const messages = {
@@ -124,6 +140,7 @@ router.post("/orders/:id/status", authenticateAdmin, (req, res) => {
     return res.status(200).json({
       success: true,
       message: messages[status] || "تم تحديث حالة الطلب",
+      zr: zrResult ? { tracking: zrResult.zr_tracking, parcel_id: zrResult.zr_parcel_id } : null,
     });
   } catch (err) {
     console.error("Failed to update order status:", err);
@@ -135,20 +152,34 @@ router.post("/orders/:id/status", authenticateAdmin, (req, res) => {
 });
 
 // Keep old confirm endpoint for backward compatibility
-router.post("/orders/:id/confirm", authenticateAdmin, (req, res) => {
-  req.body.status = "مؤكد";
-  req.params.id = req.params.id;
-  // Forward to status handler
-  const forwardReq = { ...req, body: { status: "مؤكد" }, params: { id: req.params.id } };
-  // Just update directly
+router.post("/orders/:id/confirm", authenticateAdmin, async (req, res) => {
   const orderId = req.params.id;
   try {
     const orders = JSON.parse(fs.readFileSync(ORDERS_FILE_PATH, "utf8"));
     const orderIndex = orders.findIndex((o) => o.order_id === orderId);
     if (orderIndex === -1) return res.status(404).json({ success: false, errors: ["الطلب غير موجود"] });
     orders[orderIndex].status = "مؤكد";
+
+    let zrResult = null;
+    if (process.env.ZR_SECRET_KEY) {
+      try {
+        const order = orders[orderIndex];
+        order.total_price = order.total_price || 3900;
+        zrResult = await zrExpress.createParcel(order);
+        orders[orderIndex].zr_parcel_id = zrResult.zr_parcel_id;
+        orders[orderIndex].zr_tracking = zrResult.zr_tracking;
+        orders[orderIndex].zr_status = zrResult.zr_status;
+      } catch (zrErr) {
+        console.error("ZR Express parcel creation failed:", zrErr.message);
+      }
+    }
+
     fs.writeFileSync(ORDERS_FILE_PATH, JSON.stringify(orders, null, 2), "utf8");
-    return res.status(200).json({ success: true, message: "تم تأكيد الطلب بنجاح" });
+    return res.status(200).json({
+      success: true,
+      message: "تم تأكيد الطلب بنجاح",
+      zr: zrResult ? { tracking: zrResult.zr_tracking, parcel_id: zrResult.zr_parcel_id } : null,
+    });
   } catch (err) {
     return res.status(500).json({ success: false, errors: ["حدث خطأ"] });
   }

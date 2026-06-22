@@ -525,6 +525,16 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
           ` : ""}
 
+          ${order.zr_tracking ? `
+          <div class="order-notes" style="border-right-color: #2a9d8f; background-color: #f0faf8;">
+            <strong style="color: #2a9d8f;">🚚 ZR Express - تتبع الشحنة:</strong>
+            <span style="display: block; margin-top: 4px; font-family: monospace; font-size: 1.1rem; direction: ltr; text-align: left;">
+              ${order.zr_tracking}
+            </span>
+            ${order.zr_status ? `<span style="display: block; margin-top: 2px; font-size: 0.85rem; color: var(--text-light);">الحالة: ${order.zr_status}</span>` : ""}
+          </div>
+          ` : ""}
+
           <!-- Dynamic SVG Outline printable segment -->
           <div class="outline-display-container" style="grid-column: 1 / -1; margin-top: 15px; border-top: 1px dashed var(--border); padding-top: 15px;">
             ${order.svg_outline ? `
@@ -1109,9 +1119,18 @@ document.addEventListener("DOMContentLoaded", () => {
         const index = allOrders.findIndex(o => o.order_id === orderId);
         if (index !== -1) {
           allOrders[index].status = newStatus;
+          if (data.zr) {
+            allOrders[index].zr_tracking = data.zr.tracking;
+            allOrders[index].zr_parcel_id = data.zr.parcel_id;
+          }
         }
         updateStats();
         renderOrders();
+        if (data.zr && data.zr.tracking) {
+          setTimeout(() => {
+            alert(`✅ تم تأكيد الطلب وإنشاء الشحنة بنجاح!\nرقم التتبع: ${data.zr.tracking}`);
+          }, 100);
+        }
       } else {
         alert("فشل تحديث الحالة: " + (data.errors ? data.errors.join(" | ") : "خطأ غير معروف"));
         btnElement.disabled = false;

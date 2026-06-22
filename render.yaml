@@ -13,3 +13,7 @@ services:
         value: "false"
       - key: GOOGLE_SCRIPT_URL
         sync: false
+      - key: ZR_SECRET_KEY
+        sync: false
+      - key: ZR_TENANT_ID
+        sync: false
