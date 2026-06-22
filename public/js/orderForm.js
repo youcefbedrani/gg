@@ -33,19 +33,12 @@ export function selectPredefinedArtwork(artwork) {
   document.getElementById("selectedName").textContent = artwork.name_ar;
   document.getElementById("selectedSpec").textContent = `الحجم: ${artwork.default_size} | الصعوبة: ${artwork.difficulty_ar}`;
 
-  // Populate frame options dropdown
   const frameSelect = document.getElementById("frameOption");
-  frameSelect.innerHTML = '<option value="" disabled selected>اختر الإطار المناسب</option>';
-  
-  artwork.frame_options.forEach((opt) => {
-    const priceText = opt.extra_price > 0 ? ` (+${opt.extra_price} د.ج)` : " (مشمول)";
-    frameSelect.innerHTML += `<option value="${opt.id}" data-price="${opt.extra_price}">${opt.name_ar}${priceText}</option>`;
-  });
+  frameSelect.value = "modern_black";
 
   document.getElementById("submitOrderBtn").disabled = false;
   updatePriceSummary();
 
-  // Scroll to form section
   document.getElementById("order-section").scrollIntoView({ behavior: "smooth" });
 }
 
@@ -53,7 +46,7 @@ export function selectPredefinedArtwork(artwork) {
  * Pre-selects a custom processed design in the checkout form.
  */
 export function selectCustomDesign(pbnResult) {
-  selectedProduct = pbnResult; // contains { colorsByIndex, svgFilled, svgOutline, width, height }
+  selectedProduct = pbnResult;
   isCustom = true;
 
   document.getElementById("selectedProductBanner").style.display = "flex";
@@ -61,20 +54,12 @@ export function selectCustomDesign(pbnResult) {
   document.getElementById("selectedName").textContent = "صورتك الشخصية المحوّلة";
   document.getElementById("selectedSpec").textContent = `حجم الطباعة: 30x30 سم | عدد الألوان: ${pbnResult.colorsByIndex.length}`;
 
-  // Populate default frame options
   const frameSelect = document.getElementById("frameOption");
-  frameSelect.innerHTML = `
-    <option value="" disabled selected>اختر الإطار المناسب</option>
-    <option value="no_frame" data-price="0">بدون برواز (مشمول)</option>
-    <option value="wood_white" data-price="0">برواز خشبي أبيض (مشمول)</option>
-    <option value="wood_brown" data-price="0">برواز خشبي بني (مشمول)</option>
-    <option value="modern_black" data-price="0">برواز عصري أسود (مشمول)</option>
-  `;
+  frameSelect.value = "modern_black";
 
   document.getElementById("submitOrderBtn").disabled = false;
   updatePriceSummary();
 
-  // Scroll to form section
   document.getElementById("order-section").scrollIntoView({ behavior: "smooth" });
 }
 
@@ -82,22 +67,11 @@ function updatePriceSummary() {
   if (!selectedProduct) return;
 
   const basePrice = isCustom ? CUSTOM_BASE_PRICE : selectedProduct.base_price;
-  const frameSelect = document.getElementById("frameOption");
-  const selectedOption = frameSelect.options[frameSelect.selectedIndex];
-  
-  let framePrice = 0;
-  if (selectedOption && selectedOption.dataset.price) {
-    framePrice = parseInt(selectedOption.dataset.price, 10);
-  }
-
   const quantity = Math.max(1, parseInt(document.getElementById("quantity").value, 10) || 1);
+  const grandTotal = basePrice * quantity;
 
-  const baseTotal = basePrice * quantity;
-  const frameTotal = framePrice * quantity;
-  const grandTotal = baseTotal + frameTotal;
-
-  document.getElementById("basePriceVal").textContent = `${baseTotal} د.ج`;
-  document.getElementById("framePriceVal").textContent = `${frameTotal} د.ج`;
+  document.getElementById("basePriceVal").textContent = `${grandTotal} د.ج`;
+  document.getElementById("framePriceVal").textContent = `مشمول`;
   document.getElementById("totalPriceVal").textContent = `${grandTotal} د.ج`;
 }
 
@@ -138,12 +112,6 @@ async function handleOrderSubmit(e) {
   // Basic validation checks
   if (customerName.length < 3) {
     errorAlert.textContent = "الرجاء إدخال الاسم الكامل (ثلاثة أحرف على الأقل).";
-    errorAlert.style.display = "block";
-    return;
-  }
-
-  if (!frameOption) {
-    errorAlert.textContent = "الرجاء اختيار نوع الإطار المطلوبة لوحتك.";
     errorAlert.style.display = "block";
     return;
   }

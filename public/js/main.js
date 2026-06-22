@@ -33,26 +33,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Render designs gallery
     renderGallery();
 
-    // Auto-select artwork from URL search params (e.g. ?art=art_15&frame=wood_white)
+    // Auto-select artwork from URL search params (e.g. ?art=art_15)
     const urlParams = new URLSearchParams(window.location.search);
     const artIdParam = urlParams.get("art");
-    const frameIdParam = urlParams.get("frame");
     
     if (artIdParam) {
       const art = artworks.find(a => a.id === artIdParam);
-      if (art) {
-        selectPredefinedArtwork(art);
-        
-        if (frameIdParam) {
-          const frameSelect = document.getElementById("frameOption");
-          setTimeout(() => {
-            if (frameSelect) {
-              frameSelect.value = frameIdParam;
-              frameSelect.dispatchEvent(new Event("change"));
-            }
-          }, 100);
-        }
-      }
+      if (art) selectPredefinedArtwork(art);
     }
   } catch (error) {
     console.error("Initialization error:", error);

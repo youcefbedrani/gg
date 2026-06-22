@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>لوحتي بالأرقام | تصفح المعرض والرسومات الكاملة</title>
+  <title>لوحتي بالأرقام | تصفح المعرض الكامل</title>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -76,18 +76,6 @@
       margin-bottom: 20px;
       font-size: 0.95rem;
     }
-    .frame-select-container {
-      margin-top: 15px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      text-align: right;
-    }
-    .frame-select-container label {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--text-dark);
-    }
     .price-total-badge {
       display: flex;
       justify-content: space-between;
@@ -112,7 +100,7 @@
       </div>
       <nav class="nav-menu" id="navMenu">
         <a href="/index.html#hero">الرئيسية</a>
-        <a href="/browse.html" class="active">تصفح الإطارات والرسومات</a>
+        <a href="/browse.html" class="active">تصفح المعرض الفني</a>
         <a href="/index.html#gallery">التصاميم الجاهزة</a>
         <a href="/index.html#upload">اصنع لوحتك الخاصة</a>
         <a href="/index.html#order-section" class="nav-cta">اطلب الآن</a>
@@ -127,8 +115,8 @@
 
   <!-- Browse Header -->
   <section class="browse-header">
-    <h1>🎨 المعرض الفني الكامل والإطارات</h1>
-    <p>تصفح تشكيلتنا الكاملة المكونة من 37 تصميماً فنياً مميزاً، اختر البرواز المفضل لديك، وانتقل مباشرة لصفحة تأكيد الطلب.</p>
+    <h1>🎨 المعرض الفني الكامل</h1>
+    <p>تصفح تشكيلتنا الكاملة المكونة من 37 تصميماً فنياً مميزاً. جميع اللوحات تأتي مع إطار عصري أسود أنيق مشمول في السعر.</p>
   </section>
 
   <!-- Main Section -->
@@ -270,15 +258,7 @@
         if (art.difficulty === "easy") diffClass = "easy";
         if (art.difficulty === "hard") diffClass = "hard";
 
-        // Initial default frame values
-        const defaultFrame = art.frame_options[0];
-        const initialTotalPrice = art.base_price + defaultFrame.extra_price;
-
-        // Build Frame options HTML
-        const frameOptionsHtml = art.frame_options.map(opt => {
-          const extraText = opt.extra_price > 0 ? ` (+${opt.extra_price} د.ج)` : " (مشمول)";
-          return `<option value="${opt.id}" data-price="${opt.extra_price}">${opt.name_ar}${extraText}</option>`;
-        }).join("");
+        const initialTotalPrice = art.base_price;
 
         card.innerHTML = `
           <div class="art-img-container">
@@ -293,12 +273,9 @@
               <span>🎨 الألوان: ${art.palette.length} لوناً</span>
             </div>
 
-            <!-- Frame Select Box -->
-            <div class="frame-select-container">
-              <label for="frame-select-${art.id}">🖼️ اختر إطار اللوحة:</label>
-              <select id="frame-select-${art.id}" class="filter-select" style="padding: 6px 10px; font-size: 0.85rem;">
-                ${frameOptionsHtml}
-              </select>
+            <!-- Frame included notice -->
+            <div style="margin-top: 12px; padding: 8px 12px; background: #f0faf8; border-radius: 6px; font-size: 0.85rem; color: var(--dark-teal); font-weight: 600; text-align: center;">
+              🖼️ إطار عصري أسود مشمول في السعر
             </div>
 
             <!-- Total Price Box -->
@@ -313,20 +290,9 @@
 
         grid.appendChild(card);
 
-        // Bind Price Update on select change
-        const select = document.getElementById(`frame-select-${art.id}`);
-        const totalVal = document.getElementById(`price-total-val-${art.id}`);
-        
-        select.addEventListener("change", (e) => {
-          const selectedOpt = select.options[select.selectedIndex];
-          const extraPrice = parseFloat(selectedOpt.getAttribute("data-price")) || 0;
-          totalVal.textContent = `${art.base_price + extraPrice} د.ج`;
-        });
-
         // Bind Select & Checkout redirect
         document.getElementById(`order-btn-${art.id}`).addEventListener("click", () => {
-          const frameId = select.value;
-          window.location.href = `/index.html?art=${art.id}&frame=${frameId}#order-section`;
+          window.location.href = `/index.html?art=${art.id}#order-section`;
         });
       });
     }

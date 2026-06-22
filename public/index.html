@@ -22,7 +22,7 @@
       </div>
       <nav class="nav-menu" id="navMenu">
         <a href="#hero">الرئيسية</a>
-        <a href="/browse.html">تصفح الإطارات والرسومات</a>
+        <a href="/browse.html">تصفح المعرض الفني</a>
         <a href="#gallery">التصاميم الجاهزة</a>
         <a href="#how-it-works">كيف تعمل الخدمة</a>
         <a href="#upload">اصنع لوحتك الخاصة</a>
@@ -125,7 +125,7 @@
         <div class="loading-indicator">جاري تحميل المعرض الفني...</div>
       </div>
       <div style="text-align: center; margin-top: 35px;">
-        <a href="/browse.html" class="btn btn-primary" style="padding: 12px 30px; font-size: 1.05rem; background-color: var(--light-teal); box-shadow: none; font-family: 'Cairo', sans-serif;">🎨 تصفح وتحديد كافة الرسومات والإطارات المتاحة (37 تصميم)</a>
+        <a href="/browse.html" class="btn btn-primary" style="padding: 12px 30px; font-size: 1.05rem; background-color: var(--light-teal); box-shadow: none; font-family: 'Cairo', sans-serif;">🎨 تصفح جميع التصاميم المتاحة (37 تصميم)</a>
       </div>
     </div>
   </section>
@@ -286,11 +286,11 @@
             </div>
             
             <div class="form-item">
-              <label for="frameOption">اختر الإطار <span class="required">*</span></label>
-              <select id="frameOption" class="form-select" required>
-                <!-- Options populated dynamically based on artwork configuration -->
-                <option value="" disabled selected>الرجاء اختيار نوع الإطار</option>
-              </select>
+              <label>الإطار <span class="required">*</span></label>
+              <div style="padding: 10px 14px; background: #f0faf8; border-radius: 8px; font-weight: 600; color: var(--dark-teal); font-size: 0.95rem;">
+                برواز عصري أسود مشمول في السعر
+              </div>
+              <input type="hidden" id="frameOption" value="modern_black">
             </div>
             
             <div class="form-item">
@@ -312,8 +312,8 @@
               <span id="basePriceVal">0 د.ج</span>
             </div>
             <div class="price-row">
-              <span>تكلفة الإطار المختار:</span>
-              <span id="framePriceVal">0 د.ج</span>
+              <span>الإطار:</span>
+              <span id="framePriceVal" style="color: var(--light-teal);">مشمول</span>
             </div>
             <hr>
             <div class="price-row total">
