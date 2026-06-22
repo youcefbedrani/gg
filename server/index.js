@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const compression = require("compression");
 const dotenv = require("dotenv");
 const path = require("path");
 const rateLimit = require("express-rate-limit");
@@ -11,6 +12,9 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Gzip compression for all responses
+app.use(compression());
 
 // CORS configuration
 const allowedOrigin = process.env.ALLOWED_ORIGIN || "*";
@@ -50,8 +54,22 @@ app.get("/api/basePaints", (req, res) => {
   res.sendFile(path.join(__dirname, "data/basePaints.json"));
 });
 
-// Serve static frontend files
-app.use(express.static(path.join(__dirname, "../public")));
+// Serve static frontend files with caching
+const publicPath = path.join(__dirname, "../public");
+app.use(express.static(publicPath, {
+  maxAge: "7d",
+  immutable: true,
+  setHeaders(res, filePath) {
+    // Cache HTML files for less time (they may reference new assets)
+    if (filePath.endsWith(".html")) {
+      res.setHeader("Cache-Control", "public, max-age=0, must-revalidate");
+    }
+    // Cache images, CSS, JS for a year (they have content-hash or are immutable)
+    if (filePath.match(/\.(jpg|jpeg|png|webp|gif|svg|ico|css|js|woff2?)$/)) {
+      res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+    }
+  },
+}));
 
 // Fallback to index.html for SPA behavior
 app.get("*", (req, res) => {

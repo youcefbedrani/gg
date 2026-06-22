@@ -86,7 +86,7 @@ function renderGallery() {
 
     card.innerHTML = `
       <div class="art-img-container">
-        <img src="${art.image_thumbnail}" alt="${art.name_ar}" loading="lazy">
+        <img src="${art.image_thumbnail}" alt="${art.name_ar}" loading="lazy" width="500" height="500">
         <span class="difficulty-badge ${diffClass}">${art.difficulty_ar}</span>
       </div>
       <div class="art-details">
