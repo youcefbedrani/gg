@@ -73,9 +73,20 @@ router.get("/orders", authenticateAdmin, (req, res) => {
   }
 });
 
-// Confirm an order (Admin only)
-router.post("/orders/:id/confirm", authenticateAdmin, (req, res) => {
+// Update order status (Admin only)
+// Supported statuses: جديد, اتصال 1, اتصال 2, اتصال 3, مؤكد, ملغي, تم التوصيل
+router.post("/orders/:id/status", authenticateAdmin, (req, res) => {
   const orderId = req.params.id;
+  const { status } = req.body;
+
+  const VALID_STATUSES = ["جديد", "اتصال 1", "اتصال 2", "اتصال 3", "مؤكد", "ملغي", "تم التوصيل"];
+
+  if (!status || !VALID_STATUSES.includes(status)) {
+    return res.status(400).json({
+      success: false,
+      errors: ["حالة غير صالحة. الحالات المسموحة: " + VALID_STATUSES.join("، ")],
+    });
+  }
 
   try {
     if (!fs.existsSync(ORDERS_FILE_PATH)) {
@@ -97,14 +108,22 @@ router.post("/orders/:id/confirm", authenticateAdmin, (req, res) => {
       });
     }
 
-    // Update status to "مؤكد" (Confirmed)
-    orders[orderIndex].status = "مؤكد";
-
+    orders[orderIndex].status = status;
     fs.writeFileSync(ORDERS_FILE_PATH, JSON.stringify(orders, null, 2), "utf8");
+
+    const messages = {
+      "جديد": "تم إرجاع الطلب إلى حالة جديد",
+      "اتصال 1": "تم تسجيل المكالمة الأولى",
+      "اتصال 2": "تم تسجيل المكالمة الثانية",
+      "اتصال 3": "تم تسجيل المكالمة الثالثة",
+      "مؤكد": "تم تأكيد الطلب بنجاح",
+      "ملغي": "تم إلغاء الطلب",
+      "تم التوصيل": "تم تسليم الطلب بنجاح",
+    };
 
     return res.status(200).json({
       success: true,
-      message: "تم تأكيد الطلب بنجاح",
+      message: messages[status] || "تم تحديث حالة الطلب",
     });
   } catch (err) {
     console.error("Failed to update order status:", err);
@@ -112,6 +131,26 @@ router.post("/orders/:id/confirm", authenticateAdmin, (req, res) => {
       success: false,
       errors: ["حدث خطأ أثناء تحديث حالة الطلب"],
     });
+  }
+});
+
+// Keep old confirm endpoint for backward compatibility
+router.post("/orders/:id/confirm", authenticateAdmin, (req, res) => {
+  req.body.status = "مؤكد";
+  req.params.id = req.params.id;
+  // Forward to status handler
+  const forwardReq = { ...req, body: { status: "مؤكد" }, params: { id: req.params.id } };
+  // Just update directly
+  const orderId = req.params.id;
+  try {
+    const orders = JSON.parse(fs.readFileSync(ORDERS_FILE_PATH, "utf8"));
+    const orderIndex = orders.findIndex((o) => o.order_id === orderId);
+    if (orderIndex === -1) return res.status(404).json({ success: false, errors: ["الطلب غير موجود"] });
+    orders[orderIndex].status = "مؤكد";
+    fs.writeFileSync(ORDERS_FILE_PATH, JSON.stringify(orders, null, 2), "utf8");
+    return res.status(200).json({ success: true, message: "تم تأكيد الطلب بنجاح" });
+  } catch (err) {
+    return res.status(500).json({ success: false, errors: ["حدث خطأ"] });
   }
 });
 

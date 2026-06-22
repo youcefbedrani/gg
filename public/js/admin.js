@@ -17,6 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const statTotal = document.getElementById("statTotal");
   const statNew = document.getElementById("statNew");
   const statConfirmed = document.getElementById("statConfirmed");
+  const statDelivered = document.getElementById("statDelivered");
+  const statCancelled = document.getElementById("statCancelled");
 
   // Tab Elements
   const tabOrders = document.getElementById("tabOrders");
@@ -364,13 +366,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const updateStats = () => {
     statTotal.textContent = allOrders.length;
-    
-    const newOrders = allOrders.filter(o => o.status === "جديد").length;
-    statNew.textContent = newOrders;
-
-    const confirmedOrders = allOrders.filter(o => o.status === "مؤكد").length;
-    statConfirmed.textContent = confirmedOrders;
+    statNew.textContent = allOrders.filter(o => o.status === "جديد").length;
+    statConfirmed.textContent = allOrders.filter(o => o.status === "مؤكد").length;
+    statDelivered.textContent = allOrders.filter(o => o.status === "تم التوصيل").length;
+    statCancelled.textContent = allOrders.filter(o => o.status === "ملغي").length;
   };
+
+  const STATUS_MAP = {
+    "جديد":       { label: "جديد (قيد الانتظار)",  class: "new",       icon: "🆕" },
+    "اتصال 1":    { label: "اتصال 1",              class: "call1",     icon: "📞1" },
+    "اتصال 2":    { label: "اتصال 2",              class: "call2",     icon: "📞2" },
+    "اتصال 3":    { label: "اتصال 3",              class: "call3",     icon: "📞3" },
+    "مؤكد":       { label: "مؤكد",                 class: "confirmed", icon: "✅" },
+    "تم التوصيل": { label: "تم التوصيل",           class: "delivered", icon: "🚚" },
+    "ملغي":       { label: "ملغي",                 class: "cancelled", icon: "❌" },
+  };
+
+  const ALL_STATUSES = ["جديد", "اتصال 1", "اتصال 2", "اتصال 3", "مؤكد", "تم التوصيل", "ملغي"];
 
   const populateCityFilter = () => {
     const selectedCity = cityFilter.value;
@@ -436,9 +448,9 @@ document.addEventListener("DOMContentLoaded", () => {
     ordersList.style.display = "flex";
 
       filtered.forEach(order => {
-        const isNew = order.status === "جديد";
-        const statusText = isNew ? "جديد (قيد الانتظار)" : "مؤكد";
-        const statusClass = isNew ? "new" : "confirmed";
+        const st = STATUS_MAP[order.status] || STATUS_MAP["جديد"];
+        const statusText = st.label;
+        const statusClass = st.class;
 
         const artwork = artworks.find(a => a.id === order.artwork_id);
         const artworkImg = artwork ? artwork.image_thumbnail : null;
@@ -570,13 +582,17 @@ document.addEventListener("DOMContentLoaded", () => {
             🎨 خلطات وتركيبات الألوان (${order.color_count})
           </button>
           
-          ${isNew ? `
-            <button class="btn-confirm-order" data-id="${order.order_id}">تأكيد وتجهيز الطلب</button>
-          ` : `
-            <span style="color: var(--light-teal); font-weight: 700; font-size: 1rem; display: flex; align-items: center; gap: 5px;">
-              ✅ تم تأكيد الطلب
-            </span>
-          `}
+          <div class="status-management" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <select class="status-select" data-id="${order.order_id}" style="padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; font-family: 'Cairo', sans-serif; font-size: 0.85rem; outline: none; background-color: #fff; cursor: pointer;">
+              ${ALL_STATUSES.map(s => {
+                const opt = STATUS_MAP[s];
+                return `<option value="${s}" ${order.status === s ? 'selected' : ''}>${opt.icon} ${opt.label}</option>`;
+              }).join('')}
+            </select>
+            <button class="btn btn-primary btn-update-status" data-id="${order.order_id}" style="padding: 6px 14px; font-size: 0.85rem; background-color: var(--primary); box-shadow: none; border-radius: 6px;">
+              تحديث
+            </button>
+          </div>
         </div>
       `;
 
@@ -758,15 +774,18 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // Confirmation buttons
-    document.querySelectorAll(".btn-confirm-order").forEach(btn => {
+    // Status update buttons
+    document.querySelectorAll(".btn-update-status").forEach(btn => {
       btn.replaceWith(btn.cloneNode(true));
     });
-    document.querySelectorAll(".btn-confirm-order").forEach(btn => {
+    document.querySelectorAll(".btn-update-status").forEach(btn => {
       btn.addEventListener("click", async () => {
         const orderId = btn.getAttribute("data-id");
-        if (confirm(`هل أنت متأكد من تأكيد الطلب رقم ${orderId}؟ سيؤدي ذلك لتحديث حالته إلى "مؤكد".`)) {
-          await confirmOrder(orderId, btn);
+        const select = document.querySelector(`.status-select[data-id="${orderId}"]`);
+        const newStatus = select ? select.value : "مؤكد";
+        const st = STATUS_MAP[newStatus];
+        if (confirm(`هل أنت متأكد من تغيير حالة الطلب رقم ${orderId} إلى "${st.icon} ${st.label}"؟`)) {
+          await updateOrderStatus(orderId, newStatus, btn);
         }
       });
     });
@@ -1067,20 +1086,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // Request order confirmation from API
-  const confirmOrder = async (orderId, btnElement) => {
+  // Update order status via API
+  const updateOrderStatus = async (orderId, newStatus, btnElement) => {
     const token = localStorage.getItem("pbn_admin_token");
     const originalText = btnElement.textContent;
     btnElement.disabled = true;
-    btnElement.textContent = "جاري التأكيد...";
+    btnElement.textContent = "جاري التحديث...";
 
     try {
-      const response = await fetch(`/api/admin/orders/${orderId}/confirm`, {
+      const response = await fetch(`/api/admin/orders/${orderId}/status`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({ status: newStatus }),
       });
 
       const data = await response.json();
@@ -1088,18 +1108,18 @@ document.addEventListener("DOMContentLoaded", () => {
       if (response.ok && data.success) {
         const index = allOrders.findIndex(o => o.order_id === orderId);
         if (index !== -1) {
-          allOrders[index].status = "مؤكد";
+          allOrders[index].status = newStatus;
         }
         updateStats();
         renderOrders();
       } else {
-        alert("فشل تأكيد الطلب: " + (data.errors ? data.errors.join(" | ") : "خطأ غير معروف"));
+        alert("فشل تحديث الحالة: " + (data.errors ? data.errors.join(" | ") : "خطأ غير معروف"));
         btnElement.disabled = false;
         btnElement.textContent = originalText;
       }
     } catch (err) {
-      console.error("Confirm order error:", err);
-      alert("حدث خطأ غير متوقع أثناء معالجة الطلب.");
+      console.error("Update status error:", err);
+      alert("حدث خطأ غير متوقع أثناء تحديث الحالة.");
       btnElement.disabled = false;
       btnElement.textContent = originalText;
     }

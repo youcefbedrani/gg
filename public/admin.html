@@ -134,6 +134,20 @@
       color: var(--light-teal);
     }
     
+    .stat-card.delivered {
+      border-right: 5px solid #2eb086;
+    }
+    .stat-card.delivered .stat-icon {
+      color: #2eb086;
+    }
+    
+    .stat-card.cancelled {
+      border-right: 5px solid #e74c3c;
+    }
+    .stat-card.cancelled .stat-icon {
+      color: #e74c3c;
+    }
+    
     .stat-card.total {
       border-right: 5px solid var(--sand);
     }
@@ -234,10 +248,45 @@
     }
     
     .status-badge {
-      padding: 5px 12px;
-      border-radius: 50px;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 20px;
+    }
+    
+    .status-badge.new {
+      background-color: rgba(231, 111, 81, 0.1);
+      color: #e76f51;
+    }
+    
+    .status-badge.call1 {
+      background-color: rgba(233, 196, 106, 0.15);
+      color: #b8912e;
+    }
+    
+    .status-badge.call2 {
+      background-color: rgba(233, 196, 106, 0.25);
+      color: #9a7a2a;
+    }
+    
+    .status-badge.call3 {
+      background-color: rgba(233, 196, 106, 0.35);
+      color: #7d631f;
+    }
+    
+    .status-badge.confirmed {
+      background-color: rgba(42, 157, 143, 0.1);
+      color: #2a9d8f;
+    }
+    
+    .status-badge.delivered {
+      background-color: rgba(46, 176, 134, 0.1);
+      color: #1a8a5c;
+    }
+    
+    .status-badge.cancelled {
+      background-color: rgba(231, 76, 60, 0.1);
+      color: #c0392b;
     }
     
     .status-badge.new {
@@ -674,6 +723,22 @@
           </div>
           <div class="stat-icon">✅</div>
         </div>
+        
+        <div class="stat-card delivered">
+          <div class="stat-info">
+            <h3>تم التوصيل</h3>
+            <p id="statDelivered">0</p>
+          </div>
+          <div class="stat-icon">🚚</div>
+        </div>
+        
+        <div class="stat-card cancelled">
+          <div class="stat-info">
+            <h3>ملغي</h3>
+            <p id="statCancelled">0</p>
+          </div>
+          <div class="stat-icon">❌</div>
+        </div>
       </section>
 
       <!-- Filters Section -->
@@ -688,7 +753,12 @@
           <select id="statusFilter" class="filter-select">
             <option value="all">الكل</option>
             <option value="جديد">جديد (قيد الانتظار)</option>
+            <option value="اتصال 1">اتصال 1</option>
+            <option value="اتصال 2">اتصال 2</option>
+            <option value="اتصال 3">اتصال 3</option>
             <option value="مؤكد">مؤكد</option>
+            <option value="تم التوصيل">تم التوصيل</option>
+            <option value="ملغي">ملغي</option>
           </select>
         </div>
         
