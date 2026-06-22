@@ -6,7 +6,7 @@ let isCustom = false;
 let basePaintsCached = [];
 
 // Base prices
-const CUSTOM_BASE_PRICE = 4900; // Standard price for custom photo upload (Algerian Dinar)
+const CUSTOM_BASE_PRICE = 6500; // Standard price for custom photo upload (Algerian Dinar)
 
 export function initOrderForm(basePaints) {
   basePaintsCached = basePaints;
@@ -66,9 +66,9 @@ export function selectCustomDesign(pbnResult) {
   frameSelect.innerHTML = `
     <option value="" disabled selected>اختر الإطار المناسب</option>
     <option value="no_frame" data-price="0">بدون برواز (مشمول)</option>
-    <option value="wood_white" data-price="800">برواز خشبي أبيض (+800 د.ج)</option>
-    <option value="wood_brown" data-price="800">برواز خشبي بني (+800 د.ج)</option>
-    <option value="modern_black" data-price="1000">برواز عصري أسود (+1000 د.ج)</option>
+    <option value="wood_white" data-price="0">برواز خشبي أبيض (مشمول)</option>
+    <option value="wood_brown" data-price="0">برواز خشبي بني (مشمول)</option>
+    <option value="modern_black" data-price="0">برواز عصري أسود (مشمول)</option>
   `;
 
   document.getElementById("submitOrderBtn").disabled = false;

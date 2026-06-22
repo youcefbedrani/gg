@@ -7,7 +7,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -17,17 +17,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -61,7 +61,7 @@
     "difficulty": "easy",
     "difficulty_ar": "سهل",
     "default_size": "30x30 سم",
-    "base_price": 3500,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -71,17 +71,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -115,7 +115,7 @@
     "difficulty": "hard",
     "difficulty_ar": "صعب",
     "default_size": "30x30 سم",
-    "base_price": 4200,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -125,12 +125,12 @@
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -164,7 +164,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -174,17 +174,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -214,7 +214,7 @@
     "difficulty": "easy",
     "difficulty_ar": "سهل",
     "default_size": "30x30 سم",
-    "base_price": 3700,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -224,17 +224,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -264,7 +264,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 4500,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -274,12 +274,12 @@
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -309,7 +309,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3950,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -319,17 +319,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -359,7 +359,7 @@
     "difficulty": "hard",
     "difficulty_ar": "صعب",
     "default_size": "30x30 سم",
-    "base_price": 4200,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -369,12 +369,12 @@
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -404,7 +404,7 @@
     "difficulty": "easy",
     "difficulty_ar": "سهل",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -414,17 +414,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -450,7 +450,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -460,12 +460,12 @@
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -487,7 +487,7 @@
     "difficulty": "hard",
     "difficulty_ar": "صعب",
     "default_size": "30x30 سم",
-    "base_price": 4200,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -497,12 +497,12 @@
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -532,7 +532,7 @@
     "difficulty": "easy",
     "difficulty_ar": "سهل",
     "default_size": "30x30 سم",
-    "base_price": 3700,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -542,17 +542,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -582,7 +582,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -592,17 +592,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -632,7 +632,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -642,17 +642,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -686,7 +686,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -696,17 +696,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -740,7 +740,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -750,17 +750,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -786,7 +786,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -796,17 +796,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -840,7 +840,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -850,17 +850,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -890,7 +890,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -900,17 +900,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -940,7 +940,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -950,17 +950,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -994,7 +994,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1004,17 +1004,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -1048,7 +1048,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1058,17 +1058,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -1102,7 +1102,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1112,17 +1112,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -1148,7 +1148,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1158,17 +1158,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -1202,7 +1202,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1212,17 +1212,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -1252,7 +1252,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1262,17 +1262,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -1306,7 +1306,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1316,17 +1316,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -1360,7 +1360,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1370,17 +1370,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -1414,7 +1414,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1424,17 +1424,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -1460,7 +1460,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1470,17 +1470,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -1518,7 +1518,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1528,17 +1528,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -1568,7 +1568,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1578,17 +1578,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -1622,7 +1622,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1632,17 +1632,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -1676,7 +1676,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1686,17 +1686,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -1726,7 +1726,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1736,17 +1736,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -1776,7 +1776,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1786,17 +1786,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
@@ -1834,7 +1834,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 3900,
+    "base_price": 6500,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1844,17 +1844,17 @@
       {
         "id": "wood_white",
         "name_ar": "برواز خشبي أبيض",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "wood_brown",
         "name_ar": "برواز خشبي بني",
-        "extra_price": 800
+        "extra_price": 0
       },
       {
         "id": "modern_black",
         "name_ar": "برواز عصري أسود",
-        "extra_price": 1000
+        "extra_price": 0
       }
     ],
     "palette": [
