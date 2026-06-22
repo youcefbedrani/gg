@@ -136,11 +136,13 @@ function getCityUuid(wilayaCode) {
   return WILAYA_UUID_MAP[wilayaCode] || null;
 }
 
-async function apiRequest(method, path, body) {
+async function apiRequest(method, path, body, config) {
+  const secretKey = config?.secretKey || ZR_API_KEY;
+  const tenantId = config?.tenantId || ZR_TENANT_ID;
   const url = `${ZR_BASE_URL}/${path}`;
   const headers = {
-    "X-Tenant": ZR_TENANT_ID,
-    "X-Api-Key": ZR_API_KEY,
+    "X-Tenant": tenantId,
+    "X-Api-Key": secretKey,
     "Content-Type": "application/json",
   };
   const options = { method, headers };
@@ -154,8 +156,10 @@ async function apiRequest(method, path, body) {
   return data;
 }
 
-async function createParcel(order) {
-  if (!ZR_API_KEY || !ZR_TENANT_ID) {
+async function createParcel(order, config) {
+  const secretKey = config?.secretKey || ZR_API_KEY;
+  const tenantId = config?.tenantId || ZR_TENANT_ID;
+  if (!secretKey || !tenantId) {
     throw new Error("ZR Express credentials not configured");
   }
   const wilayaCode = getWilayaCode(order.city);
@@ -193,12 +197,12 @@ async function createParcel(order) {
   if (order.notes) {
     payload.notes = order.notes;
   }
-  const result = await apiRequest("POST", "api/v1/parcels", payload);
+  const result = await apiRequest("POST", "api/v1/parcels", payload, config);
   const parcelId = result?.id;
   if (!parcelId) {
     throw new Error("ZR Express did not return a parcel ID");
   }
-  const parcelDetail = await getParcel(parcelId);
+  const parcelDetail = await getParcel(parcelId, config);
   return {
     zr_parcel_id: parcelId,
     zr_tracking: parcelDetail.trackingNumber || null,
@@ -207,8 +211,17 @@ async function createParcel(order) {
   };
 }
 
-async function getParcel(parcelId) {
-  return await apiRequest("GET", `api/v1/parcels/${parcelId}`);
+async function getParcel(parcelId, config) {
+  return await apiRequest("GET", `api/v1/parcels/${parcelId}`, null, config);
 }
 
-module.exports = { createParcel, getParcel, getWilayaCode, getCityUuid };
+async function testConnection(config) {
+  try {
+    await apiRequest("POST", "api/v1/workflows/search", { pageNumber: 1, pageSize: 1 }, config);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+module.exports = { createParcel, getParcel, testConnection, getWilayaCode, getCityUuid };

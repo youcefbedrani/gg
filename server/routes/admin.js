@@ -4,6 +4,8 @@ const fs = require("fs");
 const path = require("path");
 const zrExpress = require("../services/zrExpress");
 
+const SETTINGS_FILE_PATH = path.join(__dirname, "../data/settings.json");
+
 const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "PBN-Algeria-2026";
 const ADMIN_TOKEN = "PBN-ADMIN-SESSION-TOKEN";
@@ -112,16 +114,19 @@ router.post("/orders/:id/status", authenticateAdmin, async (req, res) => {
     orders[orderIndex].status = status;
 
     let zrResult = null;
-    if (status === "مؤكد" && process.env.ZR_SECRET_KEY) {
-      try {
-        const order = orders[orderIndex];
-        order.total_price = order.total_price || 3900;
-        zrResult = await zrExpress.createParcel(order);
-        orders[orderIndex].zr_parcel_id = zrResult.zr_parcel_id;
-        orders[orderIndex].zr_tracking = zrResult.zr_tracking;
-        orders[orderIndex].zr_status = zrResult.zr_status;
-      } catch (zrErr) {
-        console.error("ZR Express parcel creation failed:", zrErr.message);
+    if (status === "مؤكد") {
+      const zrConfig = getZrConfig();
+      if (zrConfig) {
+        try {
+          const order = orders[orderIndex];
+          order.total_price = order.total_price || 3900;
+          zrResult = await zrExpress.createParcel(order, zrConfig);
+          orders[orderIndex].zr_parcel_id = zrResult.zr_parcel_id;
+          orders[orderIndex].zr_tracking = zrResult.zr_tracking;
+          orders[orderIndex].zr_status = zrResult.zr_status;
+        } catch (zrErr) {
+          console.error("ZR Express parcel creation failed:", zrErr.message);
+        }
       }
     }
 
@@ -161,11 +166,12 @@ router.post("/orders/:id/confirm", authenticateAdmin, async (req, res) => {
     orders[orderIndex].status = "مؤكد";
 
     let zrResult = null;
-    if (process.env.ZR_SECRET_KEY) {
+    const zrConfig = getZrConfig();
+    if (zrConfig) {
       try {
         const order = orders[orderIndex];
         order.total_price = order.total_price || 3900;
-        zrResult = await zrExpress.createParcel(order);
+        zrResult = await zrExpress.createParcel(order, zrConfig);
         orders[orderIndex].zr_parcel_id = zrResult.zr_parcel_id;
         orders[orderIndex].zr_tracking = zrResult.zr_tracking;
         orders[orderIndex].zr_status = zrResult.zr_status;
@@ -338,6 +344,71 @@ router.post("/stock/add", authenticateAdmin, (req, res) => {
       success: false,
       errors: ["حدث خطأ أثناء إضافة اللون الجديد للمخزن"],
     });
+  }
+});
+
+// Read ZR Express config from settings.json with env fallback
+function getZrConfig() {
+  // First check env (deployment override)
+  if (process.env.ZR_SECRET_KEY && process.env.ZR_TENANT_ID) {
+    return { secretKey: process.env.ZR_SECRET_KEY, tenantId: process.env.ZR_TENANT_ID };
+  }
+  // Then check settings.json (admin panel)
+  try {
+    if (fs.existsSync(SETTINGS_FILE_PATH)) {
+      const s = JSON.parse(fs.readFileSync(SETTINGS_FILE_PATH, "utf8"));
+      if (s.zr_enabled && s.zr_secret_key && s.zr_tenant_id) {
+        return { secretKey: s.zr_secret_key, tenantId: s.zr_tenant_id };
+      }
+    }
+  } catch (e) { /* ignore */ }
+  return null;
+}
+
+// Test ZR Express connection (Admin only)
+router.post("/zr/test", authenticateAdmin, async (req, res) => {
+  try {
+    const config = getZrConfig();
+    if (!config) {
+      return res.status(400).json({ success: false, errors: ["الرجاء تفعيل ZR Express وحفظ الإعدادات أولاً"] });
+    }
+    const result = await zrExpress.testConnection(config);
+    if (result) {
+      return res.status(200).json({ success: true, message: "✅ اتصال ZR Express ناجح!" });
+    } else {
+      return res.status(400).json({ success: false, errors: ["❌ فشل الاتصال. تحقق من بيانات الاعتماد."] });
+    }
+  } catch (err) {
+    return res.status(500).json({ success: false, errors: ["حدث خطأ أثناء اختبار الاتصال: " + err.message] });
+  }
+});
+
+// Get current settings (Admin only)
+router.get("/settings", authenticateAdmin, (req, res) => {
+  try {
+    if (!fs.existsSync(SETTINGS_FILE_PATH)) {
+      fs.writeFileSync(SETTINGS_FILE_PATH, JSON.stringify({ zr_enabled: false, zr_secret_key: "", zr_tenant_id: "" }, null, 2), "utf8");
+    }
+    const settings = JSON.parse(fs.readFileSync(SETTINGS_FILE_PATH, "utf8"));
+    return res.status(200).json({ success: true, settings });
+  } catch (err) {
+    return res.status(500).json({ success: false, errors: ["حدث خطأ أثناء قراءة الإعدادات"] });
+  }
+});
+
+// Update settings (Admin only)
+router.post("/settings", authenticateAdmin, (req, res) => {
+  try {
+    const { zr_enabled, zr_secret_key, zr_tenant_id } = req.body;
+    const settings = {
+      zr_enabled: !!zr_enabled,
+      zr_secret_key: zr_secret_key || "",
+      zr_tenant_id: zr_tenant_id || "",
+    };
+    fs.writeFileSync(SETTINGS_FILE_PATH, JSON.stringify(settings, null, 2), "utf8");
+    return res.status(200).json({ success: true, message: "تم حفظ الإعدادات بنجاح", settings });
+  } catch (err) {
+    return res.status(500).json({ success: false, errors: ["حدث خطأ أثناء حفظ الإعدادات"] });
   }
 });
 

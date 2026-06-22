@@ -24,9 +24,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const tabOrders = document.getElementById("tabOrders");
   const tabConverter = document.getElementById("tabConverter");
   const tabStock = document.getElementById("tabStock");
+  const tabSettings = document.getElementById("tabSettings");
   const ordersView = document.getElementById("ordersView");
   const converterView = document.getElementById("converterView");
   const stockView = document.getElementById("stockView");
+  const settingsView = document.getElementById("settingsView");
   const stockTableBody = document.getElementById("stockTableBody");
   const btnRefreshStock = document.getElementById("btnRefreshStock");
 
@@ -225,18 +227,22 @@ document.addEventListener("DOMContentLoaded", () => {
     tabOrders.classList.add("active");
     tabConverter.classList.remove("active");
     tabStock.classList.remove("active");
+    tabSettings.classList.remove("active");
     ordersView.style.display = "block";
     converterView.style.display = "none";
     stockView.style.display = "none";
+    settingsView.style.display = "none";
   });
 
   tabConverter.addEventListener("click", () => {
     tabConverter.classList.add("active");
     tabOrders.classList.remove("active");
     tabStock.classList.remove("active");
+    tabSettings.classList.remove("active");
     ordersView.style.display = "none";
     converterView.style.display = "block";
     stockView.style.display = "none";
+    settingsView.style.display = "none";
     initConverterFileUpload();
   });
 
@@ -244,10 +250,24 @@ document.addEventListener("DOMContentLoaded", () => {
     tabStock.classList.add("active");
     tabOrders.classList.remove("active");
     tabConverter.classList.remove("active");
+    tabSettings.classList.remove("active");
     ordersView.style.display = "none";
     converterView.style.display = "none";
     stockView.style.display = "block";
+    settingsView.style.display = "none";
     loadStockData();
+  });
+
+  tabSettings.addEventListener("click", () => {
+    tabSettings.classList.add("active");
+    tabOrders.classList.remove("active");
+    tabConverter.classList.remove("active");
+    tabStock.classList.remove("active");
+    ordersView.style.display = "none";
+    converterView.style.display = "none";
+    stockView.style.display = "none";
+    settingsView.style.display = "block";
+    loadSettings();
   });
 
   // ==========================================
@@ -1848,6 +1868,116 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  // ==========================================
+  // ⚙️ ZR Express Settings Management
+  // ==========================================
+  const zrEnabled = document.getElementById("zrEnabled");
+  const zrSecretKey = document.getElementById("zrSecretKey");
+  const zrTenantId = document.getElementById("zrTenantId");
+  const zrFields = document.getElementById("zrFields");
+  const zrToggleSlider = document.getElementById("zrToggleSlider");
+  const btnSaveZr = document.getElementById("btnSaveZrSettings");
+  const btnTestZr = document.getElementById("btnTestZrConnection");
+  const zrMsg = document.getElementById("zrSettingsMessage");
+
+  const showZrMsg = (text, isError) => {
+    zrMsg.style.display = "block";
+    zrMsg.textContent = text;
+    zrMsg.style.backgroundColor = isError ? "#FFEAE6" : "#E6F6F4";
+    zrMsg.style.color = isError ? "#E76F51" : "#2A9D8F";
+    zrMsg.style.borderRight = isError ? "4px solid #E76F51" : "4px solid #2A9D8F";
+  };
+
+  zrEnabled.addEventListener("change", () => {
+    zrFields.style.display = zrEnabled.checked ? "flex" : "none";
+    zrToggleSlider.classList.toggle("toggle-slider-on", zrEnabled.checked);
+  });
+
+  const loadSettings = async () => {
+    const token = localStorage.getItem("pbn_admin_token");
+    try {
+      const resp = await fetch("/api/admin/settings", { headers: { "Authorization": `Bearer ${token}` } });
+      const data = await resp.json();
+      if (resp.ok && data.success) {
+        const s = data.settings;
+        zrEnabled.checked = !!s.zr_enabled;
+        zrSecretKey.value = s.zr_secret_key || "";
+        zrTenantId.value = s.zr_tenant_id || "";
+        zrFields.style.display = zrEnabled.checked ? "flex" : "none";
+        zrToggleSlider.classList.toggle("toggle-slider-on", zrEnabled.checked);
+      }
+    } catch (err) {
+      console.error("Load settings error:", err);
+    }
+  };
+
+  btnSaveZr.addEventListener("click", async () => {
+    const token = localStorage.getItem("pbn_admin_token");
+    const body = {
+      zr_enabled: zrEnabled.checked,
+      zr_secret_key: zrSecretKey.value.trim(),
+      zr_tenant_id: zrTenantId.value.trim(),
+    };
+    btnSaveZr.disabled = true;
+    btnSaveZr.textContent = "جاري الحفظ...";
+    try {
+      const resp = await fetch("/api/admin/settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+        body: JSON.stringify(body),
+      });
+      const data = await resp.json();
+      if (resp.ok && data.success) {
+        showZrMsg("✅ تم حفظ إعدادات ZR Express بنجاح!", false);
+      } else {
+        showZrMsg("❌ فشل حفظ الإعدادات: " + (data.errors ? data.errors.join(" | ") : "خطأ غير معروف"), true);
+      }
+    } catch (err) {
+      showZrMsg("❌ حدث خطأ أثناء حفظ الإعدادات.", true);
+    } finally {
+      btnSaveZr.disabled = false;
+      btnSaveZr.textContent = "💾 حفظ الإعدادات";
+    }
+  });
+
+  btnTestZr.addEventListener("click", async () => {
+    const token = localStorage.getItem("pbn_admin_token");
+    btnTestZr.disabled = true;
+    btnTestZr.textContent = "جاري الاختبار...";
+    try {
+      const resp = await fetch("/api/admin/settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+        body: JSON.stringify({
+          zr_enabled: zrEnabled.checked,
+          zr_secret_key: zrSecretKey.value.trim(),
+          zr_tenant_id: zrTenantId.value.trim(),
+        }),
+      });
+      if (!resp.ok) {
+        showZrMsg("❌ فشل حفظ الإعدادات أولاً قبل الاختبار.", true);
+        btnTestZr.disabled = false;
+        btnTestZr.textContent = "🔌 اختبار الاتصال";
+        return;
+      }
+      const testResp = await fetch("/api/admin/zr/test", {
+        method: "POST",
+        headers: { "Authorization": `Bearer ${token}` },
+      });
+      const testData = await testResp.json();
+      if (testResp.ok && testData.success) {
+        showZrMsg("✅ اتصال ZR Express ناجح! الخدمة جاهزة.", false);
+      } else {
+        showZrMsg("❌ فشل الاتصال: " + (testData.errors ? testData.errors.join(" | ") : "خطأ غير معروف"), true);
+      }
+    } catch (err) {
+      showZrMsg("❌ حدث خطأ أثناء اختبار الاتصال.", true);
+    } finally {
+      btnTestZr.disabled = false;
+      btnTestZr.textContent = "🔌 اختبار الاتصال";
+    }
+  });
 
   // ==========================================
   // ⚙️ Live search and filters event bindings

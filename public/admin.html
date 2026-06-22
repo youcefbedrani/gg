@@ -615,6 +615,25 @@
       display: block;
     }
 
+    /* Toggle Switch */
+    .toggle-slider-on {
+      background-color: #2a9d8f !important;
+    }
+    .toggle-slider-on::before {
+      transform: translateX(24px) !important;
+    }
+    #zrToggleSlider::before {
+      content: "";
+      position: absolute;
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+    }
+
     /* Tab Styling */
     .admin-tabs {
       display: flex;
@@ -694,6 +713,7 @@
       <button class="admin-tab-btn active" id="tabOrders">📦 إدارة طلبات العملاء</button>
       <button class="admin-tab-btn" id="tabConverter">⚙️ محول الصور والرسومات العام</button>
       <button class="admin-tab-btn" id="tabStock">🎨 إدارة مخزون الألوان</button>
+      <button class="admin-tab-btn" id="tabSettings">⚙️ الإعدادات</button>
     </div>
     
     <!-- Orders View Container -->
@@ -925,6 +945,44 @@
             <!-- Populated dynamically via JS -->
           </tbody>
         </table>
+      </div>
+    </section>
+
+    <!-- Settings View Container -->
+    <section id="settingsView" style="display: none; background: #FFF; padding: 30px; border-radius: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.03); border: 1px solid var(--border); margin-top: 20px;">
+      <h2 style="font-size: 1.5rem; color: var(--dark-teal); margin-bottom: 5px; font-family: 'Cairo', sans-serif;">⚙️ إعدادات التوصيل (ZR Express)</h2>
+      <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 25px;">قم بإدخال بيانات اعتماد ZR Express لتفعيل إنشاء الشحنات تلقائياً عند تأكيد الطلبات.</p>
+
+      <div style="background-color: var(--cream); padding: 25px; border-radius: 12px; border: 1px solid var(--border); max-width: 600px;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+          <label style="position: relative; display: inline-block; width: 50px; height: 26px;">
+            <input type="checkbox" id="zrEnabled" style="opacity: 0; width: 0; height: 0;">
+            <span id="zrToggleSlider" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: 0.3s; border-radius: 26px;"></span>
+          </label>
+          <strong style="font-size: 1.1rem; color: var(--dark-teal);">تفعيل ZR Express</strong>
+        </div>
+
+        <div id="zrFields" style="display: none; flex-direction: column; gap: 15px;">
+          <div style="display: flex; flex-direction: column; gap: 5px;">
+            <label style="font-size: 0.9rem; font-weight: 600; color: var(--text-dark);">Secret Key (مفتاح API):</label>
+            <input type="text" id="zrSecretKey" placeholder="أدخل مفتاح ZR Express السري" style="padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; font-family: 'Cairo', monospace; font-size: 0.9rem; outline: none; direction: ltr; background: #fff;">
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 5px;">
+            <label style="font-size: 0.9rem; font-weight: 600; color: var(--text-dark);">Tenant ID (معرف المستأجر):</label>
+            <input type="text" id="zrTenantId" placeholder="أدخل معرف المستأجر (UUID)" style="padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; font-family: 'Cairo', monospace; font-size: 0.9rem; outline: none; direction: ltr; background: #fff;">
+          </div>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 5px;">
+            <button class="btn btn-primary" id="btnSaveZrSettings" style="padding: 10px 24px; font-size: 0.95rem;">💾 حفظ الإعدادات</button>
+            <button class="btn btn-secondary" id="btnTestZrConnection" style="padding: 10px 24px; font-size: 0.95rem;">🔌 اختبار الاتصال</button>
+          </div>
+          <div id="zrSettingsMessage" style="display: none; padding: 10px 14px; border-radius: 8px; font-size: 0.9rem; margin-top: 5px;"></div>
+        </div>
+
+        <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--border);">
+          <p style="font-size: 0.85rem; color: var(--text-light);">
+            ℹ️ عند تأكيد طلب، سيتم إنشاء شحنة في ZR Express تلقائياً. يمكنك أيضاً ضبط هذه الإعدادات عبر ملف <code style="direction: ltr; display: inline-block;">.env</code> في الخادم (للتطوير/النشر).
+          </p>
+        </div>
       </div>
     </section>
 
