@@ -1439,98 +1439,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ==========================================
-  // 🎨 Vector PDF & High-Res Image Export Helpers
+  // 🎨 PDF & High-Res Image Export Helpers
   // ==========================================
-  function setPDFColor(colorStr, type, pdf) {
-    if (!colorStr || colorStr === "none") return false;
-    colorStr = colorStr.trim();
-    if (colorStr.startsWith("rgb")) {
-      const matches = colorStr.match(/rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/);
-      if (matches) {
-        const r = parseInt(matches[1]);
-        const g = parseInt(matches[2]);
-        const b = parseInt(matches[3]);
-        if (type === "fill") {
-          pdf.setFillColor(r, g, b);
-        } else {
-          pdf.setDrawColor(r, g, b);
-        }
-        return true;
-      }
-    } else if (colorStr.startsWith("#")) {
-      if (type === "fill") {
-        pdf.setFillColor(colorStr);
-      } else {
-        pdf.setDrawColor(colorStr);
-      }
-      return true;
-    }
-    return false;
-  }
-
-  function setPDFTextColor(colorStr, pdf) {
-    if (!colorStr) return;
-    colorStr = colorStr.trim();
-    if (colorStr.startsWith("rgb")) {
-      const matches = colorStr.match(/rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/);
-      if (matches) {
-        pdf.setTextColor(parseInt(matches[1]), parseInt(matches[2]), parseInt(matches[3]));
-      }
-    } else {
-      pdf.setTextColor(colorStr);
-    }
-  }
-
-  function drawSVGPathToPDF(d, pdf) {
-    const pathRegex = /([MQLZz])|(-?\d*\.?\d+)/g;
-    let match;
-    let currentCmd = "";
-    let coords = [];
-    let currentX = 0;
-    let currentY = 0;
-
-    while ((match = pathRegex.exec(d)) !== null) {
-      if (match[1]) {
-        currentCmd = match[1].toUpperCase();
-        coords = [];
-        if (currentCmd === "Z") {
-          pdf.closePath();
-        }
-      } else if (match[2]) {
-        coords.push(parseFloat(match[2]));
-        if (currentCmd === "M" && coords.length === 2) {
-          currentX = coords[0];
-          currentY = coords[1];
-          pdf.moveTo(currentX, currentY);
-          coords = [];
-        } else if (currentCmd === "L" && coords.length === 2) {
-          currentX = coords[0];
-          currentY = coords[1];
-          pdf.lineTo(currentX, currentY);
-          coords = [];
-        } else if (currentCmd === "Q" && coords.length === 4) {
-          const qx = coords[0];
-          const qy = coords[1];
-          const endx = coords[2];
-          const endy = coords[3];
-
-          // Convert quadratic curve to cubic bezier
-          const cx1 = currentX + (2/3) * (qx - currentX);
-          const cy1 = currentY + (2/3) * (qy - currentY);
-          const cx2 = endx + (2/3) * (qx - endx);
-          const cy2 = endy + (2/3) * (qy - endy);
-
-          pdf.curveTo(cx1, cy1, cx2, cy2, endx, endy);
-          currentX = endx;
-          currentY = endy;
-          coords = [];
-        }
-      }
-    }
-  }
 
   function exportSVGToPDF(svgString, filename) {
     try {
+      // Parse SVG to get dimensions
       const parser = new DOMParser();
       const svgDoc = parser.parseFromString(svgString, "image/svg+xml");
       const svgEl = svgDoc.documentElement;
@@ -1554,58 +1468,78 @@ document.addEventListener("DOMContentLoaded", () => {
         svgHeight = 600;
       }
 
-      const { jsPDF } = window.jspdf;
-      const orientation = svgWidth >= svgHeight ? "landscape" : "portrait";
-      const pdf = new jsPDF({
-        orientation: orientation,
-        unit: "pt",
-        format: [svgWidth, svgHeight]
-      });
+      // Render SVG to canvas at high resolution (300 DPI for A4)
+      // A4 = 210x297mm. At 300 DPI that's 2480x3508px.
+      // Scale to fit within ~2400px on longest side while keeping aspect ratio
+      const MAX_PX = 2400;
+      let canvasW, canvasH;
+      if (svgWidth >= svgHeight) {
+        canvasW = MAX_PX;
+        canvasH = Math.round((svgHeight / svgWidth) * MAX_PX);
+      } else {
+        canvasH = MAX_PX;
+        canvasW = Math.round((svgWidth / svgHeight) * MAX_PX);
+      }
 
-      const paths = svgEl.querySelectorAll("path");
-      paths.forEach(path => {
-        const d = path.getAttribute("d");
-        if (!d) return;
+      const canvas = document.createElement("canvas");
+      canvas.width = canvasW;
+      canvas.height = canvasH;
+      const ctx = canvas.getContext("2d");
 
-        const fill = path.getAttribute("fill");
-        const stroke = path.getAttribute("stroke");
-        const strokeWidth = path.getAttribute("stroke-width");
+      // White background
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvasW, canvasH);
 
-        const hasFill = setPDFColor(fill, "fill", pdf);
-        const hasStroke = setPDFColor(stroke, "stroke", pdf);
+      // Draw SVG onto canvas via an Image
+      const blob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const img = new Image();
 
-        pdf.setLineWidth(parseFloat(strokeWidth) || 0.7);
+      img.onload = () => {
+        ctx.drawImage(img, 0, 0, canvasW, canvasH);
+        URL.revokeObjectURL(url);
 
-        drawSVGPathToPDF(d, pdf);
+        // Now embed canvas image into PDF
+        const imgData = canvas.toDataURL("image/png");
 
-        if (hasFill && hasStroke) {
-          pdf.fillStroke();
-        } else if (hasFill) {
-          pdf.fill();
-        } else if (hasStroke) {
-          pdf.stroke();
+        const { jsPDF } = window.jspdf;
+        const orientation = canvasW >= canvasH ? "landscape" : "portrait";
+
+        // A4 size in mm: 210 x 297
+        const pdf = new jsPDF({
+          orientation: orientation,
+          unit: "mm",
+          format: "a4"
+        });
+
+        // Calculate image placement to fit A4 with 10mm margins
+        const margin = 10;
+        const maxW = 210 - margin * 2;
+        const maxH = 297 - margin * 2;
+        const aspect = canvasW / canvasH;
+        let imgW, imgH;
+
+        if (aspect > maxW / maxH) {
+          imgW = maxW;
+          imgH = maxW / aspect;
+        } else {
+          imgH = maxH;
+          imgW = maxH * aspect;
         }
-      });
 
-      const texts = svgEl.querySelectorAll("text");
-      texts.forEach(text => {
-        const x = parseFloat(text.getAttribute("x"));
-        const y = parseFloat(text.getAttribute("y"));
-        const content = text.textContent;
-        const fontSizeAttr = text.getAttribute("font-size");
-        const fill = text.getAttribute("fill");
+        const x = (210 - imgW) / 2;
+        const y = (297 - imgH) / 2;
 
-        if (isNaN(x) || isNaN(y) || !content) return;
+        pdf.addImage(imgData, "PNG", x, y, imgW, imgH);
+        pdf.save(filename);
+      };
 
-        const fontSize = parseFloat(fontSizeAttr) || 8;
-        pdf.setFont("Helvetica", "normal");
-        pdf.setFontSize(fontSize);
-        setPDFTextColor(fill || "#000000", pdf);
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        alert("فشل تحميل الرسم للتصدير إلى PDF.");
+      };
 
-        pdf.text(content, x, y, { align: "center", baseline: "middle" });
-      });
-
-      pdf.save(filename);
+      img.src = url;
     } catch (err) {
       console.error("Failed to export PDF:", err);
       alert("حدث خطأ أثناء تصدير ملف PDF: " + err.message);
