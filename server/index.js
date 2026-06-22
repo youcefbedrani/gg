@@ -5,6 +5,7 @@ const path = require("path");
 const rateLimit = require("express-rate-limit");
 const ordersRouter = require("./routes/orders");
 const adminRouter = require("./routes/admin");
+const { initDatabase, closePool } = require("./services/database");
 
 dotenv.config();
 
@@ -58,7 +59,18 @@ app.get("*", (req, res) => {
 });
 
 // Start Server
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
+  await initDatabase();
   console.log(`Server is running on port ${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
+});
+
+// Graceful shutdown
+process.on("SIGINT", async () => {
+  await closePool();
+  process.exit(0);
+});
+process.on("SIGTERM", async () => {
+  await closePool();
+  process.exit(0);
 });

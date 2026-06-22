@@ -3,6 +3,7 @@ const router = express.Router();
 const fs = require("fs");
 const path = require("path");
 const zrExpress = require("../services/zrExpress");
+const db = require("../services/database");
 
 const SETTINGS_FILE_PATH = path.join(__dirname, "../data/settings.json");
 
@@ -51,24 +52,25 @@ router.post("/login", (req, res) => {
 });
 
 // Get all orders (Admin only)
-router.get("/orders", authenticateAdmin, (req, res) => {
+router.get("/orders", authenticateAdmin, async (req, res) => {
   try {
-    if (!fs.existsSync(ORDERS_FILE_PATH)) {
-      fs.writeFileSync(ORDERS_FILE_PATH, "[]", "utf8");
+    let orders = [];
+    if (db.isAvailable()) {
+      orders = await db.getAllOrders();
+    } else {
+      if (!fs.existsSync(ORDERS_FILE_PATH)) {
+        fs.writeFileSync(ORDERS_FILE_PATH, "[]", "utf8");
+      }
+      orders = JSON.parse(fs.readFileSync(ORDERS_FILE_PATH, "utf8"));
     }
-
-    const fileContent = fs.readFileSync(ORDERS_FILE_PATH, "utf8");
-    const orders = JSON.parse(fileContent);
-
-    // Sort orders by timestamp descending so newer orders are shown first
-    const sortedOrders = orders.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    orders.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
     return res.status(200).json({
       success: true,
-      orders: sortedOrders,
+      orders,
     });
   } catch (err) {
-    console.error("Failed to read orders file:", err);
+    console.error("Failed to read orders:", err);
     return res.status(500).json({
       success: false,
       errors: ["حدث خطأ أثناء قراءة ملف الطلبات"],
@@ -78,7 +80,7 @@ router.get("/orders", authenticateAdmin, (req, res) => {
 
 // Update order status (Admin only)
 // Supported statuses: جديد, اتصال 1, اتصال 2, اتصال 3, مؤكد, قيد التوصيل, ملغي, تم التوصيل
-router.post("/orders/:id/status", authenticateAdmin, (req, res) => {
+router.post("/orders/:id/status", authenticateAdmin, async (req, res) => {
   const orderId = req.params.id;
   const { status } = req.body;
 
@@ -92,27 +94,12 @@ router.post("/orders/:id/status", authenticateAdmin, (req, res) => {
   }
 
   try {
-    if (!fs.existsSync(ORDERS_FILE_PATH)) {
-      return res.status(404).json({
-        success: false,
-        errors: ["ملف الطلبات غير موجود"],
-      });
+    let order = await db.getOrderByOrderId(orderId);
+    if (!order) {
+      return res.status(404).json({ success: false, errors: ["الطلب المطلوب غير موجود"] });
     }
-
-    const fileContent = fs.readFileSync(ORDERS_FILE_PATH, "utf8");
-    const orders = JSON.parse(fileContent);
-
-    const orderIndex = orders.findIndex((o) => o.order_id === orderId);
-
-    if (orderIndex === -1) {
-      return res.status(404).json({
-        success: false,
-        errors: ["الطلب المطلوب غير موجود"],
-      });
-    }
-
-    orders[orderIndex].status = status;
-    fs.writeFileSync(ORDERS_FILE_PATH, JSON.stringify(orders, null, 2), "utf8");
+    order.status = status;
+    await db.saveOrder(order);
 
     const messages = {
       "جديد": "تم إرجاع الطلب إلى حالة جديد",
@@ -139,14 +126,13 @@ router.post("/orders/:id/status", authenticateAdmin, (req, res) => {
 });
 
 // Keep old confirm endpoint for backward compatibility
-router.post("/orders/:id/confirm", authenticateAdmin, (req, res) => {
+router.post("/orders/:id/confirm", authenticateAdmin, async (req, res) => {
   const orderId = req.params.id;
   try {
-    const orders = JSON.parse(fs.readFileSync(ORDERS_FILE_PATH, "utf8"));
-    const orderIndex = orders.findIndex((o) => o.order_id === orderId);
-    if (orderIndex === -1) return res.status(404).json({ success: false, errors: ["الطلب غير موجود"] });
-    orders[orderIndex].status = "مؤكد";
-    fs.writeFileSync(ORDERS_FILE_PATH, JSON.stringify(orders, null, 2), "utf8");
+    const order = await db.getOrderByOrderId(orderId);
+    if (!order) return res.status(404).json({ success: false, errors: ["الطلب غير موجود"] });
+    order.status = "مؤكد";
+    await db.saveOrder(order);
     return res.status(200).json({ success: true, message: "تم تأكيد الطلب بنجاح" });
   } catch (err) {
     return res.status(500).json({ success: false, errors: ["حدث خطأ"] });
@@ -154,7 +140,7 @@ router.post("/orders/:id/confirm", authenticateAdmin, (req, res) => {
 });
 
 // Save generated SVG outline for an order (Admin only)
-router.post("/orders/:id/outline", authenticateAdmin, (req, res) => {
+router.post("/orders/:id/outline", authenticateAdmin, async (req, res) => {
   const orderId = req.params.id;
   const { svg_outline } = req.body;
 
@@ -166,27 +152,10 @@ router.post("/orders/:id/outline", authenticateAdmin, (req, res) => {
   }
 
   try {
-    if (!fs.existsSync(ORDERS_FILE_PATH)) {
-      return res.status(404).json({
-        success: false,
-        errors: ["ملف الطلبات غير موجود"],
-      });
-    }
-
-    const fileContent = fs.readFileSync(ORDERS_FILE_PATH, "utf8");
-    const orders = JSON.parse(fileContent);
-
-    const orderIndex = orders.findIndex((o) => o.order_id === orderId);
-
-    if (orderIndex === -1) {
-      return res.status(404).json({
-        success: false,
-        errors: ["الطلب المطلوب غير موجود"],
-      });
-    }
-
-    orders[orderIndex].svg_outline = svg_outline;
-    fs.writeFileSync(ORDERS_FILE_PATH, JSON.stringify(orders, null, 2), "utf8");
+    const order = await db.getOrderByOrderId(orderId);
+    if (!order) return res.status(404).json({ success: false, errors: ["الطلب المطلوب غير موجود"] });
+    order.svg_outline = svg_outline;
+    await db.saveOrder(order);
 
     return res.status(200).json({
       success: true,
@@ -317,18 +286,16 @@ router.post("/orders/:id/send-to-zr", authenticateAdmin, async (req, res) => {
     if (!zrConfig) {
       return res.status(400).json({ success: false, errors: ["ZR Express غير مفعل. الرجاء تفعيله في الإعدادات أولاً"] });
     }
-    const orders = JSON.parse(fs.readFileSync(ORDERS_FILE_PATH, "utf8"));
-    const orderIndex = orders.findIndex((o) => o.order_id === orderId);
-    if (orderIndex === -1) return res.status(404).json({ success: false, errors: ["الطلب غير موجود"] });
+    const order = await db.getOrderByOrderId(orderId);
+    if (!order) return res.status(404).json({ success: false, errors: ["الطلب غير موجود"] });
 
-    const order = orders[orderIndex];
     order.total_price = order.total_price || 6500;
     const result = await zrExpress.createParcel(order, zrConfig);
     order.zr_parcel_id = result.zr_parcel_id;
     order.zr_tracking = result.zr_tracking;
     order.zr_status = result.zr_status;
     order.status = "قيد التوصيل";
-    fs.writeFileSync(ORDERS_FILE_PATH, JSON.stringify(orders, null, 2), "utf8");
+    await db.saveOrder(order);
 
     return res.status(200).json({
       success: true,
@@ -347,7 +314,7 @@ router.post("/orders/send-zr-batch", authenticateAdmin, async (req, res) => {
     if (!zrConfig) {
       return res.status(400).json({ success: false, errors: ["ZR Express غير مفعل. الرجاء تفعيله في الإعدادات أولاً"] });
     }
-    const orders = JSON.parse(fs.readFileSync(ORDERS_FILE_PATH, "utf8"));
+    const orders = await db.getAllOrders();
     const confirmed = orders.filter(o => o.status === "مؤكد");
     if (confirmed.length === 0) {
       return res.status(200).json({ success: true, message: "لا توجد طلبات مؤكدة لإرسالها", sent: 0, failed: 0 });
@@ -365,14 +332,13 @@ router.post("/orders/send-zr-batch", authenticateAdmin, async (req, res) => {
         order.zr_tracking = result.zr_tracking;
         order.zr_status = result.zr_status;
         order.status = "قيد التوصيل";
+        await db.saveOrder(order);
         sent++;
       } catch (err) {
         failed++;
         errors.push(`${order.order_id}: ${err.message}`);
       }
     }
-
-    fs.writeFileSync(ORDERS_FILE_PATH, JSON.stringify(orders, null, 2), "utf8");
 
     return res.status(200).json({
       success: true,
@@ -393,7 +359,7 @@ router.post("/orders/sync-zr-status", authenticateAdmin, async (req, res) => {
     if (!zrConfig) {
       return res.status(400).json({ success: false, errors: ["ZR Express غير مفعل"] });
     }
-    const orders = JSON.parse(fs.readFileSync(ORDERS_FILE_PATH, "utf8"));
+    const orders = await db.getAllOrders();
     const inDelivery = orders.filter(o => o.zr_tracking && o.status === "قيد التوصيل");
     if (inDelivery.length === 0) {
       return res.status(200).json({ success: true, message: "لا توجد طلبات قيد التوصيل لمزامنتها", updated: 0 });
@@ -412,12 +378,11 @@ router.post("/orders/sync-zr-status", authenticateAdmin, async (req, res) => {
           order.status = "ملغي";
           updated++;
         }
+        await db.saveOrder(order);
       } catch (err) {
         console.error(`Sync failed for ${order.order_id}:`, err.message);
       }
     }
-
-    fs.writeFileSync(ORDERS_FILE_PATH, JSON.stringify(orders, null, 2), "utf8");
 
     return res.status(200).json({
       success: true,
@@ -454,24 +419,18 @@ router.post("/zr/test", authenticateAdmin, async (req, res) => {
     if (!config) {
       return res.status(400).json({ success: false, errors: ["الرجاء تفعيل ZR Express وحفظ الإعدادات أولاً"] });
     }
-    const result = await zrExpress.testConnection(config);
-    if (result) {
-      return res.status(200).json({ success: true, message: "✅ اتصال ZR Express ناجح!" });
-    } else {
-      return res.status(400).json({ success: false, errors: ["❌ فشل الاتصال. تحقق من بيانات الاعتماد."] });
-    }
+    await zrExpress.testConnection(config);
+    return res.status(200).json({ success: true, message: "✅ اتصال ZR Express ناجح!" });
   } catch (err) {
-    return res.status(500).json({ success: false, errors: ["حدث خطأ أثناء اختبار الاتصال: " + err.message] });
+    const status = err.message.includes("تعذر") ? 502 : 400;
+    return res.status(status).json({ success: false, errors: [err.message] });
   }
 });
 
 // Get current settings (Admin only)
-router.get("/settings", authenticateAdmin, (req, res) => {
+router.get("/settings", authenticateAdmin, async (req, res) => {
   try {
-    if (!fs.existsSync(SETTINGS_FILE_PATH)) {
-      fs.writeFileSync(SETTINGS_FILE_PATH, JSON.stringify({ zr_enabled: false, zr_secret_key: "", zr_tenant_id: "" }, null, 2), "utf8");
-    }
-    const settings = JSON.parse(fs.readFileSync(SETTINGS_FILE_PATH, "utf8"));
+    const settings = await db.getSettings();
     return res.status(200).json({ success: true, settings });
   } catch (err) {
     return res.status(500).json({ success: false, errors: ["حدث خطأ أثناء قراءة الإعدادات"] });
@@ -479,7 +438,7 @@ router.get("/settings", authenticateAdmin, (req, res) => {
 });
 
 // Update settings (Admin only)
-router.post("/settings", authenticateAdmin, (req, res) => {
+router.post("/settings", authenticateAdmin, async (req, res) => {
   try {
     const { zr_enabled, zr_secret_key, zr_tenant_id } = req.body;
     const settings = {
@@ -487,7 +446,7 @@ router.post("/settings", authenticateAdmin, (req, res) => {
       zr_secret_key: zr_secret_key || "",
       zr_tenant_id: zr_tenant_id || "",
     };
-    fs.writeFileSync(SETTINGS_FILE_PATH, JSON.stringify(settings, null, 2), "utf8");
+    await db.saveSettings(settings);
     return res.status(200).json({ success: true, message: "تم حفظ الإعدادات بنجاح", settings });
   } catch (err) {
     return res.status(500).json({ success: false, errors: ["حدث خطأ أثناء حفظ الإعدادات"] });

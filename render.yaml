@@ -17,3 +17,5 @@ services:
         sync: false
       - key: ZR_TENANT_ID
         sync: false
+      - key: DATABASE_URL
+        sync: false

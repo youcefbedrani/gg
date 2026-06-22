@@ -1,5 +1,25 @@
 // Admin Dashboard JavaScript Controller (Algerian Paint-by-Numbers Store)
 
+function showToast(message, type = "info", duration = 5000) {
+  const container = document.getElementById("toastContainer");
+  if (!container) return;
+  const colors = { success: "#2eb086", error: "#e76f51", warning: "#e9c46a", info: "#264653" };
+  const bg = colors[type] || colors.info;
+  const toast = document.createElement("div");
+  toast.style.cssText = `background: ${bg}; color: #fff; padding: 14px 20px; border-radius: 10px; font-family: 'Cairo', sans-serif; font-size: 0.9rem; font-weight: 600; box-shadow: 0 8px 25px rgba(0,0,0,0.15); opacity: 0; transform: translateY(-20px); transition: all 0.3s ease; pointer-events: auto; text-align: center; line-height: 1.5; direction: rtl;`;
+  toast.textContent = message;
+  container.appendChild(toast);
+  requestAnimationFrame(() => {
+    toast.style.opacity = "1";
+    toast.style.transform = "translateY(0)";
+  });
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    toast.style.transform = "translateY(-20px)";
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   // Elements Selection
   const loginOverlay = document.getElementById("loginOverlay");
@@ -986,12 +1006,17 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             updateStats();
             renderOrders();
-            alert(`✅ تم إرسال الطلب ${orderId} إلى ZR Express!\nرقم التتبع: ${data.zr.tracking}`);
+            showToast(`✅ تم إرسال الطلب ${orderId} إلى ZR Express!\nرقم التتبع: ${data.zr.tracking}`, "success", 6000);
           } else {
-            alert("❌ فشل الإرسال: " + (data.errors ? data.errors.join(" | ") : "خطأ"));
+            const errorMsg = data.errors ? data.errors.join(" | ") : "خطأ غير معروف";
+            showToast("❌ فشل إرسال الطلب إلى ZR Express:\n" + errorMsg, "error", 8000);
+            btn.disabled = false;
+            btn.textContent = "🚚 إرسال إلى ZR Express للتوصيل";
           }
         } catch (err) {
-          alert("❌ حدث خطأ في الاتصال بالخادم.");
+          showToast("❌ حدث خطأ في الاتصال بالخادم أثناء إرسال الطلب إلى ZR.", "error", 6000);
+          btn.disabled = false;
+          btn.textContent = "🚚 إرسال إلى ZR Express للتوصيل";
         }
       });
     });
@@ -2025,7 +2050,7 @@ document.addEventListener("DOMContentLoaded", () => {
   btnZrBatch.addEventListener("click", async () => {
     const confirmed = allOrders.filter(o => o.status === "مؤكد");
     if (confirmed.length === 0) {
-      alert("لا توجد طلبات مؤكدة لإرسالها.");
+      showToast("لا توجد طلبات مؤكدة لإرسالها.", "warning");
       return;
     }
     if (!confirm(`هل أنت متأكد من إرسال ${confirmed.length} طلب مؤكد إلى ZR Express؟`)) return;
@@ -2040,12 +2065,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await resp.json();
       if (resp.ok && data.success) {
         await fetchOrders();
-        alert(`✅ تم إرسال ${data.sent || 0} طلب` + (data.failed ? `، فشل ${data.failed}` : ""));
+        const baseMsg = `✅ تم إرسال ${data.sent || 0} طلب` + (data.failed ? `، فشل ${data.failed}` : "");
+        showToast(baseMsg, data.failed ? "warning" : "success", 6000);
+        if (data.errors && data.errors.length > 0) {
+          data.errors.slice(0, 5).forEach(e => showToast("⚠️ " + e, "error", 8000));
+        }
       } else {
-        alert("❌ فشلت العملية: " + (data.errors ? data.errors.join(" | ") : "خطأ"));
+        showToast("❌ فشلت العملية: " + (data.errors ? data.errors.join(" | ") : "خطأ"), "error", 8000);
       }
     } catch (err) {
-      alert("❌ حدث خطأ في الاتصال.");
+      showToast("❌ حدث خطأ في الاتصال أثناء إرسال الدفعة إلى ZR.", "error", 6000);
     } finally {
       btnZrBatch.disabled = false;
       btnZrBatch.textContent = "📦 إرسال المؤكدة إلى ZR";
@@ -2055,7 +2084,7 @@ document.addEventListener("DOMContentLoaded", () => {
   btnZrSync.addEventListener("click", async () => {
     const inDelivery = allOrders.filter(o => o.status === "قيد التوصيل" && o.zr_tracking);
     if (inDelivery.length === 0) {
-      alert("لا توجد طلبات قيد التوصيل لمزامنتها.");
+      showToast("لا توجد طلبات قيد التوصيل لمزامنتها.", "warning");
       return;
     }
     btnZrSync.disabled = true;
@@ -2069,12 +2098,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await resp.json();
       if (resp.ok && data.success) {
         await fetchOrders();
-        alert(`✅ تم تحديث ${data.updated} طلب` + (data.updated > 0 ? " إلى تم التوصيل" : ""));
+        showToast(`✅ تم تحديث ${data.updated} طلب` + (data.updated > 0 ? " إلى تم التوصيل" : ""), "success", 6000);
       } else {
-        alert("❌ فشلت المزامنة: " + (data.errors ? data.errors.join(" | ") : "خطأ"));
+        showToast("❌ فشلت المزامنة: " + (data.errors ? data.errors.join(" | ") : "خطأ"), "error", 8000);
       }
     } catch (err) {
-      alert("❌ حدث خطأ في الاتصال.");
+      showToast("❌ حدث خطأ في الاتصال أثناء المزامنة.", "error", 6000);
     } finally {
       btnZrSync.disabled = false;
       btnZrSync.textContent = "🔄 مزامنة حالة التوصيل";

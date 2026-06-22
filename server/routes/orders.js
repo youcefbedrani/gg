@@ -5,6 +5,7 @@ const path = require("path");
 const validateOrder = require("../middleware/validateOrder");
 const { matchColor } = require("../services/colorMixer");
 const { submitOrderToSheets } = require("../services/googleSheets");
+const db = require("../services/database");
 
 // Load predefined artworks
 let artworks = [];
@@ -106,13 +107,7 @@ router.post("/", validateOrder, async (req, res) => {
 
     // 1. Save locally FIRST (always works, no external dependency)
     try {
-      const localOrdersPath = path.join(__dirname, "../data/orders.json");
-      let localOrders = [];
-      if (fs.existsSync(localOrdersPath)) {
-        localOrders = JSON.parse(fs.readFileSync(localOrdersPath, "utf8"));
-      }
-      localOrders.push(localOrderRecord);
-      fs.writeFileSync(localOrdersPath, JSON.stringify(localOrders, null, 2), "utf8");
+      await db.saveOrder(localOrderRecord);
 
       // Deduct stock of colors (5ml per color)
       try {

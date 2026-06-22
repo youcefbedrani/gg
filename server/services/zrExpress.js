@@ -59,6 +59,24 @@ const WILAYA_UUID_MAP = {
   58: "3d19d427-08f3-492c-a1d0-e7ace3516ed2",
 };
 
+function normalizePhone(phone) {
+  if (!phone) return "";
+  const digits = phone.replace(/\D/g, "");
+  if (digits.length === 10 && digits.startsWith("0")) {
+    return "+213" + digits.slice(1);
+  }
+  if (digits.length === 9) {
+    return "+213" + digits;
+  }
+  if (digits.startsWith("213") && digits.length === 12) {
+    return "+" + digits;
+  }
+  if (digits.startsWith("00213") && digits.length === 14) {
+    return "+213" + digits.slice(5);
+  }
+  return phone;
+}
+
 const WILAYA_CODE_MAP = Object.fromEntries(
   Object.entries(WILAYA_UUID_MAP).map(([code, uuid]) => [uuid, Number(code)])
 );
@@ -144,16 +162,62 @@ async function apiRequest(method, path, body, config) {
     "X-Tenant": tenantId,
     "X-Api-Key": secretKey,
     "Content-Type": "application/json",
+    "Api-Version": "1",
   };
   const options = { method, headers };
   if (body) options.body = JSON.stringify(body);
-  const response = await fetch(url, options);
+  let response;
+  try {
+    response = await fetch(url, options);
+  } catch (err) {
+    const causeErrors = err.cause?.errors || [];
+    const causeCodes = causeErrors.map(e => e.code);
+    const isNetworkError = err.code === 'ETIMEDOUT' || err.code === 'ECONNREFUSED' || err.code === 'ENOTFOUND' || err.code === 'EAI_AGAIN' || err.message?.includes('fetch failed') || err.message?.includes('network') || causeCodes.some(c => ['ETIMEDOUT', 'ECONNREFUSED', 'ENOTFOUND', 'EAI_AGAIN', 'ENETUNREACH'].includes(c));
+    if (isNetworkError) {
+      throw new Error('تعذر الوصول إلى خادم ZR Express. قد يكون الخادم متوقفاً أو محظوراً في منطقتك، أو تأكد من اتصالك بالإنترنت.');
+    }
+    throw new Error('خطأ غير متوقع في الاتصال مع ZR Express: ' + err.message);
+  }
   const data = await response.json();
   if (!response.ok) {
     const msg = data?.title || data?.message || JSON.stringify(data);
+    const statusGroup = Math.floor(response.status / 100);
+    if (statusGroup === 4) {
+      throw new Error('فشل طلب ZR Express (خطأ في البيانات): ' + msg);
+    } else if (statusGroup === 5) {
+      throw new Error('عطل في خادم ZR Express: ' + msg);
+    }
     throw new Error(`ZR Express API error (${response.status}): ${msg}`);
   }
   return data;
+}
+
+async function searchTerritory(query, config) {
+  try {
+    const data = await apiRequest("POST", "api/v1/territories/search", { q: query }, config);
+    return data?.items || data?.results || data || [];
+  } catch {
+    return [];
+  }
+}
+
+async function resolveDistrictTerritoryId(order, cityTerritoryId, config) {
+  const searchTerms = [order.address, order.city].filter(Boolean);
+  for (const term of searchTerms) {
+    if (!term) continue;
+    const results = await searchTerritory(term, config);
+    if (results.length > 0) {
+      const communes = results.filter(r => {
+        const level = (r.level || "").toLowerCase();
+        return (level === "commune" || level === "district") && r.parentId === cityTerritoryId;
+      });
+      if (communes.length === 0) continue;
+      const deliverable = communes.filter(r => r.delivery?.canSend === true);
+      const best = deliverable.length > 0 ? deliverable[0] : communes[0];
+      return best.id || null;
+    }
+  }
+  return cityTerritoryId;
 }
 
 async function createParcel(order, config) {
@@ -170,15 +234,24 @@ async function createParcel(order, config) {
   if (!cityTerritoryId) {
     throw new Error(`No ZR Express territory UUID for wilaya code ${wilayaCode}`);
   }
+
+  let districtTerritoryId = cityTerritoryId;
+  try {
+    const resolved = await resolveDistrictTerritoryId(order, cityTerritoryId, config);
+    if (resolved) districtTerritoryId = resolved;
+  } catch (e) {
+    console.warn("District search failed, using city UUID as district:", e.message);
+  }
+
   const payload = {
     customer: {
       customerId: "cus_" + Date.now() + "_" + Math.random().toString(36).slice(2, 10),
       name: order.customer_name,
-      phone: { number1: order.phone_number },
+      phone: { number1: normalizePhone(order.phone_number) },
     },
     deliveryAddress: {
       cityTerritoryId,
-      districtTerritoryId: cityTerritoryId,
+      districtTerritoryId,
       street: order.address || null,
     },
     orderedProducts: [
@@ -216,12 +289,8 @@ async function getParcel(parcelId, config) {
 }
 
 async function testConnection(config) {
-  try {
-    await apiRequest("POST", "api/v1/workflows/search", { pageNumber: 1, pageSize: 1 }, config);
-    return true;
-  } catch {
-    return false;
-  }
+  await apiRequest("POST", "api/v1/workflows/search", { pageNumber: 1, pageSize: 1 }, config);
+  return true;
 }
 
-module.exports = { createParcel, getParcel, testConnection, getWilayaCode, getCityUuid };
+module.exports = { createParcel, getParcel, testConnection, getWilayaCode, getCityUuid, searchTerritory, resolveDistrictTerritoryId };
