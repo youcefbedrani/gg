@@ -744,12 +744,20 @@
           <div class="stat-icon">✅</div>
         </div>
         
+        <div class="stat-card" style="background: #E6F6F4; border-right: 4px solid #2a9d8f;">
+          <div class="stat-info">
+            <h3 style="color: #2a9d8f;">قيد التوصيل</h3>
+            <p id="statInDelivery" style="color: #2a9d8f;">0</p>
+          </div>
+          <div class="stat-icon">🚚</div>
+        </div>
+        
         <div class="stat-card delivered">
           <div class="stat-info">
             <h3>تم التوصيل</h3>
             <p id="statDelivered">0</p>
           </div>
-          <div class="stat-icon">🚚</div>
+          <div class="stat-icon">✅</div>
         </div>
         
         <div class="stat-card cancelled">
@@ -777,6 +785,7 @@
             <option value="اتصال 2">اتصال 2</option>
             <option value="اتصال 3">اتصال 3</option>
             <option value="مؤكد">مؤكد</option>
+            <option value="قيد التوصيل">قيد التوصيل</option>
             <option value="تم التوصيل">تم التوصيل</option>
             <option value="ملغي">ملغي</option>
           </select>
@@ -788,6 +797,11 @@
             <option value="all">كل الولايات</option>
             <!-- Loaded dynamically -->
           </select>
+        </div>
+
+        <div class="filter-group" style="display: flex; flex-direction: row; gap: 8px; align-items: flex-end; flex-wrap: wrap;">
+          <button class="btn btn-primary" id="btnZrBatchSend" style="padding: 8px 16px; font-size: 0.85rem;">📦 إرسال المؤكدة إلى ZR</button>
+          <button class="btn btn-secondary" id="btnZrSync" style="padding: 8px 16px; font-size: 0.85rem;">🔄 مزامنة حالة التوصيل</button>
         </div>
       </section>
 

@@ -77,12 +77,12 @@ router.get("/orders", authenticateAdmin, (req, res) => {
 });
 
 // Update order status (Admin only)
-// Supported statuses: جديد, اتصال 1, اتصال 2, اتصال 3, مؤكد, ملغي, تم التوصيل
-router.post("/orders/:id/status", authenticateAdmin, async (req, res) => {
+// Supported statuses: جديد, اتصال 1, اتصال 2, اتصال 3, مؤكد, قيد التوصيل, ملغي, تم التوصيل
+router.post("/orders/:id/status", authenticateAdmin, (req, res) => {
   const orderId = req.params.id;
   const { status } = req.body;
 
-  const VALID_STATUSES = ["جديد", "اتصال 1", "اتصال 2", "اتصال 3", "مؤكد", "ملغي", "تم التوصيل"];
+  const VALID_STATUSES = ["جديد", "اتصال 1", "اتصال 2", "اتصال 3", "مؤكد", "قيد التوصيل", "ملغي", "تم التوصيل"];
 
   if (!status || !VALID_STATUSES.includes(status)) {
     return res.status(400).json({
@@ -112,24 +112,6 @@ router.post("/orders/:id/status", authenticateAdmin, async (req, res) => {
     }
 
     orders[orderIndex].status = status;
-
-    let zrResult = null;
-    if (status === "مؤكد") {
-      const zrConfig = getZrConfig();
-      if (zrConfig) {
-        try {
-          const order = orders[orderIndex];
-          order.total_price = order.total_price || 3900;
-          zrResult = await zrExpress.createParcel(order, zrConfig);
-          orders[orderIndex].zr_parcel_id = zrResult.zr_parcel_id;
-          orders[orderIndex].zr_tracking = zrResult.zr_tracking;
-          orders[orderIndex].zr_status = zrResult.zr_status;
-        } catch (zrErr) {
-          console.error("ZR Express parcel creation failed:", zrErr.message);
-        }
-      }
-    }
-
     fs.writeFileSync(ORDERS_FILE_PATH, JSON.stringify(orders, null, 2), "utf8");
 
     const messages = {
@@ -138,6 +120,7 @@ router.post("/orders/:id/status", authenticateAdmin, async (req, res) => {
       "اتصال 2": "تم تسجيل المكالمة الثانية",
       "اتصال 3": "تم تسجيل المكالمة الثالثة",
       "مؤكد": "تم تأكيد الطلب بنجاح",
+      "قيد التوصيل": "تم إرسال الطلب للتوصيل",
       "ملغي": "تم إلغاء الطلب",
       "تم التوصيل": "تم تسليم الطلب بنجاح",
     };
@@ -145,7 +128,6 @@ router.post("/orders/:id/status", authenticateAdmin, async (req, res) => {
     return res.status(200).json({
       success: true,
       message: messages[status] || "تم تحديث حالة الطلب",
-      zr: zrResult ? { tracking: zrResult.zr_tracking, parcel_id: zrResult.zr_parcel_id } : null,
     });
   } catch (err) {
     console.error("Failed to update order status:", err);
@@ -157,35 +139,15 @@ router.post("/orders/:id/status", authenticateAdmin, async (req, res) => {
 });
 
 // Keep old confirm endpoint for backward compatibility
-router.post("/orders/:id/confirm", authenticateAdmin, async (req, res) => {
+router.post("/orders/:id/confirm", authenticateAdmin, (req, res) => {
   const orderId = req.params.id;
   try {
     const orders = JSON.parse(fs.readFileSync(ORDERS_FILE_PATH, "utf8"));
     const orderIndex = orders.findIndex((o) => o.order_id === orderId);
     if (orderIndex === -1) return res.status(404).json({ success: false, errors: ["الطلب غير موجود"] });
     orders[orderIndex].status = "مؤكد";
-
-    let zrResult = null;
-    const zrConfig = getZrConfig();
-    if (zrConfig) {
-      try {
-        const order = orders[orderIndex];
-        order.total_price = order.total_price || 3900;
-        zrResult = await zrExpress.createParcel(order, zrConfig);
-        orders[orderIndex].zr_parcel_id = zrResult.zr_parcel_id;
-        orders[orderIndex].zr_tracking = zrResult.zr_tracking;
-        orders[orderIndex].zr_status = zrResult.zr_status;
-      } catch (zrErr) {
-        console.error("ZR Express parcel creation failed:", zrErr.message);
-      }
-    }
-
     fs.writeFileSync(ORDERS_FILE_PATH, JSON.stringify(orders, null, 2), "utf8");
-    return res.status(200).json({
-      success: true,
-      message: "تم تأكيد الطلب بنجاح",
-      zr: zrResult ? { tracking: zrResult.zr_tracking, parcel_id: zrResult.zr_parcel_id } : null,
-    });
+    return res.status(200).json({ success: true, message: "تم تأكيد الطلب بنجاح" });
   } catch (err) {
     return res.status(500).json({ success: false, errors: ["حدث خطأ"] });
   }
@@ -344,6 +306,126 @@ router.post("/stock/add", authenticateAdmin, (req, res) => {
       success: false,
       errors: ["حدث خطأ أثناء إضافة اللون الجديد للمخزن"],
     });
+  }
+});
+
+// Send a single confirmed order to ZR Express (Admin only)
+router.post("/orders/:id/send-to-zr", authenticateAdmin, async (req, res) => {
+  const orderId = req.params.id;
+  try {
+    const zrConfig = getZrConfig();
+    if (!zrConfig) {
+      return res.status(400).json({ success: false, errors: ["ZR Express غير مفعل. الرجاء تفعيله في الإعدادات أولاً"] });
+    }
+    const orders = JSON.parse(fs.readFileSync(ORDERS_FILE_PATH, "utf8"));
+    const orderIndex = orders.findIndex((o) => o.order_id === orderId);
+    if (orderIndex === -1) return res.status(404).json({ success: false, errors: ["الطلب غير موجود"] });
+
+    const order = orders[orderIndex];
+    order.total_price = order.total_price || 6500;
+    const result = await zrExpress.createParcel(order, zrConfig);
+    order.zr_parcel_id = result.zr_parcel_id;
+    order.zr_tracking = result.zr_tracking;
+    order.zr_status = result.zr_status;
+    order.status = "قيد التوصيل";
+    fs.writeFileSync(ORDERS_FILE_PATH, JSON.stringify(orders, null, 2), "utf8");
+
+    return res.status(200).json({
+      success: true,
+      message: "تم إرسال الطلب إلى ZR Express بنجاح",
+      zr: { tracking: result.zr_tracking, parcel_id: result.zr_parcel_id },
+    });
+  } catch (err) {
+    return res.status(500).json({ success: false, errors: ["فشل إرسال الطلب إلى ZR Express: " + err.message] });
+  }
+});
+
+// Send all confirmed orders to ZR Express in batch (Admin only)
+router.post("/orders/send-zr-batch", authenticateAdmin, async (req, res) => {
+  try {
+    const zrConfig = getZrConfig();
+    if (!zrConfig) {
+      return res.status(400).json({ success: false, errors: ["ZR Express غير مفعل. الرجاء تفعيله في الإعدادات أولاً"] });
+    }
+    const orders = JSON.parse(fs.readFileSync(ORDERS_FILE_PATH, "utf8"));
+    const confirmed = orders.filter(o => o.status === "مؤكد");
+    if (confirmed.length === 0) {
+      return res.status(200).json({ success: true, message: "لا توجد طلبات مؤكدة لإرسالها", sent: 0, failed: 0 });
+    }
+
+    let sent = 0;
+    let failed = 0;
+    const errors = [];
+
+    for (const order of confirmed) {
+      try {
+        order.total_price = order.total_price || 6500;
+        const result = await zrExpress.createParcel(order, zrConfig);
+        order.zr_parcel_id = result.zr_parcel_id;
+        order.zr_tracking = result.zr_tracking;
+        order.zr_status = result.zr_status;
+        order.status = "قيد التوصيل";
+        sent++;
+      } catch (err) {
+        failed++;
+        errors.push(`${order.order_id}: ${err.message}`);
+      }
+    }
+
+    fs.writeFileSync(ORDERS_FILE_PATH, JSON.stringify(orders, null, 2), "utf8");
+
+    return res.status(200).json({
+      success: true,
+      message: `تم إرسال ${sent} طلب بنجاح` + (failed ? `، فشل ${failed} طلب` : ""),
+      sent,
+      failed,
+      errors: errors.length > 0 ? errors : undefined,
+    });
+  } catch (err) {
+    return res.status(500).json({ success: false, errors: ["فشلت العملية: " + err.message] });
+  }
+});
+
+// Sync delivery status from ZR Express for orders in delivery (Admin only)
+router.post("/orders/sync-zr-status", authenticateAdmin, async (req, res) => {
+  try {
+    const zrConfig = getZrConfig();
+    if (!zrConfig) {
+      return res.status(400).json({ success: false, errors: ["ZR Express غير مفعل"] });
+    }
+    const orders = JSON.parse(fs.readFileSync(ORDERS_FILE_PATH, "utf8"));
+    const inDelivery = orders.filter(o => o.zr_tracking && o.status === "قيد التوصيل");
+    if (inDelivery.length === 0) {
+      return res.status(200).json({ success: true, message: "لا توجد طلبات قيد التوصيل لمزامنتها", updated: 0 });
+    }
+
+    let updated = 0;
+    for (const order of inDelivery) {
+      try {
+        const parcel = await zrExpress.getParcel(order.zr_parcel_id, zrConfig);
+        const zrState = (parcel.state?.name || "").toLowerCase();
+        order.zr_status = parcel.state?.name || null;
+        if (["livre", "delivered", "encaisse", "collected", "recouvert"].some(s => zrState.includes(s))) {
+          order.status = "تم التوصيل";
+          updated++;
+        } else if (["annule", "cancelled"].some(s => zrState.includes(s))) {
+          order.status = "ملغي";
+          updated++;
+        }
+      } catch (err) {
+        console.error(`Sync failed for ${order.order_id}:`, err.message);
+      }
+    }
+
+    fs.writeFileSync(ORDERS_FILE_PATH, JSON.stringify(orders, null, 2), "utf8");
+
+    return res.status(200).json({
+      success: true,
+      message: `تم تحديث ${updated} طلب` + (inDelivery.length > updated ? ` من أصل ${inDelivery.length}` : ""),
+      updated,
+    });
+  } catch (err) {
+    return res.status(500).json({ success: false, errors: ["فشلت المزامنة: " + err.message] });
   }
 });
 

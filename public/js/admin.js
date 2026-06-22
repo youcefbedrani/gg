@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const statTotal = document.getElementById("statTotal");
   const statNew = document.getElementById("statNew");
   const statConfirmed = document.getElementById("statConfirmed");
+  const statInDelivery = document.getElementById("statInDelivery");
   const statDelivered = document.getElementById("statDelivered");
   const statCancelled = document.getElementById("statCancelled");
 
@@ -388,6 +389,7 @@ document.addEventListener("DOMContentLoaded", () => {
     statTotal.textContent = allOrders.length;
     statNew.textContent = allOrders.filter(o => o.status === "جديد").length;
     statConfirmed.textContent = allOrders.filter(o => o.status === "مؤكد").length;
+    statInDelivery.textContent = allOrders.filter(o => o.status === "قيد التوصيل").length;
     statDelivered.textContent = allOrders.filter(o => o.status === "تم التوصيل").length;
     statCancelled.textContent = allOrders.filter(o => o.status === "ملغي").length;
   };
@@ -398,11 +400,12 @@ document.addEventListener("DOMContentLoaded", () => {
     "اتصال 2":    { label: "اتصال 2",              class: "call2",     icon: "📞2" },
     "اتصال 3":    { label: "اتصال 3",              class: "call3",     icon: "📞3" },
     "مؤكد":       { label: "مؤكد",                 class: "confirmed", icon: "✅" },
-    "تم التوصيل": { label: "تم التوصيل",           class: "delivered", icon: "🚚" },
+    "قيد التوصيل":{ label: "قيد التوصيل",          class: "in-delivery", icon: "🚚" },
+    "تم التوصيل": { label: "تم التوصيل",           class: "delivered", icon: "✅" },
     "ملغي":       { label: "ملغي",                 class: "cancelled", icon: "❌" },
   };
 
-  const ALL_STATUSES = ["جديد", "اتصال 1", "اتصال 2", "اتصال 3", "مؤكد", "تم التوصيل", "ملغي"];
+  const ALL_STATUSES = ["جديد", "اتصال 1", "اتصال 2", "اتصال 3", "مؤكد", "قيد التوصيل", "تم التوصيل", "ملغي"];
 
   const populateCityFilter = () => {
     const selectedCity = cityFilter.value;
@@ -552,6 +555,14 @@ document.addEventListener("DOMContentLoaded", () => {
               ${order.zr_tracking}
             </span>
             ${order.zr_status ? `<span style="display: block; margin-top: 2px; font-size: 0.85rem; color: var(--text-light);">الحالة: ${order.zr_status}</span>` : ""}
+          </div>
+          ` : ""}
+
+          ${order.status === "مؤكد" && !order.zr_tracking ? `
+          <div style="grid-column: 1 / -1; text-align: center; margin-top: 5px;">
+            <button class="btn btn-primary btn-send-to-zr" data-id="${order.order_id}" style="padding: 8px 20px; font-size: 0.9rem; background-color: #2a9d8f; width: 100%;">
+              🚚 إرسال إلى ZR Express للتوصيل
+            </button>
           </div>
           ` : ""}
 
@@ -949,6 +960,41 @@ document.addEventListener("DOMContentLoaded", () => {
         generateOutlineForPredefined(orderId, artworkId, colorCount, btn);
       });
     });
+
+    // Send to ZR Express button
+    document.querySelectorAll(".btn-send-to-zr").forEach(btn => {
+      btn.replaceWith(btn.cloneNode(true));
+    });
+    document.querySelectorAll(".btn-send-to-zr").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const orderId = btn.getAttribute("data-id");
+        btn.disabled = true;
+        btn.textContent = "جاري الإرسال...";
+        const token = localStorage.getItem("pbn_admin_token");
+        try {
+          const resp = await fetch(`/api/admin/orders/${orderId}/send-to-zr`, {
+            method: "POST",
+            headers: { "Authorization": `Bearer ${token}` },
+          });
+          const data = await resp.json();
+          if (resp.ok && data.success) {
+            const idx = allOrders.findIndex(o => o.order_id === orderId);
+            if (idx !== -1) {
+              allOrders[idx].status = "قيد التوصيل";
+              allOrders[idx].zr_tracking = data.zr.tracking;
+              allOrders[idx].zr_parcel_id = data.zr.parcel_id;
+            }
+            updateStats();
+            renderOrders();
+            alert(`✅ تم إرسال الطلب ${orderId} إلى ZR Express!\nرقم التتبع: ${data.zr.tracking}`);
+          } else {
+            alert("❌ فشل الإرسال: " + (data.errors ? data.errors.join(" | ") : "خطأ"));
+          }
+        } catch (err) {
+          alert("❌ حدث خطأ في الاتصال بالخادم.");
+        }
+      });
+    });
   };
 
   // ==========================================
@@ -1139,18 +1185,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const index = allOrders.findIndex(o => o.order_id === orderId);
         if (index !== -1) {
           allOrders[index].status = newStatus;
-          if (data.zr) {
-            allOrders[index].zr_tracking = data.zr.tracking;
-            allOrders[index].zr_parcel_id = data.zr.parcel_id;
-          }
         }
         updateStats();
         renderOrders();
-        if (data.zr && data.zr.tracking) {
-          setTimeout(() => {
-            alert(`✅ تم تأكيد الطلب وإنشاء الشحنة بنجاح!\nرقم التتبع: ${data.zr.tracking}`);
-          }, 100);
-        }
       } else {
         alert("فشل تحديث الحالة: " + (data.errors ? data.errors.join(" | ") : "خطأ غير معروف"));
         btnElement.disabled = false;
@@ -1976,6 +2013,71 @@ document.addEventListener("DOMContentLoaded", () => {
     } finally {
       btnTestZr.disabled = false;
       btnTestZr.textContent = "🔌 اختبار الاتصال";
+    }
+  });
+
+  // ==========================================
+  // 📦 ZR Express Batch and Sync handlers
+  // ==========================================
+  const btnZrBatch = document.getElementById("btnZrBatchSend");
+  const btnZrSync = document.getElementById("btnZrSync");
+
+  btnZrBatch.addEventListener("click", async () => {
+    const confirmed = allOrders.filter(o => o.status === "مؤكد");
+    if (confirmed.length === 0) {
+      alert("لا توجد طلبات مؤكدة لإرسالها.");
+      return;
+    }
+    if (!confirm(`هل أنت متأكد من إرسال ${confirmed.length} طلب مؤكد إلى ZR Express؟`)) return;
+    btnZrBatch.disabled = true;
+    btnZrBatch.textContent = "جاري الإرسال...";
+    const token = localStorage.getItem("pbn_admin_token");
+    try {
+      const resp = await fetch("/api/admin/orders/send-zr-batch", {
+        method: "POST",
+        headers: { "Authorization": `Bearer ${token}` },
+      });
+      const data = await resp.json();
+      if (resp.ok && data.success) {
+        await fetchOrders();
+        alert(`✅ تم إرسال ${data.sent || 0} طلب` + (data.failed ? `، فشل ${data.failed}` : ""));
+      } else {
+        alert("❌ فشلت العملية: " + (data.errors ? data.errors.join(" | ") : "خطأ"));
+      }
+    } catch (err) {
+      alert("❌ حدث خطأ في الاتصال.");
+    } finally {
+      btnZrBatch.disabled = false;
+      btnZrBatch.textContent = "📦 إرسال المؤكدة إلى ZR";
+    }
+  });
+
+  btnZrSync.addEventListener("click", async () => {
+    const inDelivery = allOrders.filter(o => o.status === "قيد التوصيل" && o.zr_tracking);
+    if (inDelivery.length === 0) {
+      alert("لا توجد طلبات قيد التوصيل لمزامنتها.");
+      return;
+    }
+    btnZrSync.disabled = true;
+    btnZrSync.textContent = "جاري المزامنة...";
+    const token = localStorage.getItem("pbn_admin_token");
+    try {
+      const resp = await fetch("/api/admin/orders/sync-zr-status", {
+        method: "POST",
+        headers: { "Authorization": `Bearer ${token}` },
+      });
+      const data = await resp.json();
+      if (resp.ok && data.success) {
+        await fetchOrders();
+        alert(`✅ تم تحديث ${data.updated} طلب` + (data.updated > 0 ? " إلى تم التوصيل" : ""));
+      } else {
+        alert("❌ فشلت المزامنة: " + (data.errors ? data.errors.join(" | ") : "خطأ"));
+      }
+    } catch (err) {
+      alert("❌ حدث خطأ في الاتصال.");
+    } finally {
+      btnZrSync.disabled = false;
+      btnZrSync.textContent = "🔄 مزامنة حالة التوصيل";
     }
   });
 
