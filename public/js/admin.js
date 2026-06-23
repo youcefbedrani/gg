@@ -2111,6 +2111,70 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ==========================================
+  // 📥 Export all orders to CSV
+  // ==========================================
+  document.getElementById("btnExportOrders").addEventListener("click", () => {
+    if (!allOrders || allOrders.length === 0) {
+      showToast("لا توجد طلبات للتصدير", "error");
+      return;
+    }
+    const BOM = "\uFEFF";
+    const headers = [
+      "رقم الطلب",
+      "التاريخ",
+      "العميل",
+      "الهاتف",
+      "الولاية",
+      "البلدية",
+      "العنوان",
+      "نوع التصميم",
+      "اسم التصميم",
+      "الحجم",
+      "الإطار",
+      "الكمية",
+      "عدد الألوان",
+      "تفاصيل الألوان",
+      "ملاحظات",
+      "الحالة",
+      "معرف ZR",
+      "رقم التتبع ZR",
+      "حالة ZR",
+    ];
+    const rows = allOrders.map(o => [
+      o.order_id,
+      o.timestamp,
+      o.customer_name,
+      o.phone_number,
+      o.city,
+      o.baladiya || "",
+      o.address,
+      o.design_type || "",
+      o.artwork_name || "",
+      o.size || "",
+      o.frame || "",
+      o.quantity || 1,
+      o.color_count || "",
+      (o.colors_detail || []).map(c => `${c.name_ar || ""} (${c.hex || ""})`).join(" | "),
+      (o.notes || "").replace(/[\n,]/g, " "),
+      o.status || "",
+      o.zr_parcel_id || "",
+      o.zr_tracking || "",
+      o.zr_status || "",
+    ]);
+    const csv = BOM + headers.join(",") + "\n" + rows.map(r => r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(",")).join("\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `orders_export_${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast(`تم تصدير ${rows.length} طلب بنجاح`, "success");
+  });
+
+  // ==========================================
   // ⚙️ Live search and filters event bindings
   // ==========================================
   searchFilter.addEventListener("input", renderOrders);
