@@ -45,14 +45,23 @@ const orderLimiter = rateLimit({
 app.use("/api/orders", orderLimiter, ordersRouter);
 app.use("/api/admin", adminRouter);
 
-// Predefined catalog endpoints
-app.get("/api/artworks", (req, res) => {
-  res.sendFile(path.join(__dirname, "data/artworks.json"));
-});
+// In-memory cache for catalog JSON files (reduces disk I/O under high traffic)
+const fs = require("fs");
+const cache = {};
+function serveCachedJSON(filePath) {
+  return (req, res) => {
+    if (!cache[filePath] || Date.now() - cache[filePath].time > 60000) {
+      cache[filePath] = { data: fs.readFileSync(filePath, "utf8"), time: Date.now() };
+    }
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Cache-Control", "public, max-age=60");
+    res.send(cache[filePath].data);
+  };
+}
 
-app.get("/api/basePaints", (req, res) => {
-  res.sendFile(path.join(__dirname, "data/basePaints.json"));
-});
+// Predefined catalog endpoints (cached in memory for 60s)
+app.get("/api/artworks", serveCachedJSON(path.join(__dirname, "data/artworks.json")));
+app.get("/api/basePaints", serveCachedJSON(path.join(__dirname, "data/basePaints.json")));
 
 // Serve static frontend files with caching
 const publicPath = path.join(__dirname, "../public");
