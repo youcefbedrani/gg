@@ -1447,7 +1447,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <html dir="rtl" lang="ar">
         <head>
           <meta charset="UTF-8">
-          <title>طباعة تخطيط لوحتي بالأرقام</title>
+          <title>طباعة تخطيط بهو الفنون</title>
           <style>
             body {
               margin: 0;

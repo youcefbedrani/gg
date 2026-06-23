@@ -1,4 +1,4 @@
-# 🎨 Paint-by-Numbers Arabic E-commerce Store | متجر لوحتي بالأرقام
+# 🎨 Paint-by-Numbers Arabic E-commerce Store | متجر بهو الفنون
 
 A complete, production-ready, full-stack e-commerce web application for a Paint-by-Numbers store, fully localized in Arabic (RTL). This application runs the entire image-to-canvas processing pipeline client-side in the browser via Web Workers and logs orders directly into a Google Sheet with computed paint-mixing recipes.
 
