@@ -20,27 +20,49 @@ export function initOrderForm(basePaints) {
   frameOptionSelect.addEventListener("change", updatePriceSummary);
   quantityInput.addEventListener("input", updatePriceSummary);
 
-  // Populate baladiya dropdown instantly from embedded data (no fetch needed)
+  // Pre-populate baladiya with ALL communes hidden by default, show/hide on wilaya change
   const wilayasData = window.WILAYAS_DATA || null;
 
-  function populateBaladiya() {
-    const val = citySelect.value;
-    baladiyaSelect.innerHTML = '<option value="" disabled selected>اختر البلدية</option>';
-    if (!val || !wilayasData) return;
-    const code = val.split(" - ")[0];
-    const wilaya = wilayasData.wilayas.find(w => w.code === code);
-    if (!wilaya) return;
-    wilaya.communes.forEach(c => {
-      const opt = document.createElement("option");
-      opt.value = c;
-      opt.textContent = c;
-      baladiyaSelect.appendChild(opt);
+  function showBaladiya(code) {
+    let hasOptions = false;
+    Array.from(baladiyaSelect.options).forEach(opt => {
+      if (opt.dataset.wilaya) {
+        const match = opt.dataset.wilaya === code;
+        opt.style.display = match ? "" : "none";
+        if (match) hasOptions = true;
+      }
+    });
+    // Hide the placeholder when communes are visible
+    const placeholder = baladiyaSelect.options[0];
+    if (placeholder) placeholder.style.display = hasOptions ? "none" : "";
+    baladiyaSelect.value = "";
+  }
+
+  if (wilayasData) {
+    // Generate all commune options once
+    wilayasData.wilayas.forEach(w => {
+      w.communes.forEach(c => {
+        const opt = document.createElement("option");
+        opt.value = c;
+        opt.textContent = c;
+        opt.dataset.wilaya = w.code;
+        opt.style.display = "none";
+        baladiyaSelect.appendChild(opt);
+      });
     });
   }
 
-  citySelect.addEventListener("change", populateBaladiya);
-  // Also populate on page load in case the user already selected a wilaya
-  if (citySelect.value) populateBaladiya();
+  function onCityChange() {
+    const val = citySelect.value;
+    if (!val) return;
+    const code = val.split(" - ")[0];
+    showBaladiya(code);
+  }
+
+  citySelect.addEventListener("change", onCityChange);
+  citySelect.addEventListener("input", onCityChange);
+  // Trigger on load if city is pre-selected
+  if (citySelect.value) onCityChange();
 
   form.addEventListener("submit", handleOrderSubmit);
 }
