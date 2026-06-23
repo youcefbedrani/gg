@@ -79,26 +79,13 @@ function renderGallery() {
     const card = document.createElement("div");
     card.className = "art-card";
 
-    // Build difficulty display
-    let diffClass = "medium";
-    if (art.difficulty === "easy") diffClass = "easy";
-    if (art.difficulty === "hard") diffClass = "hard";
-
     card.innerHTML = `
       <div class="art-img-container">
-        <img src="${art.image_thumbnail}" alt="${art.name_ar}" loading="lazy" width="500" height="500">
-        <span class="difficulty-badge ${diffClass}">${art.difficulty_ar}</span>
+        <img src="${art.image_thumbnail}" alt="" loading="lazy" width="500" height="500">
       </div>
       <div class="art-details">
-        <h3>${art.name_ar}</h3>
-        <p>${art.description_ar}</p>
         <div class="art-specs">
-          <span>📏 الحجم: ${art.default_size}</span>
-          <span>🎨 الألوان: ${art.palette.length} لوناً</span>
-        </div>
-        <div class="price-box">
-          <span class="price-label">السعر يشمل الألوان والفرش:</span>
-          <span class="price-val">${art.base_price} د.ج</span>
+          <span>📏 ${art.default_size}</span>
         </div>
         <button class="btn btn-primary order-btn" data-id="${art.id}">اطلب هذا التصميم</button>
       </div>
@@ -467,7 +454,7 @@ function initMobileFloatingCta() {
   ctaBtn.addEventListener("click", () => {
     // Check if an artwork is selected
     const selectedName = document.getElementById("selectedName")?.textContent || "";
-    const isSelected = selectedName && selectedName.trim() !== "لم يتم تحديد تصميم بعد";
+    const isSelected = selectedName && selectedName.trim() !== "لم يتم تحديد تصميم بعد" && selectedName.trim() !== "";
 
     if (isSelected) {
       // Scroll directly to order / frame selection

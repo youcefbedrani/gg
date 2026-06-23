@@ -134,18 +134,14 @@
 
   <!-- Browse Header -->
   <section class="browse-header">
-    <h1>🎨 المعرض الفني الكامل</h1>
-    <p>تصفح تشكيلتنا الكاملة المكونة من 36 تصميماً فنياً مميزاً. جميع اللوحات تأتي مع إطار عصري أسود أنيق مشمول في السعر.</p>
+    <h1>🎨 اختر تصميمك المفضل</h1>
+    <p>جميع اللوحات تأتي مع إطار عصري أسود أنيق مشمول في السعر.</p>
   </section>
 
   <!-- Main Section -->
   <main class="section-container" style="padding-top: 40px;">
     <!-- Filters Bar -->
     <div class="filter-section">
-      <div class="filter-group">
-        <label for="searchBar">🔍 ابحث عن لوحة:</label>
-        <input type="text" id="searchBar" placeholder="اكتب اسم اللوحة..." class="filter-input">
-      </div>
       <div class="filter-group">
         <label for="difficultyFilter">📊 مستوى الصعوبة:</label>
         <select id="difficultyFilter" class="filter-select">
@@ -228,7 +224,6 @@
       }
 
       // Register Filters Events
-      document.getElementById("searchBar").addEventListener("input", renderBrowseGallery);
       document.getElementById("difficultyFilter").addEventListener("change", renderBrowseGallery);
       document.getElementById("priceSort").addEventListener("change", renderBrowseGallery);
     });
@@ -237,16 +232,12 @@
       const grid = document.getElementById("browseGrid");
       const counter = document.getElementById("gridCounter");
       
-      const query = document.getElementById("searchBar").value.trim().toLowerCase();
       const difficulty = document.getElementById("difficultyFilter").value;
       const sort = document.getElementById("priceSort").value;
 
       // Filter
       let filtered = artworks.filter(art => {
-        const matchesQuery = art.name_ar.toLowerCase().includes(query) || 
-                             art.description_ar.toLowerCase().includes(query);
-        const matchesDiff = (difficulty === "all") || (art.difficulty === difficulty);
-        return matchesQuery && matchesDiff;
+        return (difficulty === "all") || (art.difficulty === difficulty);
       });
 
       // Sort
@@ -258,7 +249,7 @@
 
       // Render
       grid.innerHTML = "";
-      counter.textContent = `تم العثور على ${filtered.length} لوحة فنية متاحة للطلب فوراً`;
+      counter.textContent = `${filtered.length} تصميم متاح`;
 
       if (filtered.length === 0) {
         grid.innerHTML = `
@@ -273,44 +264,21 @@
         const card = document.createElement("div");
         card.className = "art-card";
 
-        let diffClass = "medium";
-        if (art.difficulty === "easy") diffClass = "easy";
-        if (art.difficulty === "hard") diffClass = "hard";
-
-        const initialTotalPrice = art.base_price;
-
         card.innerHTML = `
           <div class="art-img-container">
-            <img src="${art.image_thumbnail}" alt="${art.name_ar}" loading="lazy" width="500" height="500">
-            <span class="difficulty-badge ${diffClass}">${art.difficulty_ar}</span>
+            <img src="${art.image_thumbnail}" alt="" loading="lazy" width="500" height="500">
           </div>
-          <div class="art-details" style="display: flex; flex-direction: column; height: 100%;">
-            <h3>${art.name_ar}</h3>
-            <p style="flex-grow: 1;">${art.description_ar}</p>
+          <div class="art-details" style="display: flex; flex-direction: column;">
             <div class="art-specs">
-              <span>📏 الحجم: ${art.default_size}</span>
-              <span>🎨 الألوان: ${art.palette.length} لوناً</span>
+              <span>📏 ${art.default_size}</span>
             </div>
-
-            <!-- Frame included notice -->
-            <div style="margin-top: 12px; padding: 8px 12px; background: #f0faf8; border-radius: 6px; font-size: 0.85rem; color: var(--dark-teal); font-weight: 600; text-align: center;">
-              🖼️ إطار عصري أسود مشمول في السعر
-            </div>
-
-            <!-- Total Price Box -->
-            <div class="price-total-badge">
-              <span>السعر الإجمالي الكلي:</span>
-              <span id="price-total-val-${art.id}">${initialTotalPrice} د.ج</span>
-            </div>
-
-            <button class="btn btn-primary order-btn" style="margin-top: 15px;" id="order-btn-${art.id}">شراء واختيار هذا التصميم</button>
+            <button class="btn btn-primary order-btn" style="margin-top: 15px;" data-id="${art.id}">شراء هذا التصميم</button>
           </div>
         `;
 
         grid.appendChild(card);
 
-        // Bind Select & Checkout redirect
-        document.getElementById(`order-btn-${art.id}`).addEventListener("click", () => {
+        card.querySelector(`.order-btn`).addEventListener("click", () => {
           window.location.href = `/index.html?art=${art.id}#order-section`;
         });
       });

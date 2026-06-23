@@ -29,9 +29,9 @@ export function selectPredefinedArtwork(artwork) {
   isCustom = false;
 
   document.getElementById("selectedProductBanner").style.display = "flex";
-  document.getElementById("selectedThumb").innerHTML = `<img src="${artwork.image_thumbnail}" alt="${artwork.name_ar}">`;
-  document.getElementById("selectedName").textContent = artwork.name_ar;
-  document.getElementById("selectedSpec").textContent = `الحجم: ${artwork.default_size} | الصعوبة: ${artwork.difficulty_ar}`;
+  document.getElementById("selectedThumb").innerHTML = `<img src="${artwork.image_thumbnail}" alt="">`;
+  document.getElementById("selectedName").textContent = "تصميم فني";
+  document.getElementById("selectedSpec").textContent = `📏 ${artwork.default_size}`;
 
   const frameSelect = document.getElementById("frameOption");
   frameSelect.value = "modern_black";
