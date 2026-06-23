@@ -20,14 +20,10 @@ export function initOrderForm(basePaints) {
   frameOptionSelect.addEventListener("change", updatePriceSummary);
   quantityInput.addEventListener("input", updatePriceSummary);
 
-  // Load wilayas data for baladiya dropdown
-  let wilayasData = null;
-  fetch("/api/wilayas")
-    .then(r => r.json())
-    .then(data => { wilayasData = data; })
-    .catch(() => {});
+  // Populate baladiya dropdown instantly from embedded data (no fetch needed)
+  const wilayasData = window.WILAYAS_DATA || null;
 
-  citySelect.addEventListener("change", () => {
+  function populateBaladiya() {
     const val = citySelect.value;
     baladiyaSelect.innerHTML = '<option value="" disabled selected>اختر البلدية</option>';
     if (!val || !wilayasData) return;
@@ -40,7 +36,11 @@ export function initOrderForm(basePaints) {
       opt.textContent = c;
       baladiyaSelect.appendChild(opt);
     });
-  });
+  }
+
+  citySelect.addEventListener("change", populateBaladiya);
+  // Also populate on page load in case the user already selected a wilaya
+  if (citySelect.value) populateBaladiya();
 
   form.addEventListener("submit", handleOrderSubmit);
 }
