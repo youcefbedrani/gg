@@ -31,7 +31,7 @@ export function selectPredefinedArtwork(artwork) {
   document.getElementById("selectedProductBanner").style.display = "flex";
   document.getElementById("selectedThumb").innerHTML = `<img src="${artwork.image_thumbnail}" alt="">`;
   document.getElementById("selectedName").textContent = "تصميم فني";
-  document.getElementById("selectedSpec").textContent = `📏 ${artwork.default_size}`;
+  document.getElementById("selectedSpec").textContent = `📏 ${artwork.default_size} · 🎨 ${artwork.palette.length} ألوان · فاخر`;
 
   const frameSelect = document.getElementById("frameOption");
   frameSelect.value = "modern_black";

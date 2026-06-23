@@ -85,7 +85,7 @@ function renderGallery() {
       </div>
       <div class="art-details">
         <div class="art-specs">
-          <span>📏 ${art.default_size}</span>
+          <span>📏 ${art.default_size} · 🎨 ${art.palette.length} ألوان · فاخر</span>
         </div>
         <button class="btn btn-primary order-btn" data-id="${art.id}">اطلب هذا التصميم</button>
       </div>
