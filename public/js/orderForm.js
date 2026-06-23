@@ -156,13 +156,20 @@ async function handleOrderSubmit(e) {
       document.getElementById("successOrderId").textContent = resData.order_id;
       document.getElementById("successModal").style.display = "flex";
 
+      // Fire Meta Pixel Purchase event
+      if (typeof fbq === "function") {
+        const totalEl = document.getElementById("totalPriceVal");
+        const value = parseFloat(totalEl.textContent.replace(/[^0-9]/g, "")) || 0;
+        fbq("track", "Purchase", { value, currency: "DZD" });
+      }
+
       // Reset form
       document.getElementById("orderForm").reset();
       selectedProduct = null;
       document.getElementById("selectedProductBanner").style.display = "none";
-      document.getElementById("basePriceVal").textContent = "0 ر.س";
-      document.getElementById("framePriceVal").textContent = "0 ر.س";
-      document.getElementById("totalPriceVal").textContent = "0 ر.س";
+      document.getElementById("basePriceVal").textContent = "0 د.ج";
+      document.getElementById("framePriceVal").textContent = "مشمول";
+      document.getElementById("totalPriceVal").textContent = "0 د.ج";
       submitBtn.disabled = true;
     } else {
       const errorMsg = resData.errors ? resData.errors.join(" | ") : "حدث خطأ غير متوقع أثناء المعالجة.";
