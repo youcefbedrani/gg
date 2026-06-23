@@ -470,20 +470,22 @@ function initMobileFloatingCta() {
     }
   });
 
-  // Optimize performance of scroll handler
+  // Show floating CTA on scroll down (hidden on load), hide when order section in view
   let scrollTimeout;
   window.addEventListener("scroll", () => {
     if (scrollTimeout) return;
     scrollTimeout = setTimeout(() => {
       scrollTimeout = null;
+      if (window.innerWidth > 768) return;
       const rect = orderSection.getBoundingClientRect();
-      // Hide floating button if order form is active in view to avoid overlapping
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
+      const scrolledPast = window.scrollY > 300;
+      const orderVisible = rect.top < window.innerHeight && rect.bottom > 0;
+      if (orderVisible) {
         mobileCta.style.display = "none";
+      } else if (scrolledPast) {
+        mobileCta.style.display = "block";
       } else {
-        if (window.innerWidth <= 768) {
-          mobileCta.style.display = "block";
-        }
+        mobileCta.style.display = "none";
       }
     }, 100);
   });

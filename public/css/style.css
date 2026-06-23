@@ -1176,11 +1176,8 @@ a {
 }
 
 @media (max-width: 768px) {
-  .mobile-floating-cta {
-    display: block;
-  }
   body {
-    padding-bottom: 95px; /* Leave space so floating CTA doesn't cover footer text */
+    padding-bottom: 95px;
   }
 }
 
