@@ -202,7 +202,7 @@ async function searchTerritory(query, config) {
 }
 
 async function resolveDistrictTerritoryId(order, cityTerritoryId, config) {
-  const searchTerms = [order.address, order.city].filter(Boolean);
+  const searchTerms = [order.baladiya, order.address, order.city].filter(Boolean);
   for (const term of searchTerms) {
     if (!term) continue;
     const results = await searchTerritory(term, config);

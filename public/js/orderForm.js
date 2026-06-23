@@ -13,10 +13,34 @@ export function initOrderForm(basePaints) {
   const form = document.getElementById("orderForm");
   const frameOptionSelect = document.getElementById("frameOption");
   const quantityInput = document.getElementById("quantity");
+  const citySelect = document.getElementById("city");
+  const baladiyaSelect = document.getElementById("baladiya");
 
   // Recalculate price when frame option or quantity changes
   frameOptionSelect.addEventListener("change", updatePriceSummary);
   quantityInput.addEventListener("input", updatePriceSummary);
+
+  // Load wilayas data for baladiya dropdown
+  let wilayasData = null;
+  fetch("/api/wilayas")
+    .then(r => r.json())
+    .then(data => { wilayasData = data; })
+    .catch(() => {});
+
+  citySelect.addEventListener("change", () => {
+    const val = citySelect.value;
+    baladiyaSelect.innerHTML = '<option value="" disabled selected>اختر البلدية</option>';
+    if (!val || !wilayasData) return;
+    const code = val.split(" - ")[0];
+    const wilaya = wilayasData.wilayas.find(w => w.code === code);
+    if (!wilaya) return;
+    wilaya.communes.forEach(c => {
+      const opt = document.createElement("option");
+      opt.value = c;
+      opt.textContent = c;
+      baladiyaSelect.appendChild(opt);
+    });
+  });
 
   form.addEventListener("submit", handleOrderSubmit);
 }
@@ -104,6 +128,7 @@ async function handleOrderSubmit(e) {
   const customerName = document.getElementById("customerName").value.trim();
   const phoneNumber = document.getElementById("phoneNumber").value.trim();
   const city = document.getElementById("city").value.trim();
+  const baladiya = document.getElementById("baladiya").value.trim();
   const address = document.getElementById("address").value.trim();
   const frameOption = document.getElementById("frameOption").value;
   const quantity = parseInt(document.getElementById("quantity").value, 10);
@@ -115,12 +140,23 @@ async function handleOrderSubmit(e) {
     errorAlert.style.display = "block";
     return;
   }
+  if (!city) {
+    errorAlert.textContent = "الرجاء اختيار الولاية.";
+    errorAlert.style.display = "block";
+    return;
+  }
+  if (!baladiya) {
+    errorAlert.textContent = "الرجاء اختيار البلدية.";
+    errorAlert.style.display = "block";
+    return;
+  }
 
   // Create checkout payload
   const payload = {
     customer_name: customerName,
     phone_number: phoneNumber,
     city: city,
+    baladiya: baladiya,
     address: address,
     frame_id: frameOption,
     quantity: quantity,

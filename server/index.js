@@ -62,6 +62,7 @@ function serveCachedJSON(filePath) {
 // Predefined catalog endpoints (cached in memory for 60s)
 app.get("/api/artworks", serveCachedJSON(path.join(__dirname, "data/artworks.json")));
 app.get("/api/basePaints", serveCachedJSON(path.join(__dirname, "data/basePaints.json")));
+app.get("/api/wilayas", serveCachedJSON(path.join(__dirname, "data/wilayas.json")));
 
 // Serve static frontend files with caching
 const publicPath = path.join(__dirname, "../public");
