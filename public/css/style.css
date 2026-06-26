@@ -1245,13 +1245,14 @@ a {
   padding: 10px 0;
 }
 
-.auto-carousel-wrapper.paused .auto-carousel-track {
+.auto-carousel-wrapper.paused .auto-carousel-track,
+.auto-carousel-wrapper:hover .auto-carousel-track {
   animation-play-state: paused;
 }
 
 @keyframes scrollLeft {
   0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  100% { transform: translateX(50%); }
 }
 
 .auto-carousel-slide {
@@ -1328,7 +1329,7 @@ a {
   }
   @keyframes scrollLeft {
     0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+    100% { transform: translateX(50%); }
   }
 }
 
