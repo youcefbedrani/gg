@@ -124,10 +124,9 @@
       </div>
       <nav class="nav-menu" id="navMenu">
         <a href="/index.html#hero">الرئيسية</a>
-        <a href="/browse.html" class="active">تصفح المعرض الفني</a>
+        <a href="/index.html#order-section" class="nav-cta">🛒 اطلب الآن</a>
         <a href="/index.html#gallery">التصاميم الجاهزة</a>
         <a href="/index.html#upload">اصنع لوحتك الخاصة</a>
-        <a href="/index.html#order-section" class="nav-cta">اطلب الآن</a>
       </nav>
       <button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة">
         <span></span>
@@ -141,7 +140,7 @@
   <section class="browse-header">
     <h1>🎨 اختر تصميمك المفضل</h1>
     <p>جميع اللوحات تأتي مع إطار عصري أسود أنيق مشمول في السعر.</p>
-    <p style="font-size:0.9rem; color: var(--text-light); margin-top: 8px;">34 تصميماً فنياً متاحاً للطلب</p>
+    <p style="font-size:1.1rem; color: var(--primary-dark); font-weight: 800; margin-top: 8px;">💰 4,900 د.ج فقط للوحة كاملة مع الإطار</p>
   </section>
 
   <!-- Main Section -->
@@ -278,7 +277,11 @@
             <div class="art-specs">
               <span>📏 ${art.default_size} · 🎨 ${art.palette.length} ألوان · فاخر</span>
             </div>
-            <button class="btn btn-primary order-btn" style="margin-top: 15px;" data-id="${art.id}">شراء هذا التصميم</button>
+            <div class="price-total-badge">
+              <span>💰 السعر:</span>
+              <span>4,900 د.ج</span>
+            </div>
+            <button class="btn btn-primary order-btn" style="margin-top: 15px;" data-id="${art.id}">🛒 شراء هذا التصميم</button>
           </div>
         `;
 
@@ -286,6 +289,13 @@
 
         card.querySelector(`.order-btn`).addEventListener("click", () => {
           window.location.href = `/index.html?art=${art.id}#order-section`;
+        });
+
+        // Also on card click
+        card.addEventListener("click", (e) => {
+          if (e.target.tagName !== "BUTTON") {
+            window.location.href = `/index.html?art=${art.id}#order-section`;
+          }
         });
       });
     }

@@ -1,7 +1,7 @@
 // Client-side Application Main Entry Point.
 // Coordinates gallery rendering, file uploads, Web Worker integration, and UI tabs.
 
-import { initOrderForm, selectPredefinedArtwork, selectCustomDesign } from "./orderForm.js";
+import { initOrderForm, populateArtworkDropdown, selectPredefinedArtwork, selectCustomDesign } from "./orderForm.js";
 import { matchColorClient } from "./pbn-engine/colorMixer.js";
 
 let artworks = [];
@@ -30,7 +30,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Initialize checkout form logic
     initOrderForm(basePaints);
 
-    // Render designs gallery
+    // Populate artwork dropdown in checkout
+    populateArtworkDropdown(artworks);
+
+    // Render designs gallery (grid)
     renderGallery();
 
     // Auto-select artwork from URL search params (e.g. ?art=art_15)
@@ -39,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     if (artIdParam) {
       const art = artworks.find(a => a.id === artIdParam);
-      if (art) selectPredefinedArtwork(art);
+      if (art) setTimeout(() => selectPredefinedArtwork(art), 100);
     }
   } catch (error) {
     console.error("Initialization error:", error);
@@ -69,7 +72,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 /**
- * Renders the 6 predefined artworks from the catalog.
+ * Renders all predefined artworks in a grid with price.
  */
 function renderGallery() {
   const grid = document.getElementById("artworksGrid");
@@ -87,11 +90,14 @@ function renderGallery() {
         <div class="art-specs">
           <span>📏 ${art.default_size} · 🎨 ${art.palette.length} ألوان · فاخر</span>
         </div>
-        <button class="btn btn-primary order-btn" data-id="${art.id}">اطلب هذا التصميم</button>
+        <div class="price-box">
+          <span class="price-label">السعر:</span>
+          <span class="price-val">4,900 د.ج</span>
+        </div>
+        <button class="btn btn-primary order-btn" data-id="${art.id}">🛒 اطلب هذا التصميم</button>
       </div>
     `;
 
-    // Bind selection event to checkout form
     card.querySelector(".order-btn").addEventListener("click", () => {
       selectPredefinedArtwork(art);
     });

@@ -7,7 +7,7 @@
     "difficulty": "easy",
     "difficulty_ar": "سهل",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -73,7 +73,7 @@
     "difficulty": "hard",
     "difficulty_ar": "صعب",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -134,7 +134,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -200,7 +200,7 @@
     "difficulty": "easy",
     "difficulty_ar": "سهل",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -266,7 +266,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -327,7 +327,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -393,7 +393,7 @@
     "difficulty": "hard",
     "difficulty_ar": "صعب",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -454,7 +454,7 @@
     "difficulty": "easy",
     "difficulty_ar": "سهل",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -520,7 +520,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -581,7 +581,7 @@
     "difficulty": "hard",
     "difficulty_ar": "صعب",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -642,7 +642,7 @@
     "difficulty": "easy",
     "difficulty_ar": "سهل",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -708,7 +708,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -774,7 +774,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -840,7 +840,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -906,7 +906,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -972,7 +972,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1038,7 +1038,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1104,7 +1104,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1170,7 +1170,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1236,7 +1236,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1302,7 +1302,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1368,7 +1368,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1434,7 +1434,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1500,7 +1500,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1566,7 +1566,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1632,7 +1632,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1698,7 +1698,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1764,7 +1764,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1830,7 +1830,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1896,7 +1896,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -1962,7 +1962,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -2028,7 +2028,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -2094,7 +2094,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",
@@ -2160,7 +2160,7 @@
     "difficulty": "medium",
     "difficulty_ar": "متوسط",
     "default_size": "30x30 سم",
-    "base_price": 6500,
+    "base_price": 4900,
     "frame_options": [
       {
         "id": "no_frame",

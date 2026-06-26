@@ -1,26 +1,21 @@
-// Client-side Order Form Controller.
-// Manages checkout state, price calculations, and form submissions to /api/orders.
-
-let selectedProduct = null; // Can be a Predefined Artwork object OR a Custom PBN result object
+let selectedProduct = null;
 let isCustom = false;
 let basePaintsCached = [];
+let artworksCached = [];
 
-// Base prices
-const CUSTOM_BASE_PRICE = 6500; // Standard price for custom photo upload (Algerian Dinar)
+const CUSTOM_BASE_PRICE = 4900;
 
 export function initOrderForm(basePaints) {
   basePaintsCached = basePaints;
   const form = document.getElementById("orderForm");
-  const frameOptionSelect = document.getElementById("frameOption");
   const quantityInput = document.getElementById("quantity");
   const citySelect = document.getElementById("city");
   const baladiyaSelect = document.getElementById("baladiya");
+  const artworkSelect = document.getElementById("artworkSelect");
 
-  // Recalculate price when frame option or quantity changes
-  frameOptionSelect.addEventListener("change", updatePriceSummary);
   quantityInput.addEventListener("input", updatePriceSummary);
 
-  // Pre-populate baladiya with ALL communes hidden by default, show/hide on wilaya change
+  // Populate artwork dropdown
   const wilayasData = window.WILAYAS_DATA || null;
 
   function showBaladiya(code) {
@@ -32,14 +27,20 @@ export function initOrderForm(basePaints) {
         if (match) hasOptions = true;
       }
     });
-    // Hide the placeholder when communes are visible
     const placeholder = baladiyaSelect.options[0];
     if (placeholder) placeholder.style.display = hasOptions ? "none" : "";
     baladiyaSelect.value = "";
   }
 
   if (wilayasData) {
-    // Generate all commune options once
+    citySelect.innerHTML = '<option value="" disabled selected>اختر ولايتك</option>';
+    wilayasData.wilayas.forEach(w => {
+      const opt = document.createElement("option");
+      opt.value = `${w.code} - ${w.name}`;
+      opt.textContent = `${w.code} - ${w.name}`;
+      citySelect.appendChild(opt);
+    });
+
     wilayasData.wilayas.forEach(w => {
       w.communes.forEach(c => {
         const opt = document.createElement("option");
@@ -61,26 +62,48 @@ export function initOrderForm(basePaints) {
 
   citySelect.addEventListener("change", onCityChange);
   citySelect.addEventListener("input", onCityChange);
-  // Trigger on load if city is pre-selected
   if (citySelect.value) onCityChange();
+
+  // Artwork dropdown change
+  artworkSelect.addEventListener("change", (e) => {
+    const artId = e.target.value;
+    if (!artId) {
+      selectedProduct = null;
+      document.getElementById("submitOrderBtn").disabled = true;
+      document.getElementById("totalPriceVal").textContent = "0 د.ج";
+      document.getElementById("selectedPreview").style.display = "none";
+      return;
+    }
+    const art = artworksCached.find(a => a.id === artId);
+    if (art) selectPredefinedArtwork(art);
+  });
 
   form.addEventListener("submit", handleOrderSubmit);
 }
 
-/**
- * Pre-selects a predefined artwork in the checkout form.
- */
+export function populateArtworkDropdown(artworks) {
+  artworksCached = artworks;
+  const select = document.getElementById("artworkSelect");
+  artworks.forEach(art => {
+    const opt = document.createElement("option");
+    opt.value = art.id;
+    const name = art.name_ar || `تصميم فني ${art.id}`;
+    opt.textContent = `${name} — ${art.default_size} · ${art.palette.length} ألوان`;
+    select.appendChild(opt);
+  });
+}
+
 export function selectPredefinedArtwork(artwork) {
   selectedProduct = artwork;
   isCustom = false;
 
-  document.getElementById("selectedProductBanner").style.display = "flex";
-  document.getElementById("selectedThumb").innerHTML = `<img src="${artwork.image_thumbnail}" alt="">`;
-  document.getElementById("selectedName").textContent = "تصميم فني";
-  document.getElementById("selectedSpec").textContent = `📏 ${artwork.default_size} · 🎨 ${artwork.palette.length} ألوان · فاخر`;
+  const select = document.getElementById("artworkSelect");
+  select.value = artwork.id;
 
-  const frameSelect = document.getElementById("frameOption");
-  frameSelect.value = "modern_black";
+  document.getElementById("selectedPreview").style.display = "flex";
+  document.getElementById("previewThumb").src = artwork.image_thumbnail;
+  document.getElementById("previewName").textContent = "تصميم فني";
+  document.getElementById("previewSpec").textContent = `📏 ${artwork.default_size} · 🎨 ${artwork.palette.length} ألوان · فاخر`;
 
   document.getElementById("submitOrderBtn").disabled = false;
   updatePriceSummary();
@@ -88,24 +111,18 @@ export function selectPredefinedArtwork(artwork) {
   document.getElementById("order-section").scrollIntoView({ behavior: "smooth" });
 }
 
-/**
- * Pre-selects a custom processed design in the checkout form.
- */
 export function selectCustomDesign(pbnResult) {
   selectedProduct = pbnResult;
   isCustom = true;
 
-  document.getElementById("selectedProductBanner").style.display = "flex";
-  document.getElementById("selectedThumb").innerHTML = `📷`;
-  document.getElementById("selectedName").textContent = "صورتك الشخصية المحوّلة";
-  document.getElementById("selectedSpec").textContent = `حجم الطباعة: 30x30 سم | عدد الألوان: ${pbnResult.colorsByIndex.length}`;
-
-  const frameSelect = document.getElementById("frameOption");
-  frameSelect.value = "modern_black";
+  document.getElementById("selectedPreview").style.display = "flex";
+  document.getElementById("previewThumb").src = "";
+  document.getElementById("previewThumb").style.display = "none";
+  document.getElementById("previewName").textContent = "صورتك الشخصية المحوّلة";
+  document.getElementById("previewSpec").textContent = `حجم الطباعة: 30x30 سم · ${pbnResult.colorsByIndex.length} ألوان`;
 
   document.getElementById("submitOrderBtn").disabled = false;
   updatePriceSummary();
-
   document.getElementById("order-section").scrollIntoView({ behavior: "smooth" });
 }
 
@@ -116,12 +133,9 @@ function updatePriceSummary() {
   const quantity = Math.max(1, parseInt(document.getElementById("quantity").value, 10) || 1);
   const grandTotal = basePrice * quantity;
 
-  document.getElementById("basePriceVal").textContent = `${grandTotal} د.ج`;
-  document.getElementById("framePriceVal").textContent = `مشمول`;
   document.getElementById("totalPriceVal").textContent = `${grandTotal} د.ج`;
 }
 
-// Convert RGB array [r, g, b] to Hex string
 function rgbToHex(r, g, b) {
   return (
     "#" +
@@ -142,7 +156,7 @@ async function handleOrderSubmit(e) {
   errorAlert.textContent = "";
 
   if (!selectedProduct) {
-    errorAlert.textContent = "الرجاء اختيار تصميم أولاً بالضغط على 'اطلب الآن' أو 'تحويل الصورة'.";
+    errorAlert.textContent = "الرجاء اختيار تصميم أولاً.";
     errorAlert.style.display = "block";
     return;
   }
@@ -152,13 +166,12 @@ async function handleOrderSubmit(e) {
   const city = document.getElementById("city").value.trim();
   const baladiya = document.getElementById("baladiya").value.trim();
   const address = document.getElementById("address").value.trim();
-  const frameOption = document.getElementById("frameOption").value;
+  const frameOption = "modern_black";
   const quantity = parseInt(document.getElementById("quantity").value, 10);
-  const notes = document.getElementById("notes").value.trim();
+  const notes = "";
 
-  // Basic validation checks
   if (customerName.length < 3) {
-    errorAlert.textContent = "الرجاء إدخال الاسم الكامل (ثلاثة أحرف على الأقل).";
+    errorAlert.textContent = "الرجاء إدخال الاسم الكامل.";
     errorAlert.style.display = "block";
     return;
   }
@@ -173,7 +186,6 @@ async function handleOrderSubmit(e) {
     return;
   }
 
-  // Create checkout payload
   const payload = {
     customer_name: customerName,
     phone_number: phoneNumber,
@@ -187,7 +199,6 @@ async function handleOrderSubmit(e) {
   };
 
   if (isCustom) {
-    // Map custom RGB palette elements to hex strings for server processing
     payload.colors = selectedProduct.colorsByIndex.map((rgb) => rgbToHex(rgb[0], rgb[1], rgb[2]));
     payload.svg_outline = selectedProduct.svgOutline;
   } else {
@@ -201,46 +212,38 @@ async function handleOrderSubmit(e) {
   try {
     const response = await fetch("/api/orders", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
 
     const resData = await response.json();
 
     if (response.ok && resData.success) {
-      // Display success modal
       document.getElementById("successOrderId").textContent = resData.order_id;
       document.getElementById("successModal").style.display = "flex";
 
-      // Fire Meta Pixel Purchase event
       if (typeof fbq === "function") {
         const totalEl = document.getElementById("totalPriceVal");
         const value = parseFloat(totalEl.textContent.replace(/[^0-9]/g, "")) || 0;
         fbq("track", "Purchase", { value, currency: "DZD" });
       }
 
-      // Reset form
       document.getElementById("orderForm").reset();
       selectedProduct = null;
-      document.getElementById("selectedProductBanner").style.display = "none";
-      document.getElementById("basePriceVal").textContent = "0 د.ج";
-      document.getElementById("framePriceVal").textContent = "مشمول";
+      document.getElementById("selectedPreview").style.display = "none";
       document.getElementById("totalPriceVal").textContent = "0 د.ج";
       submitBtn.disabled = true;
     } else {
-      const errorMsg = resData.errors ? resData.errors.join(" | ") : "حدث خطأ غير متوقع أثناء المعالجة.";
+      const errorMsg = resData.errors ? resData.errors.join(" | ") : "حدث خطأ غير متوقع.";
       errorAlert.textContent = errorMsg;
       errorAlert.style.display = "block";
       submitBtn.disabled = false;
     }
   } catch (error) {
-    console.error("Checkout submit error:", error);
-    errorAlert.textContent = "فشل الاتصال بالخادم. الرجاء التحقق من اتصالك بالإنترنت.";
+    errorAlert.textContent = "فشل الاتصال بالخادم. تحقق من اتصالك.";
     errorAlert.style.display = "block";
     submitBtn.disabled = false;
   } finally {
-    submitBtn.textContent = "تأكيد الطلب — الدفع عند الاستلام";
+    submitBtn.textContent = "✅ تأكيد الطلب — الدفع عند الاستلام";
   }
 }

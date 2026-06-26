@@ -302,11 +302,105 @@ a {
   font-size: 0.95rem;
 }
 
+/* PAS Marketing Section */
+.pas-section {
+  background: #fff;
+  padding: 60px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.pas-cta {
+  padding: 14px 40px;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .pas-section {
+    padding: 30px 15px;
+  }
+  .pas-cta {
+    padding: 14px 24px;
+    font-size: 1rem;
+    width: 100%;
+  }
+}
+
+.pas-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.pas-card {
+  text-align: center;
+  padding: 30px 20px;
+  border-radius: 16px;
+}
+
+.pas-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.pas-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.pas-card p {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .pas-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  .pas-card {
+    padding: 20px 15px;
+  }
+  .pas-card p {
+    font-size: 0.9rem;
+  }
+}
+
 /* Artworks Gallery */
 .artworks-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 40px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 480px) {
+  .artworks-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .art-img-container {
+    height: 160px;
+  }
+  .art-details {
+    padding: 12px;
+  }
+  .art-details h3 {
+    font-size: 1rem;
+  }
+  .art-specs {
+    font-size: 0.75rem;
+  }
+  .price-val {
+    font-size: 1.2rem;
+  }
+  .art-details .btn {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    margin-top: 10px;
+  }
 }
 
 .art-card {
