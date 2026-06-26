@@ -36,6 +36,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Render designs gallery (grid)
     renderGallery();
 
+    // Render auto-scroll carousel
+    renderAutoCarousel();
+
     // Auto-select artwork from URL search params (e.g. ?art=art_15)
     const urlParams = new URLSearchParams(window.location.search);
     const artIdParam = urlParams.get("art");
@@ -70,6 +73,62 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Setup floating mobile button
   initMobileFloatingCta();
 });
+
+/**
+ * Renders auto-scrolling artwork carousel before checkout.
+ */
+function renderAutoCarousel() {
+  const track = document.getElementById("autoCarouselTrack");
+  if (!track) return;
+
+  // Double the artworks for seamless infinite loop
+  const doubled = [...artworks, ...artworks];
+
+  doubled.forEach((art) => {
+    const slide = document.createElement("div");
+    slide.className = "auto-carousel-slide";
+
+    slide.innerHTML = `
+      <div class="carousel-img-wrap">
+        <img src="${art.image_thumbnail}" alt="" loading="lazy" width="200" height="160">
+      </div>
+      <div class="carousel-info">
+        <span>📏 ${art.default_size}</span>
+        <span class="carousel-price">4,900 د.ج</span>
+      </div>
+      <button class="carousel-order-btn">🛒 اطلب الآن</button>
+    `;
+
+    slide.querySelector(".carousel-order-btn").addEventListener("click", (e) => {
+      e.stopPropagation();
+      selectPredefinedArtwork(art);
+    });
+    slide.addEventListener("click", () => selectPredefinedArtwork(art));
+
+    track.appendChild(slide);
+  });
+
+  // Pause on touch/click, resume after 5s of no interaction
+  const wrapper = document.getElementById("autoCarouselWrapper");
+  let pauseTimer;
+
+  function pauseCarousel() {
+    wrapper.classList.add("paused");
+    clearTimeout(pauseTimer);
+  }
+
+  function resumeCarousel() {
+    clearTimeout(pauseTimer);
+    pauseTimer = setTimeout(() => {
+      wrapper.classList.remove("paused");
+    }, 5000);
+  }
+
+  wrapper.addEventListener("touchstart", pauseCarousel);
+  wrapper.addEventListener("touchend", resumeCarousel);
+  wrapper.addEventListener("click", pauseCarousel);
+  wrapper.addEventListener("mouseleave", resumeCarousel);
+}
 
 /**
  * Renders all predefined artworks in a grid with price.
