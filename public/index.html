@@ -27,10 +27,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <!-- Stylesheets -->
   <link rel="stylesheet" href="/css/style.css">
-  <!-- Preload critical assets -->
+  <!-- Preload only critical above-fold assets -->
   <link rel="preload" href="/assets/hero-photo.jpg" as="image" fetchpriority="high">
-  <link rel="preload" href="/assets/artworks/1.jpg" as="image" fetchpriority="high">
-  <link rel="preload" href="/assets/before_after_outline.svg" as="image" fetchpriority="low">
 </head>
 <body>
 
@@ -141,7 +139,7 @@
           </div>
           <!-- Before (Outline) -->
           <div class="slider-image outline-image" id="outlineWrapper">
-            <img src="/assets/before_after_outline.svg" alt="مخطط التلوين بالأرقام" width="500" height="500">
+            <img src="/assets/before_after_outline.svg" alt="مخطط التلوين بالأرقام" width="500" height="500" loading="lazy">
           </div>
           <!-- Drag Handle -->
           <div class="slider-handle" id="sliderHandle">

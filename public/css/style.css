@@ -1229,6 +1229,13 @@ a {
   background: linear-gradient(135deg, #fdfbf7 0%, #f8f4ee 100%);
   border-bottom: 1px solid var(--border);
   overflow: hidden;
+  content-visibility: auto;
+  contain-intrinsic-size: 300px;
+}
+
+.before-after-section, .order-section, .gallery, .how-it-works, .upload-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 500px;
 }
 
 .auto-carousel-wrapper {
@@ -1243,6 +1250,7 @@ a {
   width: max-content;
   animation: scrollLeft 40s linear infinite;
   padding: 10px 0;
+  will-change: transform;
 }
 
 .auto-carousel-wrapper.paused .auto-carousel-track,
